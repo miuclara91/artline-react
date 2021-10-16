@@ -1,10 +1,10 @@
-import React from 'react';
+import { Container } from '@mui/material';
 
 const Footer = () => {
     return (
-        <div>
+        <Container>
             Copyright <strong>Team 6</strong> 2021
-        </div>
+        </Container>
     );
 }
 
