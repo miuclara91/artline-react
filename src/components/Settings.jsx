@@ -22,7 +22,7 @@ const Settings = () => {
 
     return (
         <Container>
-            <h1>Mi perfil de Usuario</h1>
+            {/* <h1>Mi perfil de Usuario</h1> */}
             {
                 usuario.map((item) => (
                     < FormPerfil

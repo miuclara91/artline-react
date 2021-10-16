@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Card, CardActions, CardContent, Container, Typography } from '@mui/material';
+import { Button, Card, CardActions, CardContent, Container, Typography, Avatar } from '@mui/material';
 import FormDialog from './FormDialog';
+import '../css/Perfil.css';
 
 const Perfil = (props) => {
     const { data } = props;
@@ -28,11 +29,35 @@ const Perfil = (props) => {
         setBio(event.target.value);
     };
 
+    const dataUser = {
+        foto: 'https://www.dzoom.org.es/wp-content/uploads/2020/02/portada-foto-perfil-redes-sociales-consejos.jpg',
+        nombre: 'Karla Ramírez' 
+    }
     return (
-        <div>
-            <Container>
-                <Card sx={{ minWidth: 275 }}>
-                    <CardContent>
+        <div className="cardProfile">
+            <Card className="card">
+                <div className="infoPerfil">
+                        <Avatar
+                            className="fotoPerfil"
+                            alt="fotoPerfil"
+                            src={dataUser.foto}
+                            sx={{ width: 151, height: 151 }}
+                        />
+                    <div className="descripcion">
+                        <h3 className="">{dataUser.nombre}</h3>
+                        <h6>DESIGNER</h6>
+                        <Button justIcon link className="">
+                            <i className={"fab fa-twitter"} />
+                        </Button>
+                        <Button justIcon link className="">
+                            <i className={"fab fa-instagram"} />
+                        </Button>
+                        <Button justIcon link className="">
+                            <i className={"fab fa-facebook"} />
+                        </Button>
+                    </div>
+                </div>
+                <CardContent>
                         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                             {nombre}
                         </Typography>
@@ -49,8 +74,7 @@ const Perfil = (props) => {
                     <CardActions>
                         <Button size="small" onClick={handleEditar}>Editar</Button>
                     </CardActions>
-                </Card>
-            </Container>
+            </Card>
             <Container>
                 <FormDialog
                     open={editar}

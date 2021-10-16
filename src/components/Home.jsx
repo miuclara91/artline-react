@@ -3,6 +3,7 @@ import Header from './Header';
 import Footer from './Footer';
 import Login from "./Login";
 import Settings from './Settings';
+import '../css/Home.css';
 
 
 const Home = () => {
@@ -10,9 +11,9 @@ const Home = () => {
     const [isLogging, setIsLogging] = useState(true);
 
     return (
-        <div>
+        <div className="home">
             <Header />
-            <div>Yo muestro el inicio de la plataforma</div>
+            {/* <div>Yo muestro el inicio de la plataforma</div> */}
             {
                 isLogging ? <Settings /> : <Login />
             }

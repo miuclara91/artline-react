@@ -1,25 +1,45 @@
 import { AppBar, Grid, IconButton, Toolbar, Tooltip, Typography, Button, Avatar, Link } from '@mui/material';
 
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import MenuIcon from '@mui/icons-material/Menu';
-import HelpIcon from '@mui/icons-material/Help';
+// import NotificationsIcon from '@mui/icons-material/Notifications';
+// import MenuIcon from '@mui/icons-material/Menu';
+// import HelpIcon from '@mui/icons-material/Help';
 
 import React from 'react';
+import { styled } from '@mui/material/styles';
 import '../css/header.scss';
-import imgperfil from '../assets/perfil.png';
-// import Logo from '../assets/logo.png';
+// import imgperfil from '../assets/perfil.png';
+import logo from '../assets/logo.png';
 
-const lightColor = 'rgba(255, 255, 255, 0.9)';
+// const lightColor = 'rgba(255, 255, 255, 0.9)';
+
+const ColorButton = styled(Button)({
+    color: '#FFFFFF',
+    '&:hover': {
+        backgroundColor: '#3F10FC',
+    }
+});
 
 const Header = () => {
     return (
         <>
-            <AppBar
+            <AppBar position="static" color="transparent">
+                <Toolbar>
+                    <img src={logo} alt="logo" className="header_logo" />
+                    <Typography color="#fff" variant="h4" component="h1" sx={{ flexGrow: 1 }}>
+                        artline
+                    </Typography>
+                    <ColorButton className="navButton">Explore</ColorButton>
+                    <ColorButton className="navButton">Settings</ColorButton>
+                    <ColorButton className="navButton">Submit art</ColorButton>
+                </Toolbar>
+            </AppBar>
+            {/* <AppBar
                 component="div"
                 color="transparent"
                 position="sticky"
                 elevation={0}
                 sx={{ zIndex: 0 }}
+                className="appBarHeader"
             >
                 <Toolbar>
                     <Grid container alignItems="center" spacing={1}>
@@ -83,8 +103,8 @@ const Header = () => {
                         </Grid>
                     </Grid>
                 </Toolbar>
-            </AppBar>
-            <img src={imgperfil} alt="Perfil" className="header__imagenperfil" />
+            </AppBar> */}
+            {/* <img src={imgperfil} alt="Perfil" className="header__imagenperfil" /> */}
         </>
 
         // <nav>
