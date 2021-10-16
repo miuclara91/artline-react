@@ -1,8 +1,6 @@
-import { AppBar, Grid, IconButton, Toolbar, Tooltip, Typography, Button, Avatar, Link } from '@mui/material';
+import { AppBar, Grid, IconButton, Toolbar, Typography, Link } from '@mui/material';
 
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import MenuIcon from '@mui/icons-material/Menu';
-import HelpIcon from '@mui/icons-material/Help';
 
 import React from 'react';
 import '../css/header.scss';
