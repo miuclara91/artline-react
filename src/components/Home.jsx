@@ -18,8 +18,6 @@ const Home = () => {
     return (
         <section className="home">
             <Header isLogging={isLogging} usuario={usuario} />
-
-            <section>Yo muestro el inicio de la plataforma</section>
             {
                 isLogging ? <Settings /> : <Login />
             }

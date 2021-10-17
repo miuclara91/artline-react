@@ -13,8 +13,9 @@
 }
 
 .fotoPerfil{
+    justify-content: center;
     position: absolute;
     top: -75px;
-    left: 25px;
+    left: 43%;
 }
 

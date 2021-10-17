@@ -13,15 +13,6 @@ import Logo from "../assets/logo.svg";
 import '../css/header.scss';
 import Tema from './Tema';
 
-import { styled } from '@mui/material/styles';
-
-const ColorButton = styled(Button)({
-    color: '#FFFFFF',
-    '&:hover': {
-        backgroundColor: '#3F10FC',
-    }
-});
-
 function Header(props) {
     const { isLogging, usuario } = props;
     const [anchorEl, setAnchorEl] = useState(null);
@@ -126,18 +117,6 @@ function Header(props) {
     return (
         <ThemeProvider theme={Tema}>
             <Box sx={{ flexGrow: 1 }}>
-
-                {/* <AppBar position="static" color="transparent">
-                    <Toolbar>
-                        <img src={logo} alt="logo" className="header_logo" />
-                        <Typography color="#fff" variant="h4" component="h1" sx={{ flexGrow: 1 }}>
-                            artline
-                        </Typography>
-                        <ColorButton className="navButton">Explore</ColorButton>
-                        <ColorButton className="navButton">Settings</ColorButton>
-                        <ColorButton className="navButton">Submit art</ColorButton>
-                    </Toolbar>
-                </AppBar> */}
 
                 <AppBar position="sticky" color="primary">
                     <Toolbar>
