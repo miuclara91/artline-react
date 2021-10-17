@@ -2,7 +2,7 @@ import React from 'react';
 import { Divider, styled, Chip, Avatar, Box, IconButton, Tooltip, Typography, Button } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import Logo from "../assets/logo.svg";
+import Logo from "../assets/logo2.png";
 import '../css/footer.scss';
 import Tema from './Tema';
 
