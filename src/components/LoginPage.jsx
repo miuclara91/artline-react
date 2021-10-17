@@ -69,6 +69,7 @@ function Login(props) {
                                     label="Email Address"
                                     value={email}
                                     onChange={handleEmailChange}
+                                    margin="normal"
                                     required
                                 />
 
@@ -78,6 +79,7 @@ function Login(props) {
                                     label="Password"
                                     value={password}
                                     onChange={handlePasswordChange}
+                                    margin="normal"
                                     required
                                 />
 
