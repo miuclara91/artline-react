@@ -2,15 +2,12 @@ import { useState } from 'react';
 import { Box, Button, Container, FormControl, FormControlLabel, FormGroup, Link, Switch, Typography, TextField, Card, Grid, Stack } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 
-import { withRouter } from 'react-router-dom';
-
 import Alerta from './Alert';
 
 import imgLogin from '../assets/login.png';
 import imgLogo from '../assets/coloredLogo.png';
 import '../css/login.css';
 import Tema from './Tema';
-import { Redirect } from 'react-router';
 
 function Login(props) {
     const [open, setOpen] = useState(false);
@@ -25,24 +22,30 @@ function Login(props) {
         setPassword(event.target.value);
     };
 
-    // const handleFormSubmit = (event) => {
-    //     event.preventDefault();
-    // };
-
     const handleLoggin = (event) => {
-        Logged(event);
+        Logged(event); // pasa parametro al padre para guardar log
         setOpen(true);
-
-        return < Redirect to="/your/redirect/page" />
-
     };
-
-
-
 
     return (
         <ThemeProvider theme={Tema}>
-            <Alerta open={open} setOpen={setOpen} logged={isLogged} />
+            { //conditional render para alerta
+                isLogged ?
+                    <Alerta open={open}
+                        setOpen={setOpen}
+                        isLogged={isLogged}
+                        type="success"
+                        text="Sesion iniciada. Disfruta de Artline"
+                    />
+                    :
+                    <Alerta open={open}
+                        setOpen={setOpen}
+                        isLogged={isLogged}
+                        type="warning"
+                        text="Llena los campos porfavor. Cualquier dato es válido"
+                    />
+            }
+
             <Box>
                 <Grid container >
                     <Grid item xs={7}>
