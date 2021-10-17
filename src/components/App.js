@@ -34,6 +34,7 @@ function App() {
             <Login isLogged={isLogged} Logged={handleLogging} email={email} setEmail={setEmail} password={password} setPassword={setPassword} />
           </Route>
           <Route path="/Signup">
+          <Signup></Signup>
           </Route>
           <Route path="/settings">
             <HomePage isLogged={isLogged} usuario={usuario} />
