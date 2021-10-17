@@ -15,7 +15,7 @@ import '../css/header.scss';
 import Tema from './Tema';
 
 function Header(props) {
-    const { isLogging, usuario } = props;
+    const { isLogging, usuario, LogOut } = props;
     const [anchorEl, setAnchorEl] = useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
@@ -33,6 +33,7 @@ function Header(props) {
     const handleMenuClose = () => {
         setAnchorEl(null);
         handleMobileMenuClose();
+        LogOut();
     };
 
     const handleMobileMenuOpen = (event) => {
