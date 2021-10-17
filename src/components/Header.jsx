@@ -15,7 +15,7 @@ import '../css/header.scss';
 import Tema from './Tema';
 
 function Header(props) {
-    const { isLogging, usuario } = props;
+    const { isLogging, usuario, LogOut } = props;
     const [anchorEl, setAnchorEl] = useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
@@ -33,6 +33,7 @@ function Header(props) {
     const handleMenuClose = () => {
         setAnchorEl(null);
         handleMobileMenuClose();
+        LogOut();
     };
 
     const handleMobileMenuOpen = (event) => {
@@ -204,21 +205,21 @@ function Header(props) {
                                 :
                                 <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                                     <Button color="inherit">
-                                        <Pages to="/">
+                                        <Pages to="/" style={{textDecoration:"none"}}>
                                             <Link color="white" underline="none">
                                                 Home
                                             </Link>
                                         </Pages>
                                     </Button>
                                     <Button color="inherit">
-                                        <Pages to="/login">
+                                        <Pages to="/login" style={{textDecoration:"none"}}>
                                             <Link color="white" underline="none">
                                                 Login
                                             </Link>
                                         </Pages>
                                     </Button>
                                     <Button color="inherit">
-                                        <Pages to="/signup">
+                                        <Pages to="/signup" style={{textDecoration:"none"}}>
                                             <Link color="white" underline="none">
                                                 SingUp
                                             </Link>
