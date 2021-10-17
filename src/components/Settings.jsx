@@ -31,17 +31,6 @@ const Settings = () => {
                     />
                 ))
             }
-            <Container>
-                <h1>Post</h1>
-                {
-                    usuario.map((item) => (
-                        <Post
-                            key={item.id}
-                            userId={item.id} />
-                    ))
-                }
-
-            </Container>
         </Container>
     );
 }
