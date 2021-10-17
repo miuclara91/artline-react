@@ -6,7 +6,7 @@ import HomePage from "./HomePage";
 import Header from "./Header";
 import Footer from './Footer';
 import Login from "./LoginPage";
-
+import Signup from "./Signup";
 const usuario = ['usuario1', 'Soy el usuario fake', 'fake123@gmail.com'];
 
 function App() {
@@ -29,8 +29,7 @@ function App() {
           <Route path="/login">
             <Login isLogged={isLogged} Logged={handleLogging} email={email} setEmail={setEmail} password={password} setPassword={setPassword} />
           </Route>
-          <Route path="/signup">
-            <h1>Registrarse</h1>
+          <Route path="/Signup">
           </Route>
           <Route path="/settings">
             <HomePage isLogged={isLogged} usuario={usuario} />
