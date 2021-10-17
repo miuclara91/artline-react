@@ -6,8 +6,19 @@
 // }
 
 
-.header__imagenperfil {
-    background-position: center;
-    background-size: contain;
-    background-attachment: fixed;
+// .header__imagenperfil {
+//     background-image: url('../assets/perfil.png');
+//     background-position: center;
+//     background-size: contain;
+//     background-attachment: fixed;
+// }
+
+.header__logo {
+    width: 29.29px;
+    height: 34.55px;
+    img {
+        width: 100%;
+        height: 100%;
+    }
+    
 }
