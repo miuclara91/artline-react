@@ -2,17 +2,19 @@ import { useState } from 'react';
 import { Box, Button, Container, FormControl, FormControlLabel, FormGroup, Link, Switch, Typography, TextField, Card, Grid, Stack } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 
+import { withRouter } from 'react-router-dom';
+
+import Alerta from './Alert';
+
 import imgLogin from '../assets/login.png';
 import imgLogo from '../assets/coloredLogo.png';
 import '../css/login.css';
 import Tema from './Tema';
+import { Redirect } from 'react-router';
 
 function Login(props) {
-    const { Logged } = props;
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    // const [logged, setLogged] = useState(false);
-
+    const [open, setOpen] = useState(false);
+    const { email, setEmail, password, setPassword, Logged, isLogged } = props;
 
     //Métodos
     const handleEmailChange = (event) => {
@@ -23,13 +25,16 @@ function Login(props) {
         setPassword(event.target.value);
     };
 
-    const handleFormSubmit = (event) => {
-        event.preventDefault();
-    };
+    // const handleFormSubmit = (event) => {
+    //     event.preventDefault();
+    // };
 
     const handleLoggin = (event) => {
-        // setLogged(true);
         Logged(event);
+        setOpen(true);
+
+        return < Redirect to="/your/redirect/page" />
+
     };
 
 
@@ -37,6 +42,7 @@ function Login(props) {
 
     return (
         <ThemeProvider theme={Tema}>
+            <Alerta open={open} setOpen={setOpen} logged={isLogged} />
             <Box>
                 <Grid container >
                     <Grid item xs={7}>
@@ -53,7 +59,7 @@ function Login(props) {
                             <Box textAlign="center" mt={1} mb={1}>
                                 <Typography>Log in</Typography>
                             </Box>
-                            <FormControl onSubmit={handleFormSubmit} fullWidth>
+                            <FormControl fullWidth>
                                 <TextField
                                     type="email"
                                     id="outlined-basic"
@@ -96,7 +102,7 @@ function Login(props) {
                 </Grid>
             </Box>
 
-        </ThemeProvider>
+        </ThemeProvider >
     );
 }
 

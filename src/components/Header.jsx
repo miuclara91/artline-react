@@ -10,7 +10,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 // imports locales
-import Logo from "../assets/logo.svg";
+import Logo from "../assets/logo.png";
 import '../css/header.scss';
 import Tema from './Tema';
 
@@ -133,15 +133,15 @@ function Header(props) {
                             <MenuIcon />
                         </IconButton>
                         {/* Logo */}
-                        <Box className="header__logo" mr={1} sx={{ display: { sm: 'block', xs: 'none' } }}>
+                        <Box className="header__log" mr={1} sx={{ display: { sm: 'block', xs: 'none' } }}>
                             <img src={Logo} alt="Logo" />
                         </Box>
 
-                        <Typography variant="h6" noWrap component="div"
+                        {/* <Typography variant="h6" noWrap component="div"
                             sx={{ display: { xs: 'none', sm: 'block' } }}
                         >
                             Artline
-                        </Typography>
+                        </Typography> */}
 
                         <Box sx={{ flexGrow: 1 }} />
                         {/* Parte derecha del menu */}

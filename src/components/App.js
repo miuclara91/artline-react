@@ -1,3 +1,6 @@
+
+
+import { useLocalStorage } from "../helpers/useLocalStorage";
 import HomePage from "./HomePage";
 import Header from "./Header";
 import Footer from './Footer';
@@ -15,17 +18,27 @@ const usuario = ['usuario1', 'Soy el usuario fake', 'fake123@gmail.com'];
 
 
 function App() {
-  const [isLogged, setIsLogged] = useState(false);
 
-  const handleLogging = (event) => {
-    setIsLogged(!isLogged);
-    //redirectionar a home no sirve
-    if (isLogged) {
-      return (<Redirect to="/your/redirect/page" />);
-    } else {
-      return (<div>Login Please</div>);
+  const [email, setEmail] = useLocalStorage("email", "");
+  const [password, setPassword] = useLocalStorage("password", "");
+  const [isLogged, setIsLogged] = useLocalStorage("isLogged", false);
+  const [sesion, setSesion] = useLocalStorage("mantenerSesion", false);
+
+  const handleLogging = (e => {
+    if (email !== '' && password !== '') {
+      setIsLogged(true);
+
     }
-  }
+  });
+  // const handleLogging = (event) => {
+  //   setIsLogged(!isLogged);
+  //   //redirectionar a home no sirve
+  //   if (isLogged) {
+  //     return (<Redirect to="/your/redirect/page" />);
+  //   } else {
+  //     return (<div>Login Please</div>);
+  //   }
+  // }
 
   return (
     <Router>
@@ -33,7 +46,7 @@ function App() {
         <Header isLogging={isLogged} usuario={usuario} />
         <Switch>
           <Route path="/login">
-            <Login Logged={handleLogging} />
+            <Login isLogged={isLogged} Logged={handleLogging} email={email} setEmail={setEmail} password={password} setPassword={setPassword} />
           </Route>
           <Route path="/signup">
             <h1>Registrarse</h1>
