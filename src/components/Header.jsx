@@ -232,7 +232,6 @@ function Header(props) {
                 {renderMenu}
             </Box>
         </ThemeProvider>
-
     );
 }
 

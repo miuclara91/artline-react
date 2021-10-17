@@ -22,7 +22,7 @@ const Settings = () => {
 
     return (
         <Container>
-            <h1>Mi perfil de Usuario</h1>
+            {/* <h1>Mi perfil de Usuario</h1> */}
             {
                 usuario.map((item) => (
                     < FormPerfil
@@ -31,17 +31,6 @@ const Settings = () => {
                     />
                 ))
             }
-            <Container>
-                <h1>Post</h1>
-                {
-                    usuario.map((item) => (
-                        <Post
-                            key={item.id}
-                            userId={item.id} />
-                    ))
-                }
-
-            </Container>
         </Container>
     );
 }
