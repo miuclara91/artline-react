@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Button, Card, CardActions, CardContent, Container, Typography, Avatar, Tab, Tabs, Box } from '@mui/material';
 import FormDialog from './FormDialog';
 import Galeria from './Galeria';
+import Cards from './Cards';
 import '../css/Perfil.css';
 
 //Icons
@@ -130,7 +131,7 @@ const Perfil = (props) => {
                             Información de Favoritos
                         </TabPanel>
                         <TabPanel value={value} index={2}>
-                            Información de colecciones
+                            <Cards/>
                         </TabPanel>
                     </Box>
                 </CardContent>
