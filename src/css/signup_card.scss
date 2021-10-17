@@ -5,8 +5,41 @@
     left: 468px;
     top: 141px;
     background: #ffffff;
-    border-radius: 20px !important;
+    border-radius: 8px !important;
 }
-.Card_logo {
-    text-align:center
+
+.Container {
+    display: grid;
+    text-align: center;
+    grid-template-rows: repeat(auto-fit, minmax(25px, 1fr));
+    grid-row-gap: 15px;
+    margin: 5% 8%;
+    font-size: 25px;
+}
+
+.pair {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 15px;
+    grid-row-gap: 0px;
+}
+
+#Already {
+    margin-top: 3px;
+    color: #3f10fc;
+    text-align: left;
+}
+.css-sghohy-MuiButtonBase-root-MuiButton-root {
+    background-color: #3f10fc !important;
+}
+
+#Title {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 23px;
+    letter-spacing: 0.01em;
+    color: #212121;
 }
