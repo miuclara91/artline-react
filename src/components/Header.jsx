@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { Link as Pages } from 'react-router-dom';
 // imports de componentes de material ui
-import { Box, AppBar, Toolbar, Button, IconButton, Typography, Menu, Badge, MenuItem, Tooltip, Fade } from '@mui/material';
+import { Box, AppBar, Toolbar, Button, IconButton, Typography, Menu, Badge, MenuItem, Tooltip, Fade, Link } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 // imports de iconos de material ui
 import MenuIcon from '@mui/icons-material/Menu';
@@ -9,7 +10,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 // imports locales
-import Logo from "../assets/logo.svg";
+import Logo from "../assets/logo.png";
 import '../css/header.scss';
 import Tema from './Tema';
 
@@ -114,9 +115,10 @@ function Header(props) {
         </Menu>
     );
 
+
     return (
         <ThemeProvider theme={Tema}>
-            <Box sx={{ flexGrow: 1 }}>
+            <Box sx={{ flexGrow: 1 }} mb={5}>
                 <AppBar position="sticky" color="primary">
                     <Toolbar>
                         {/* Boton menu */}
@@ -131,15 +133,15 @@ function Header(props) {
                             <MenuIcon />
                         </IconButton>
                         {/* Logo */}
-                        <Box className="header__logo" mr={1} sx={{ display: { sm: 'block', xs: 'none' } }}>
+                        <Box className="header__log" mr={1} sx={{ display: { sm: 'block', xs: 'none' } }}>
                             <img src={Logo} alt="Logo" />
                         </Box>
 
-                        <Typography variant="h6" noWrap component="div"
+                        {/* <Typography variant="h6" noWrap component="div"
                             sx={{ display: { xs: 'none', sm: 'block' } }}
                         >
                             Artline
-                        </Typography>
+                        </Typography> */}
 
                         <Box sx={{ flexGrow: 1 }} />
                         {/* Parte derecha del menu */}
@@ -147,7 +149,13 @@ function Header(props) {
                             isLogging ?
                                 <>
                                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                                        <Button color="inherit" >Explore</Button>
+                                        <Button color="inherit" >
+                                            <Pages to="/settings">
+                                                <Link color="white" underline="none">
+                                                    Explore
+                                                </Link>
+                                            </Pages>
+                                        </Button>
                                     </Box>
                                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                                         <Button color="inherit">Settings</Button>
@@ -195,8 +203,27 @@ function Header(props) {
                                 </>
                                 :
                                 <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                                    <Button color="inherit">Login</Button>
-                                    <Button color="inherit">Signup</Button>
+                                    <Button color="inherit">
+                                        <Pages to="/">
+                                            <Link color="white" underline="none">
+                                                Home
+                                            </Link>
+                                        </Pages>
+                                    </Button>
+                                    <Button color="inherit">
+                                        <Pages to="/login">
+                                            <Link color="white" underline="none">
+                                                Login
+                                            </Link>
+                                        </Pages>
+                                    </Button>
+                                    <Button color="inherit">
+                                        <Pages to="/signup">
+                                            <Link color="white" underline="none">
+                                                SingUp
+                                            </Link>
+                                        </Pages>
+                                    </Button>
                                 </Box>
                         }
                     </Toolbar>
@@ -205,7 +232,6 @@ function Header(props) {
                 {renderMenu}
             </Box>
         </ThemeProvider>
-
     );
 }
 

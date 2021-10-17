@@ -1,3 +1,12 @@
-.color-purple {
+/* .color-purple {
     color: "#3F10FC";
+} */
+
+.login__image {
+    width: 840px;
+    height: 807px;
+}
+.login__image img {
+    width: 100%;
+    height: 100%;
 }
