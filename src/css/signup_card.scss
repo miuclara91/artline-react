@@ -1,10 +1,12 @@
 .Card {
-    display: flex;
-    justify-content:center ;
-    width: 400px;
-    height: 400px;
+    position: absolute;
+    width: 505px;
+    height: 525px;
     left: 468px;
     top: 141px;
-    background: #FFFFFF;
-    border-radius: 8px;
-  }
+    background: #ffffff;
+    border-radius: 20px !important;
+}
+.Card_logo {
+    text-align:center
+}
