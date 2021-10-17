@@ -21,10 +21,14 @@ function App() {
     }
   });
 
+  const handleLogOut = (e => {
+      setIsLogged(false);  
+  });
+
   return (
     <Router>
       <div>
-        <Header isLogging={isLogged} usuario={usuario} />
+        <Header isLogging={isLogged} usuario={usuario} LogOut={handleLogOut}/>
         <Switch>
           <Route path="/login">
             <Login isLogged={isLogged} Logged={handleLogging} email={email} setEmail={setEmail} password={password} setPassword={setPassword} />
