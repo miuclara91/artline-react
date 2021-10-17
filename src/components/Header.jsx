@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { Link as Pages } from 'react-router-dom';
 // imports de componentes de material ui
-import { Box, AppBar, Toolbar, Button, IconButton, Typography, Menu, Badge, MenuItem, Tooltip, Fade } from '@mui/material';
+import { Box, AppBar, Toolbar, Button, IconButton, Typography, Menu, Badge, MenuItem, Tooltip, Fade, Link } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 // imports de iconos de material ui
 import MenuIcon from '@mui/icons-material/Menu';
@@ -114,10 +115,10 @@ function Header(props) {
         </Menu>
     );
 
+
     return (
         <ThemeProvider theme={Tema}>
-            <Box sx={{ flexGrow: 1 }}>
-
+            <Box sx={{ flexGrow: 1 }} mb={5}>
                 <AppBar position="sticky" color="primary">
                     <Toolbar>
                         {/* Boton menu */}
@@ -148,7 +149,13 @@ function Header(props) {
                             isLogging ?
                                 <>
                                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                                        <Button color="inherit" >Explore</Button>
+                                        <Button color="inherit" >
+                                            <Pages to="/settings">
+                                                <Link color="white" underline="none">
+                                                    Explore
+                                                </Link>
+                                            </Pages>
+                                        </Button>
                                     </Box>
                                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                                         <Button color="inherit">Settings</Button>
@@ -196,8 +203,27 @@ function Header(props) {
                                 </>
                                 :
                                 <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                                    <Button color="inherit">Login</Button>
-                                    <Button color="inherit">Signup</Button>
+                                    <Button color="inherit">
+                                        <Pages to="/">
+                                            <Link color="white" underline="none">
+                                                Home
+                                            </Link>
+                                        </Pages>
+                                    </Button>
+                                    <Button color="inherit">
+                                        <Pages to="/login">
+                                            <Link color="white" underline="none">
+                                                Login
+                                            </Link>
+                                        </Pages>
+                                    </Button>
+                                    <Button color="inherit">
+                                        <Pages to="/signup">
+                                            <Link color="white" underline="none">
+                                                SingUp
+                                            </Link>
+                                        </Pages>
+                                    </Button>
                                 </Box>
                         }
                     </Toolbar>
