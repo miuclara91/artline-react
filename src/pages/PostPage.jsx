@@ -1,10 +1,11 @@
 import React from 'react';
-import Post from '';
+import Post from '../components/Post';
 
-const Postpage = () => {
+const Postpage = (props) => {
+
     return (
         <div>
-
+            <Post userId={1}></Post>
         </div>
     );
 }

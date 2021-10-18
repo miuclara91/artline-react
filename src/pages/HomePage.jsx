@@ -9,15 +9,13 @@ import Tema from '../helpers/Tema';
 
 const Home = (props) => {
     // despues de verificar que este logged el usuario permitirle ver alguna vista
-    const { isLogged } = props;
-
-    const usuario = ['usuario1', 'Soy el usuario fake', 'fake123@gmail.com']
+    const { isLogged, usuarioFake, setUserFake } = props;
 
     return (
         <ThemeProvider theme={Tema}>
             {
                 isLogged ?
-                    <PerfilPage usuario={usuario} />
+                    <PerfilPage usuarioFake={usuarioFake} setUserFake={setUserFake} />
                     :
                     <>
                         <Box textAlign="center">

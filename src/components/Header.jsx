@@ -35,9 +35,13 @@ function Header(props) {
     const handleMenuClose = () => {
         setAnchorEl(null);
         handleMobileMenuClose();
+    };
+
+    const handleCerrarSesion = (e) => {
         localStorage.clear();
         history.replace(from);
-        //isLogged(false);
+        LogOut();
+        handleMenuClose();
     };
 
     const handleMobileMenuOpen = (event) => {
@@ -62,8 +66,8 @@ function Header(props) {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>Perfil</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Cerrar Sesion</MenuItem>
+            <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
+            <MenuItem onClick={handleCerrarSesion}>Cerrar Sesion</MenuItem>
         </Menu>
     );
 
@@ -115,7 +119,7 @@ function Header(props) {
                 >
                     <AccountCircle />
                 </IconButton>
-                <p>{usuario[0]}</p>
+                <p>{usuario}</p>
             </MenuItem>
         </Menu>
     );
@@ -132,8 +136,7 @@ function Header(props) {
                             edge="start"
                             color="inherit"
                             aria-label="open drawer"
-                            sx={{ mr: 2 }}
-                            sx={{ display: { sm: 'none', xs: 'block' } }}
+                            sx={{ display: { sm: 'none', xs: 'block' }, mr: 2 }}
                         >
                             <MenuIcon />
                         </IconButton>
@@ -167,17 +170,22 @@ function Header(props) {
                                     </Box>
                                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                                         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                                            <Badge badgeContent={100} color="error">
-                                                <MailIcon />
-                                            </Badge>
+                                            <Tooltip title="Bandeja de entreada">
+                                                <Badge badgeContent={100} color="error">
+                                                    <MailIcon />
+                                                </Badge>
+                                            </Tooltip>
                                         </IconButton>
                                         <IconButton
                                             size="large"
                                             color="inherit"
                                         >
-                                            <Badge badgeContent={100} color="error">
-                                                <NotificationsIcon />
-                                            </Badge>
+                                            <Tooltip title="Notificaciones">
+                                                <Badge badgeContent={100} color="error">
+                                                    <NotificationsIcon />
+                                                </Badge>
+                                            </Tooltip>
+
                                         </IconButton>
                                         <IconButton
                                             size="large"
@@ -188,7 +196,7 @@ function Header(props) {
                                             onClick={handleProfileMenuOpen}
                                             color="inherit"
                                         >
-                                            <Tooltip title={usuario[0]} TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} >
+                                            <Tooltip title={usuario} TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} >
                                                 <AccountCircle />
                                             </Tooltip>
                                         </IconButton>

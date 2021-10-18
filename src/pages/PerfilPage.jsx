@@ -1,9 +1,9 @@
 import { Container } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import CardPerfil from '../components/CardPerfil';
-import Post from '../components/Post';
 
-const Settings = () => {
+const PerfilPage = (props) => {
+    const { usuarioFake } = props;
     const [usuario, setUsuario] = useState([]);
 
     useEffect(() => {
@@ -29,8 +29,9 @@ const Settings = () => {
                     />
                 ))
             }
+            {/* <CardPerfil key={usuarioFake} data={usuarioFake} /> */}
         </Container>
     );
 }
 
-export default Settings;
+export default PerfilPage;
