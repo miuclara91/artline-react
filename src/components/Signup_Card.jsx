@@ -24,8 +24,8 @@ function Signup_Card() {
                     <TextField id="Username" label="Username *" placeholder="Username" />
                     <TextField id="Age" label="Age *" placeholder="Age" />
                 </div>
-                <TextField id="Email Address" label="Email Address *" placeholder="Age" />
-                <TextField id="Password" label="Password *" placeholder="Age" />
+                <TextField id="Email Address" label="Email Address *" placeholder="Email Address" />
+                <TextField id="Password" label="Password *" placeholder="Password" />
 
                 <Button variant="contained">Sign Up</Button>
                 <Typography id="Already">Already have an account? Log in </Typography >
