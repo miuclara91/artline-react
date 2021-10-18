@@ -5,13 +5,15 @@
 //     background-color: turquoise;
 // }
 
+.navButton {
+    color: #FFFFFF;
+}
 
-// .header__imagenperfil {
-//     background-image: url('../assets/perfil.png');
-//     background-position: center;
-//     background-size: contain;
-//     background-attachment: fixed;
-// }
+.Nav:hover{
+    background-color: #3F10FC;
+    border-radius: 8px;
+    padding: 20px;
+}
 
 .header__logo {
     width: 29.29px;

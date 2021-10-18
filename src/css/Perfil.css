@@ -1,0 +1,41 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+.cardProfile{
+    margin: 15% 30px 0 30px;
+    box-shadow: 0 16px 24px 2px rgb(0 0 0 / 14%), 0 6px 30px 5px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
+    border-radius: 10px;
+    background: #eeebeb;
+    padding-bottom: 5%;
+}
+.card{
+    overflow:visible !important;
+}
+
+.infoPerfil, .card{
+    text-align: center;
+    display: inline;
+    align-items: flex-start;
+}
+
+.fotoPerfil{
+    justify-content: center;
+    position: absolute !important;
+    top: 16%;
+    left: 45%;
+    
+}
+
+.descripcion{
+padding: 0 !important;
+}
+
+.navButton{
+    align-content: right;
+}
+
+/* .contenido{
+    justify-content: center;
+} */
+

@@ -1,11 +1,11 @@
-import { Avatar, List, ListItem, ListItemText, ListItemAvatar } from '@mui/material';
+import { Avatar, List, ListItem, ListItemText, ListItemAvatar, Container } from '@mui/material';
 import ImageIcon from '@mui/icons-material/Image';
 import React, { useEffect, useState } from 'react';
 
 const Post = (props) => {
     const { userId } = props;
     const [post, setPost] = useState([]);
-
+    console.log(userId);
     useEffect(() => {
         obtenerDatos();
     }, []);
@@ -17,10 +17,10 @@ const Post = (props) => {
     }
 
     return (
-        <div>
+        <Container>
             {
                 post.map((item) => (
-                    <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                    <List >
                         <ListItem>
                             <ListItemAvatar>
                                 <Avatar>
@@ -32,7 +32,7 @@ const Post = (props) => {
                     </List>
                 ))
             }
-        </div>
+        </Container>
     );
 }
 
