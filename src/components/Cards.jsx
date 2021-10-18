@@ -1,6 +1,11 @@
 import * as React from 'react';
-import {Grid, Card, Typography} from '@mui/material';
-
+import Collection from './Cards';
+import { Container } from "@mui/material";
+import {Grid, Card, CardActions, Collapse, Typography} from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import IconButton from '@mui/material/IconButton';
+import { styled } from '@mui/material/styles';
+import { maxHeight } from '@mui/system';
 
 const Cards =() => {
     const media =[
@@ -11,10 +16,10 @@ const Cards =() => {
         {key:4, img:'https://images.unsplash.com/photo-1583119912267-cc97c911e416?ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8cGFpbnRpbmd8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60', alt: "Painting"},
     ]
     return (
-        <Grid container spacing={2} className="container">
+        <Grid container spacing={2}>
             <Grid item sx={{ Width:219}}>
                 {media.map((content=>(
-                    <Card key={content.key} className="oneCard" margin="25px">
+                    <Card key={content.key}>
                         <img
                             src={content.img}
                             alt={content.alt}

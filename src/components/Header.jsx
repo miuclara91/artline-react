@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 import { Link as Pages } from 'react-router-dom';
+import { useHistory, useLocation } from "react-router";
 // imports de componentes de material ui
-import { Box, AppBar, Toolbar, Button, IconButton, Typography, Menu, Badge, MenuItem, Tooltip, Fade, Link } from '@mui/material';
+import { Box, AppBar, Toolbar, Button, IconButton, Menu, Badge, MenuItem, Tooltip, Fade, Link } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 // imports de iconos de material ui
-import MenuIcon from '@mui/icons-material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
+import { Menu as MenuIcon, AccountCircle, Mail as MailIcon } from '@mui/icons-material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 // imports locales
 import Logo from "../assets/logo.png";
 import '../css/header.scss';
-import Tema from './Tema';
+import Tema from '../helpers/Tema';
 
 function Header(props) {
     const { isLogging, usuario, LogOut } = props;
@@ -21,6 +20,9 @@ function Header(props) {
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+    let history = useHistory();
+    let location = useLocation();
+    let { from } = location.state || { from: { pathname: "/login" } };
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -33,7 +35,13 @@ function Header(props) {
     const handleMenuClose = () => {
         setAnchorEl(null);
         handleMobileMenuClose();
+    };
+
+    const handleCerrarSesion = (e) => {
+        localStorage.clear();
+        history.replace(from);
         LogOut();
+        handleMenuClose();
     };
 
     const handleMobileMenuOpen = (event) => {
@@ -58,8 +66,8 @@ function Header(props) {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>Perfil</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Cerrar Sesion</MenuItem>
+            <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
+            <MenuItem onClick={handleCerrarSesion}>Cerrar Sesion</MenuItem>
         </Menu>
     );
 
@@ -111,7 +119,7 @@ function Header(props) {
                 >
                     <AccountCircle />
                 </IconButton>
-                <p>{usuario[0]}</p>
+                <p>{usuario}</p>
             </MenuItem>
         </Menu>
     );
@@ -120,7 +128,7 @@ function Header(props) {
     return (
         <ThemeProvider theme={Tema}>
             <Box sx={{ flexGrow: 1 }} mb={5}>
-                <AppBar position="sticky" color="transparent">
+                <AppBar position="sticky" color="primary">
                     <Toolbar>
                         {/* Boton menu */}
                         <IconButton
@@ -128,21 +136,14 @@ function Header(props) {
                             edge="start"
                             color="inherit"
                             aria-label="open drawer"
-                            sx={{ mr: 2 }}
-                            sx={{ display: { sm: 'none', xs: 'block' } }}
+                            sx={{ display: { sm: 'none', xs: 'block' }, mr: 2 }}
                         >
                             <MenuIcon />
                         </IconButton>
                         {/* Logo */}
-                        <Box className="header__log" mr={1} sx={{ display: { sm: 'block', xs: 'none' } }}>
+                        <Box className="header__log" sx={{ display: { sm: 'block', xs: 'none' } }}>
                             <img src={Logo} alt="Logo" />
                         </Box>
-
-                        {/* <Typography variant="h6" noWrap component="div"
-                            sx={{ display: { xs: 'none', sm: 'block' } }}
-                        >
-                            Artline
-                        </Typography> */}
 
                         <Box sx={{ flexGrow: 1 }} />
                         {/* Parte derecha del menu */}
@@ -151,29 +152,40 @@ function Header(props) {
                                 <>
                                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                                         <Button color="inherit" >
-                                            <Pages to="/settings">
-                                                <Link className="Nav" color="white" underline="none" fontWeight="bold">
-                                                    Explore
+                                            <Pages to="/profile" style={{ textDecoration: "none" }}>
+                                                <Link color="white" underline="none">
+                                                    Perfil
                                                 </Link>
                                             </Pages>
                                         </Button>
                                     </Box>
                                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                                        <Button color="inherit">Settings</Button>
+                                        <Button color="inherit">
+                                            <Pages to="/post" style={{ textDecoration: "none" }}>
+                                                <Link color="white" underline="none">
+                                                    Post
+                                                </Link>
+                                            </Pages>
+                                        </Button>
                                     </Box>
                                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                                         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                                            <Badge badgeContent={100} color="error">
-                                                <MailIcon />
-                                            </Badge>
+                                            <Tooltip title="Bandeja de entreada">
+                                                <Badge badgeContent={100} color="error">
+                                                    <MailIcon />
+                                                </Badge>
+                                            </Tooltip>
                                         </IconButton>
                                         <IconButton
                                             size="large"
                                             color="inherit"
                                         >
-                                            <Badge badgeContent={100} color="error">
-                                                <NotificationsIcon />
-                                            </Badge>
+                                            <Tooltip title="Notificaciones">
+                                                <Badge badgeContent={100} color="error">
+                                                    <NotificationsIcon />
+                                                </Badge>
+                                            </Tooltip>
+
                                         </IconButton>
                                         <IconButton
                                             size="large"
@@ -184,7 +196,7 @@ function Header(props) {
                                             onClick={handleProfileMenuOpen}
                                             color="inherit"
                                         >
-                                            <Tooltip title={usuario[0]} TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} >
+                                            <Tooltip title={usuario} TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} >
                                                 <AccountCircle />
                                             </Tooltip>
                                         </IconButton>
@@ -205,22 +217,22 @@ function Header(props) {
                                 :
                                 <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                                     <Button color="inherit">
-                                        <Pages to="/" style={{textDecoration:"none"}}>
-                                            <Link className="Nav" color="white" underline="none" fontWeight="bold">
+                                        <Pages to="/" style={{ textDecoration: "none" }}>
+                                            <Link color="white" underline="none">
                                                 Home
                                             </Link>
                                         </Pages>
                                     </Button>
                                     <Button color="inherit">
-                                        <Pages to="/login" style={{textDecoration:"none"}}>
-                                            <Link className="Nav" color="white" underline="none" fontWeight="bold">
+                                        <Pages to="/login" style={{ textDecoration: "none" }}>
+                                            <Link color="white" underline="none">
                                                 Login
                                             </Link>
                                         </Pages>
                                     </Button>
                                     <Button color="inherit">
-                                        <Pages to="/signup" style={{textDecoration:"none"}}>
-                                            <Link className="Nav" color="white" underline="none" fontWeight="bold">
+                                        <Pages to="/signup" style={{ textDecoration: "none" }}>
+                                            <Link color="white" underline="none">
                                                 SignUp
                                             </Link>
                                         </Pages>

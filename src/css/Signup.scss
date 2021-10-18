@@ -1,6 +1,9 @@
 
-body{
-    background-position-y: top;
-    background-image: url("../assets/perfil.png");
+.signup{
+    background-image: url("../assets/Signup.png");
     background-repeat: no-repeat;
+    background-size:cover;
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0;
 }

@@ -1,4 +1,7 @@
-.home{
-    padding-left: 100px;
-    padding-top: 300px;
+.header__box {
+    display: flex;
+    justify-content: center;
+    .header__img {
+        width: 65%;
+    }
 }
