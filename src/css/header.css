@@ -1,5 +1,15 @@
 .navButton {
   color: #FFFFFF;
+  font-weight: bold;
+}
+
+button{
+  color: white
+}
+.Nav:hover {
+  background-color: #3F10FC;
+  border-radius: 8px;
+  padding: 20px;
 }
 
 .header__logo {

@@ -120,7 +120,7 @@ function Header(props) {
     return (
         <ThemeProvider theme={Tema}>
             <Box sx={{ flexGrow: 1 }} mb={5}>
-                <AppBar position="sticky" color="primary">
+                <AppBar position="sticky" color="transparent">
                     <Toolbar>
                         {/* Boton menu */}
                         <IconButton
@@ -152,7 +152,7 @@ function Header(props) {
                                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                                         <Button color="inherit" >
                                             <Pages to="/settings">
-                                                <Link color="white" underline="none">
+                                                <Link className="Nav" color="white" underline="none" fontWeight="bold">
                                                     Explore
                                                 </Link>
                                             </Pages>
@@ -206,22 +206,22 @@ function Header(props) {
                                 <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                                     <Button color="inherit">
                                         <Pages to="/" style={{textDecoration:"none"}}>
-                                            <Link color="white" underline="none">
+                                            <Link className="Nav" color="white" underline="none" fontWeight="bold">
                                                 Home
                                             </Link>
                                         </Pages>
                                     </Button>
                                     <Button color="inherit">
                                         <Pages to="/login" style={{textDecoration:"none"}}>
-                                            <Link color="white" underline="none">
+                                            <Link className="Nav" color="white" underline="none" fontWeight="bold">
                                                 Login
                                             </Link>
                                         </Pages>
                                     </Button>
                                     <Button color="inherit">
                                         <Pages to="/signup" style={{textDecoration:"none"}}>
-                                            <Link color="white" underline="none">
-                                                SingUp
+                                            <Link className="Nav" color="white" underline="none" fontWeight="bold">
+                                                SignUp
                                             </Link>
                                         </Pages>
                                     </Button>

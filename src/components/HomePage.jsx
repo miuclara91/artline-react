@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 import '../css/home.scss';
 import Settings from './Settings';
 import '../css/login.css';
-import ImagenInicio from "../assets/home.jpeg";
+import ImagenInicio from "../assets/home.png";
 
 
 const Home = (props) => {
@@ -15,7 +15,7 @@ const Home = (props) => {
     return (
         <>
             {
-                isLogged ? <Settings usuario={usuario} /> : <img src={ImagenInicio} alt="Home" />
+                isLogged ? <Settings usuario={usuario} /> : <img className="home" src={ImagenInicio} alt="Home" />
             }
         </>
     );

@@ -86,7 +86,7 @@ function Footer() {
                         variant="outlined"
                     />
                 </Box>
-                <Divider textAlign="right">Copyright <strong>Equipo 6</strong> 2021</Divider>
+                <Divider textAlign="center">Copyright <strong>Equipo 6</strong> 2021</Divider>
             </ThemeProvider>
         </Root>
     );
