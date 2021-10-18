@@ -1,18 +1,10 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import Container from '@mui/material/Container';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import { Container, Card, CardContent, Button, Typography } from '@mui/material';
+
 import '../css/signup_card.scss';
 import imgLogo from '../assets/coloredLogo.png';
-import CardActions from '@mui/material/CardActions';
 import TextField from '@mui/material/TextField';
 
-
 function Signup_Card() {
-
     return (
         <Card variant="outlined" className="Card">
             <CardContent className="Container">
@@ -32,9 +24,5 @@ function Signup_Card() {
             </CardContent>
         </Card>
     );
-
-
-
-
 }
 export default Signup_Card;

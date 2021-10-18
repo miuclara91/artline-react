@@ -1,6 +1,9 @@
 
-body{
+.signup{
     background-image: url("../assets/Signup.png");
     background-repeat: no-repeat;
     background-size:cover;
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0;
 }
