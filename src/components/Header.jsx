@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link as Pages } from 'react-router-dom';
+import { useHistory, useLocation } from "react-router";
 // imports de componentes de material ui
-import { Box, AppBar, Toolbar, Button, IconButton, Typography, Menu, Badge, MenuItem, Tooltip, Fade, Link } from '@mui/material';
+import { Box, AppBar, Toolbar, Button, IconButton, Menu, Badge, MenuItem, Tooltip, Fade, Link } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 // imports de iconos de material ui
 import MenuIcon from '@mui/icons-material/Menu';
@@ -21,6 +22,9 @@ function Header(props) {
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+    let history = useHistory();
+    let location = useLocation();
+    let { from } = location.state || { from: { pathname: "/login" } };
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -33,6 +37,8 @@ function Header(props) {
     const handleMenuClose = () => {
         setAnchorEl(null);
         handleMobileMenuClose();
+        localStorage.clear();
+        history.replace(from);
     };
 
     const handleMobileMenuOpen = (event) => {
