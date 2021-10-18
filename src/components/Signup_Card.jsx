@@ -1,8 +1,7 @@
-import { Container, Card, CardContent, Button, Typography } from '@mui/material';
+import { Container, Card, CardContent, Button, Typography, TextField } from '@mui/material';
 
 import '../css/signup_card.scss';
 import imgLogo from '../assets/coloredLogo.png';
-import TextField from '@mui/material/TextField';
 
 function Signup_Card() {
     return (

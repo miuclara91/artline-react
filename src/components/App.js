@@ -2,10 +2,10 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { useLocalStorage } from "../helpers/useLocalStorage";
-import HomePage from "./HomePage";
+import HomePage from "../pages/HomePage";
 import Header from "./Header";
 import Footer from './Footer';
-import Login from "./LoginPage";
+import Login from "../pages/LoginPage";
 import Signup from "./Signup";
 const usuario = ['usuario1', 'Soy el usuario fake', 'fake123@gmail.com'];
 
@@ -13,7 +13,6 @@ function App() {
   const [email, setEmail] = useLocalStorage("email", "");
   const [password, setPassword] = useLocalStorage("password", "");
   const [isLogged, setIsLogged] = useLocalStorage("isLogged", false);
-  const [sesion, setSesion] = useLocalStorage("mantenerSesion", false);
 
   const handleLogging = (e => {
     if (email !== '' && password !== '') {
@@ -36,7 +35,7 @@ function App() {
           <Route path="/Signup">
             <Signup />
           </Route>
-          <Route path="/settings">
+          <Route path="/profile">
             <HomePage isLogged={isLogged} usuario={usuario} />
           </Route>
           <Route path="/">

@@ -1,10 +1,9 @@
 import { Container } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import FormPerfil from './Perfil';
-import Post from './Post';
+import CardPerfil from '../components/CardPerfil';
+import Post from '../components/Post';
 
 const Settings = () => {
-    let userId = '';
     const [usuario, setUsuario] = useState([]);
 
     useEffect(() => {
@@ -22,10 +21,9 @@ const Settings = () => {
 
     return (
         <Container>
-            {/* <h1>Mi perfil de Usuario</h1> */}
             {
                 usuario.map((item) => (
-                    < FormPerfil
+                    < CardPerfil
                         key={item.id}
                         data={item}
                     />
