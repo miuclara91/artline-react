@@ -1,9 +1,6 @@
 import React from 'react';
-import Box from '@mui/material/Box';
-import Alert from '@mui/material/Alert';
-import IconButton from '@mui/material/IconButton';
-import Collapse from '@mui/material/Collapse';
-import CloseIcon from '@mui/icons-material/Close';
+import { Container, Box, Alert, Collapse, IconButton } from '@mui/material';
+import { Close as CloseIcon } from '@mui/icons-material';
 
 import { useHistory, useLocation } from "react-router";
 
@@ -12,7 +9,7 @@ function Alerta(props) {
 
     let history = useHistory();
     let location = useLocation();
-    let { from } = location.state || { from: { pathname: "/" } };
+    let { from } = location.state || { from: { pathname: "/profile" } };
     let redirect = () => {
         setOpen(false);
         if (isLogged)
@@ -20,25 +17,28 @@ function Alerta(props) {
     };
 
     return (
-        <Box sx={{ width: '100%' }}>
-            <Collapse in={open}>
-                <Alert severity={type}
-                    action={
-                        <IconButton
-                            aria-label="close"
-                            color="inherit"
-                            size="small"
-                            onClick={redirect}
-                        >
-                            <CloseIcon fontSize="inherit" />
-                        </IconButton>
-                    }
-                    sx={{ mb: 2 }}
-                >
-                    {text}
-                </Alert>
-            </Collapse>
-        </Box>
+        <Container>
+            <Box sx={{ width: '100%' }}>
+                <Collapse in={open}>
+                    <Alert severity={type}
+                        action={
+                            <IconButton
+                                aria-label="close"
+                                color="inherit"
+                                size="small"
+                                onClick={redirect}
+                            >
+                                <CloseIcon fontSize="inherit" />
+                            </IconButton>
+                        }
+                        sx={{ mb: 2 }}
+                    >
+                        {text}
+                    </Alert>
+                </Collapse>
+            </Box>
+        </Container>
+
     )
 }
 

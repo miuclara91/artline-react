@@ -1,13 +1,13 @@
 import { useState } from 'react';
-import { Box, Button, Container, FormControl, FormControlLabel, FormGroup, Link, Switch, Typography, TextField, Card, Grid, Stack } from '@mui/material';
+import { Box, Button, Container, FormControl, FormControlLabel, FormGroup, Link, Switch, Typography, TextField, Grid, Stack } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 
-import Alerta from './Alert';
+import Alerta from '../components/Alert';
 
 import imgLogin from '../assets/login.png';
 import imgLogo from '../assets/coloredLogo.png';
-import '../css/login.css';
-import Tema from './Tema';
+import '../css/login.scss';
+import Tema from '../helpers/Tema';
 
 function Login(props) {
     const [open, setOpen] = useState(false);
@@ -35,7 +35,7 @@ function Login(props) {
                         setOpen={setOpen}
                         isLogged={isLogged}
                         type="success"
-                        text="Sesion iniciada. Disfruta de Artline"
+                        text="Sesion iniciada. Disfruta de Artline. Cierra esta alerta para ver tu perfil"
                     />
                     :
                     <Alerta open={open}
@@ -46,9 +46,9 @@ function Login(props) {
                     />
             }
 
-            <Box>
+            <Container className="login__container">
                 <Grid container >
-                    <Grid item xs={7}>
+                    <Grid item xs={6}>
                         <Container className="login__image" >
                             <img src={imgLogin} alt="LoginImage"></img>
                         </Container>
@@ -105,7 +105,7 @@ function Login(props) {
                         </Container>
                     </Grid>
                 </Grid>
-            </Box>
+            </Container>
 
         </ThemeProvider >
     );

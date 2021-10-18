@@ -1,10 +1,10 @@
 import React from 'react';
-import { Divider, styled, Chip, Avatar, Box, IconButton, Tooltip, Typography, Button } from '@mui/material';
+import { Divider, styled, Chip, Avatar, Box, IconButton, Tooltip, Typography } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import Logo from "../assets/logo2.png";
 import '../css/footer.scss';
-import Tema from './Tema';
+import Tema from '../helpers/Tema';
 
 const Root = styled('div')(({ theme }) => ({
     width: '100%',
@@ -18,7 +18,7 @@ function Footer() {
     return (
         <Root>
             <ThemeProvider theme={Tema}>
-                <Box mt={2}>
+                <Box mt={20}>
                     <Divider>
                         <Chip label="ARTLINE" color="primary" />
                     </Divider>

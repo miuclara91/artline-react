@@ -1,15 +1,12 @@
-import * as React from 'react';
+import { Box } from '@mui/material';
 import '../css/Signup.scss';
-import Signup_Card from './Signup_Card';
-import Footer from './Footer';
+import SignupCard from './Signup_Card';
+
 function Signup() {
-
     return (
-        <Signup_Card/>
+        <Box className="signup" >
+            <SignupCard />
+        </Box>
     );
-
-
-
-
 }
 export default Signup;
