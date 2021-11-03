@@ -9,6 +9,7 @@ import HomePage from "../pages/HomePage";
 import PostPage from "../pages/PostPage";
 import Login from "../pages/LoginPage";
 import Signup from "./Signup";
+
 const usuario = ['usuario1', 'Usuario Apellidos', 'Soy el usuario fake', 'fake123@gmail.com'];
 
 

@@ -141,7 +141,7 @@ function Header(props) {
                             <MenuIcon />
                         </IconButton>
                         {/* Logo */}
-                        <Box className="header__log" sx={{ display: { sm: 'block', xs: 'none' } }}>
+                        <Box className="header__log" sx={{ display: { sm: 'block', xs: 'none' } } } >
                             <img src={Logo} alt="Logo" />
                         </Box>
 
