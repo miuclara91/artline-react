@@ -6,9 +6,8 @@ import {
   ListItemAvatar,
   Container,
 } from "@mui/material";
-import ImageIcon from "@mui/icons-material/Image";
 import React, { useEffect, useState } from "react";
-import "../css/post.scss";
+
 
 const Post = (props) => {
   const { userId } = props;
