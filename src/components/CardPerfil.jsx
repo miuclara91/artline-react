@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Button, Card, CardActions, CardContent, Container, Typography, Avatar, Tab, Tabs, Box } from '@mui/material';
 import FormDialog from './FormDialog';
 import Galeria from './Galeria';
+import Cards from './Cards';
 import '../css/Perfil.css';
 
 //Icons
@@ -47,7 +48,7 @@ TabPanel.propTypes = {
     value: PropTypes.number.isRequired,
 };
 
-const Perfil = (props) => {
+const CardPerfil = (props) => {
     const { data } = props;
     const [editar, setEditar] = useState(false);
 
@@ -86,15 +87,15 @@ const Perfil = (props) => {
             <Card className="card">
                 {/* <div className="infoPerfil"> */}
                 <CardActions sx={{ justifyContent: 'right' }}>
-                    <ColorButton className="navButton" onClick={handleEditar} sx={{ justify: 'right', marginRight:'2%' }}>Editar</ColorButton>
+                    <ColorButton className="navButton" onClick={handleEditar} sx={{ justify: 'right', marginRight: '2%' }}>Editar</ColorButton>
                 </CardActions>
                 <CardContent className="descripcion">
-                <Avatar
-                    className="fotoPerfil"
-                    alt="fotoPerfil"
-                    src={dataUser.foto}
-                    sx={{ width: 151, height: 151 }}
-                />
+                    <Avatar
+                        className="fotoPerfil"
+                        alt="fotoPerfil"
+                        src={dataUser.foto}
+                        sx={{ width: 151, height: 151 }}
+                    />
                     <Typography variant="h4" component="h4">
                         {nombre}
                     </Typography>
@@ -124,13 +125,13 @@ const Perfil = (props) => {
                             <Tab icon={<CollectionsIcon />} label="Collections" id={`vertical-tab-${2}`} aria-controls={`vertical-tabpanel-${2}`} />
                         </Tabs>
                         <TabPanel value={value} index={0}>
-                            <Galeria/>
+                            <Galeria />
                         </TabPanel>
                         <TabPanel value={value} index={1}>
                             Información de Favoritos
                         </TabPanel>
                         <TabPanel value={value} index={2}>
-                            Información de colecciones
+                            <Cards />
                         </TabPanel>
                     </Box>
                 </CardContent>
@@ -156,9 +157,9 @@ const Perfil = (props) => {
 };
 
 
-Perfil.propTypes = {
+CardPerfil.propTypes = {
     //
 };
 
 
-export default Perfil;
+export default CardPerfil;

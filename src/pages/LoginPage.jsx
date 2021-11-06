@@ -1,18 +1,17 @@
 import { useState } from 'react';
-import { Box, Button, Container, FormControl, FormControlLabel, FormGroup, Link, Switch, Typography, TextField, Card, Grid, Stack } from '@mui/material';
+import { Box, Button, Container, FormControl, FormControlLabel, FormGroup, Link, Switch, Typography, TextField, Grid, Stack } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
+
+import Alerta from '../components/Alert';
 
 import imgLogin from '../assets/login.png';
 import imgLogo from '../assets/coloredLogo.png';
-import '../css/login.css';
-import Tema from './Tema';
+import '../css/login.scss';
+import Tema from '../helpers/Tema';
 
 function Login(props) {
-    const { Logged } = props;
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    // const [logged, setLogged] = useState(false);
-
+    const [open, setOpen] = useState(false);
+    const { email, setEmail, password, setPassword, Logged, isLogged } = props;
 
     //Métodos
     const handleEmailChange = (event) => {
@@ -23,23 +22,33 @@ function Login(props) {
         setPassword(event.target.value);
     };
 
-    const handleFormSubmit = (event) => {
-        event.preventDefault();
-    };
-
     const handleLoggin = (event) => {
-        // setLogged(true);
-        Logged(event);
+        Logged(event); // pasa parametro al padre para guardar log
+        setOpen(true);
     };
-
-
-
 
     return (
         <ThemeProvider theme={Tema}>
-            <Box>
+            { //conditional render para alerta
+                isLogged ?
+                    <Alerta open={open}
+                        setOpen={setOpen}
+                        isLogged={isLogged}
+                        type="success"
+                        text="Sesion iniciada. Disfruta de Artline. Cierra esta alerta para ver tu perfil"
+                    />
+                    :
+                    <Alerta open={open}
+                        setOpen={setOpen}
+                        isLogged={isLogged}
+                        type="warning"
+                        text="Llena los campos porfavor. Cualquier dato es válido"
+                    />
+            }
+
+            <Container className="login__container">
                 <Grid container >
-                    <Grid item xs={7}>
+                    <Grid item xs={6}>
                         <Container className="login__image" >
                             <img src={imgLogin} alt="LoginImage"></img>
                         </Container>
@@ -53,13 +62,14 @@ function Login(props) {
                             <Box textAlign="center" mt={1} mb={1}>
                                 <Typography>Log in</Typography>
                             </Box>
-                            <FormControl onSubmit={handleFormSubmit} fullWidth>
+                            <FormControl fullWidth>
                                 <TextField
                                     type="email"
                                     id="outlined-basic"
                                     label="Email Address"
                                     value={email}
                                     onChange={handleEmailChange}
+                                    margin="normal"
                                     required
                                 />
 
@@ -69,6 +79,7 @@ function Login(props) {
                                     label="Password"
                                     value={password}
                                     onChange={handlePasswordChange}
+                                    margin="normal"
                                     required
                                 />
 
@@ -94,9 +105,9 @@ function Login(props) {
                         </Container>
                     </Grid>
                 </Grid>
-            </Box>
+            </Container>
 
-        </ThemeProvider>
+        </ThemeProvider >
     );
 }
 

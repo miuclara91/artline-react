@@ -1,45 +1,58 @@
-import HomePage from "./HomePage";
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+import { useLocalStorage } from "../helpers/useLocalStorage";
+import FakeAPI from "../helpers/fakeAPI";
 import Header from "./Header";
 import Footer from './Footer';
-import Login from "./LoginPage";
+import HomePage from "../pages/HomePage";
+import PostPage from "../pages/PostPage";
+import Login from "../pages/LoginPage";
+import Signup from "./Signup";
 
-import React, { useState } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect
-} from "react-router-dom";
-
-const usuario = ['usuario1', 'Soy el usuario fake', 'fake123@gmail.com'];
+const usuario = ['usuario1', 'Usuario Apellidos', 'Soy el usuario fake', 'fake123@gmail.com'];
 
 
 function App() {
-  const [isLogged, setIsLogged] = useState(false);
+  const [userFake, setUserFake] = FakeAPI("", "");
 
-  const handleLogging = (event) => {
-    setIsLogged(!isLogged);
-    //redirectionar a home no sirve
-    if (isLogged) {
-      return (<Redirect to="/your/redirect/page" />);
-    } else {
-      return (<div>Login Please</div>);
+  const [email, setEmail] = useLocalStorage("email", "");
+  const [password, setPassword] = useLocalStorage("password", "");
+  const [isLogged, setIsLogged] = useLocalStorage("isLogged", false);
+  const [username, setUsername] = useLocalStorage("username", "");
+  const [nombre, setNombre] = useLocalStorage("nombre", "");
+  const [bio, setBio] = useLocalStorage("bio", "");
+
+  const handleLogging = (e => {
+    if (email !== '' && password !== '') {
+      setIsLogged(true);
+      setUsername(userFake[0].username);
+      setEmail(userFake[0].email);
+      setNombre(userFake[0].name);
+      setBio(userFake[0].company.catchPhrase);
     }
-  }
+  });
+
+  const handleLogOut = (e => {
+    setIsLogged(false);
+  });
 
   return (
     <Router>
       <div>
-        <Header isLogging={isLogged} usuario={usuario} />
+        <Header isLogging={isLogged} usuario={username} LogOut={handleLogOut} />
         <Switch>
           <Route path="/login">
-            <Login Logged={handleLogging} />
+            <Login isLogged={isLogged} Logged={handleLogging} email={email} setEmail={setEmail} password={password} setPassword={setPassword} />
           </Route>
-          <Route path="/signup">
-            <h1>Registrarse</h1>
+          <Route path="/Signup">
+            <Signup />
           </Route>
-          <Route path="/settings">
-            <HomePage isLogged={isLogged} usuario={usuario} />
+          <Route path="/profile">
+            <HomePage isLogged={isLogged} usuarioFake={userFake[0]} setUserFake={setUserFake} />
+          </Route>
+          <Route path="/post">
+            <PostPage isLogged={isLogged} usuario={usuario} />
           </Route>
           <Route path="/">
             <HomePage isLogged={isLogged} usuario={usuario} />
