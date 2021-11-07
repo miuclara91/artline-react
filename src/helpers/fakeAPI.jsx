@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const FakeAPI = (props) => {
     const [user, setUser] = useState([]);

@@ -6,14 +6,13 @@ import {
   ListItemAvatar,
   Container,
 } from "@mui/material";
-import ImageIcon from "@mui/icons-material/Image";
 import React, { useEffect, useState } from "react";
 import "../css/post.scss";
 
 const Post = (props) => {
   const { userId } = props;
   const [post, setPost] = useState([]);
-  console.log(userId);
+  // console.log(userId);
   useEffect(() => {
     obtenerDatos();
   }, []);
@@ -32,8 +31,8 @@ const Post = (props) => {
 
   return (
     <Container>
-      {post.map((item) => (
-        <List>
+      {post.map((item,index) => (
+        <List key={index}>
           <ListItem>
             <ListItemAvatar style={{margin: 10}}>
               <Avatar                

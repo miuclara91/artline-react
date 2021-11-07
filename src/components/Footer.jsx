@@ -18,7 +18,7 @@ function Footer() {
     return (
         <Root>
             <ThemeProvider theme={Tema}>
-                <Box mt={20}>
+                <Box mt={10}>
                     <Divider>
                         <Chip label="ARTLINE" color="primary" />
                     </Divider>
