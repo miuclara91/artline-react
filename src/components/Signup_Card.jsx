@@ -2,6 +2,7 @@ import { Container, Card, CardContent, Button, Typography, TextField } from '@mu
 
 import '../css/signup_card.scss';
 import imgLogo from '../assets/coloredLogo.png';
+import { Link } from 'react-router-dom';
 
 function Signup_Card() {
     return (
@@ -19,7 +20,7 @@ function Signup_Card() {
                 <TextField id="Password" label="Password *" placeholder="Password" />
 
                 <Button variant="contained">Sign Up</Button>
-                <Typography id="Already">Already have an account? Log in </Typography >
+                <Link to="/login"><Typography id="Already">Already have an account? Log in </Typography ></Link>
             </CardContent>
         </Card>
     );

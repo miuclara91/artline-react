@@ -66,8 +66,8 @@ function Header(props) {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
-            <MenuItem onClick={handleCerrarSesion}>Cerrar Sesion</MenuItem>
+            {/* <MenuItem onClick={handleMenuClose}>Settings</MenuItem> */}
+            <MenuItem onClick={handleCerrarSesion}>Cerrar Sesión</MenuItem>
         </Menu>
     );
 

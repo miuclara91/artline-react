@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import CardPerfil from '../components/CardPerfil';
 
 const PerfilPage = (props) => {
-    const { usuarioFake } = props;
+    // const { usuarioFake } = props;
     const [usuario, setUsuario] = useState([]);
 
     useEffect(() => {
