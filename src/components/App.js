@@ -9,6 +9,7 @@ import HomePage from "../pages/HomePage";
 import PostPage from "../pages/PostPage";
 import Login from "../pages/LoginPage";
 import Signup from "./Signup";
+import PerfilPage from "../pages/PerfilPage";
 
 function App() {
   const [userFake, setUser] = FakeAPI("", "");
@@ -20,6 +21,7 @@ function App() {
   const [nombre, setNombre] = useLocalStorage("nombre", "");
   const [bio, setBio] = useLocalStorage("bio", "");
 
+  console.log(nombre);
   const handleLogging = (e => {
     if (email !== '' && password !== '') {
       setIsLogged(true);
@@ -45,10 +47,18 @@ function App() {
           <Signup />
         </Route>
         <Route path="/profile">
-          <HomePage isLogged={isLogged} usuarioFake={userFake[0]} setUser={setUser} />
+          {isLogged ?
+            <PerfilPage usuarioFake={userFake[0]} setUserFake={setUser} />
+            :
+            <HomePage isLogged={isLogged} usuarioFake={userFake[0]} setUser={setUser} />
+          }
         </Route>
         <Route path="/post">
-          <PostPage isLogged={isLogged} usuario={userFake} />
+          {isLogged ?
+            <PostPage isLogged={isLogged} usuario={userFake} />
+            :
+            <HomePage isLogged={isLogged} usuarioFake={userFake[0]} setUser={setUser} />
+          }
         </Route>
         <Route path="/">
           <HomePage isLogged={isLogged} usuario={userFake} />
