@@ -141,8 +141,11 @@ function Header(props) {
                             <MenuIcon />
                         </IconButton>
                         {/* Logo */}
-                        <Box className="header__log" sx={{ display: { sm: 'block', xs: 'none' } }} >
-                            <img src={Logo} alt="Logo" />
+                        <Box className="header__log" sx={{ display: { sm: 'block', xs: 'none' } }}>
+                            <Pages to="/">
+                                <img src={Logo} alt="Logo" />
+                            </Pages>
+
                         </Box>
 
                         <Box sx={{ flexGrow: 1 }} />
@@ -152,19 +155,15 @@ function Header(props) {
                                 <>
                                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                                         <Button color="inherit" >
-                                            <Pages to="/profile" style={{ textDecoration: "none", color:'white' }} underline="none">
-                                                {/* <Link color="white" underline="none"> */}
-                                                    Perfil
-                                                {/* </Link> */}
+                                            <Pages to="/profile" style={{ textDecoration: "none", color: "white" }}>
+                                                Perfil
                                             </Pages>
                                         </Button>
                                     </Box>
                                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                                         <Button color="inherit">
-                                            <Pages to="/post" style={{ textDecoration: "none", color:'white' }} underline="none">
-                                                {/* <Link color="white" underline="none"> */}
+                                            <Pages to="/post" style={{ textDecoration: "none", color: "white" }}>
                                                 Post
-                                                {/* </Link> */}
                                             </Pages>
                                         </Button>
                                     </Box>
