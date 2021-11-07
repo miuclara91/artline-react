@@ -10,11 +10,8 @@ import PostPage from "../pages/PostPage";
 import Login from "../pages/LoginPage";
 import Signup from "./Signup";
 
-const usuario = ['usuario1', 'Usuario Apellidos', 'Soy el usuario fake', 'fake123@gmail.com'];
-
-
 function App() {
-  const [userFake, setUserFake] = FakeAPI("", "");
+  const [userFake, setUser] = FakeAPI("", "");
 
   const [email, setEmail] = useLocalStorage("email", "");
   const [password, setPassword] = useLocalStorage("password", "");
@@ -39,27 +36,25 @@ function App() {
 
   return (
     <Router>
-      <div>
-        <Header isLogging={isLogged} usuario={username} LogOut={handleLogOut} />
-        <Switch>
-          <Route path="/login">
-            <Login isLogged={isLogged} Logged={handleLogging} email={email} setEmail={setEmail} password={password} setPassword={setPassword} />
-          </Route>
-          <Route path="/Signup">
-            <Signup />
-          </Route>
-          <Route path="/profile">
-            <HomePage isLogged={isLogged} usuarioFake={userFake[0]} setUserFake={setUserFake} />
-          </Route>
-          <Route path="/post">
-            <PostPage isLogged={isLogged} usuario={usuario} />
-          </Route>
-          <Route path="/">
-            <HomePage isLogged={isLogged} usuario={usuario} />
-          </Route>
-        </Switch>
-        <Footer />
-      </div>
+      <Header isLogging={isLogged} usuario={username} LogOut={handleLogOut} />
+      <Switch>
+        <Route path="/login">
+          <Login isLogged={isLogged} Logged={handleLogging} email={email} setEmail={setEmail} password={password} setPassword={setPassword} />
+        </Route>
+        <Route path="/Signup">
+          <Signup />
+        </Route>
+        <Route path="/profile">
+          <HomePage isLogged={isLogged} usuarioFake={userFake[0]} setUser={setUser} />
+        </Route>
+        <Route path="/post">
+          <PostPage isLogged={isLogged} usuario={userFake} />
+        </Route>
+        <Route path="/">
+          <HomePage isLogged={isLogged} usuario={userFake} />
+        </Route>
+      </Switch>
+      <Footer />
     </Router>
   );
 }
