@@ -5,7 +5,7 @@ const Postpage = (props) => {
 
     return (
         <div>
-            <Post userId={1}></Post>
+            <Post userId={'614df59f4a97331b596b38e6'}></Post>
         </div>
     );
 }
