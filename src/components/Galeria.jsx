@@ -1,4 +1,4 @@
-import { Container, ImageList, ImageListItem } from '@mui/material';
+import { ImageList, ImageListItem } from '@mui/material';
 import React from 'react';
 
 const Galeria = () => {
@@ -12,19 +12,17 @@ const Galeria = () => {
         {key:7, img:'https://i.picsum.photos/id/1020/4288/2848.jpg?hmac=Jo3ofatg0fee3HGOliAIIkcg4KGXC8UOTO1dm5qIIPc'},
     ]
     return (
-        <Container>
-            <ImageList sx={{ width: 500, height: 350 }} cols={3} rowHeight={164}>
-                {imagenes.map((imagen) => (
-                    <ImageListItem key={imagen.key}>
-                        <img
-                            src={imagen.img}
-                            alt={imagen.img}
-                            loading="lazy"
-                        />
-                    </ImageListItem>
-                ))}
-            </ImageList>
-        </Container>
+        <ImageList sx={{ width: 500, height: 350 }} cols={3} rowHeight={164}>
+            {imagenes.map((imagen) => (
+                <ImageListItem key={imagen.key}>
+                    <img
+                        src={imagen.img}
+                        alt={imagen.img}
+                        loading="lazy"
+                    />
+                </ImageListItem>
+            ))}
+        </ImageList>
     );
 }
 
