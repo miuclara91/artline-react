@@ -66,8 +66,8 @@ function Header(props) {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
-            <MenuItem onClick={handleCerrarSesion}>Cerrar Sesion</MenuItem>
+            {/* <MenuItem onClick={handleMenuClose}>Settings</MenuItem> */}
+            <MenuItem onClick={handleCerrarSesion}>Cerrar Sesión</MenuItem>
         </Menu>
     );
 
@@ -152,19 +152,19 @@ function Header(props) {
                                 <>
                                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                                         <Button color="inherit" >
-                                            <Pages to="/profile" style={{ textDecoration: "none" }}>
-                                                <Link color="white" underline="none">
+                                            <Pages to="/profile" style={{ textDecoration: "none", color:'white' }} underline="none">
+                                                {/* <Link color="white" underline="none"> */}
                                                     Perfil
-                                                </Link>
+                                                {/* </Link> */}
                                             </Pages>
                                         </Button>
                                     </Box>
                                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                                         <Button color="inherit">
-                                            <Pages to="/post" style={{ textDecoration: "none" }}>
-                                                <Link color="white" underline="none">
-                                                    Post
-                                                </Link>
+                                            <Pages to="/post" style={{ textDecoration: "none", color:'white' }} underline="none">
+                                                {/* <Link color="white" underline="none"> */}
+                                                Post
+                                                {/* </Link> */}
                                             </Pages>
                                         </Button>
                                     </Box>

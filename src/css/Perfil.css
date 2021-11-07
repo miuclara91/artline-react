@@ -2,21 +2,41 @@ body{
     margin: 0;
     padding: 0;
 }
+
+.fondoPerfil{
+    background-image: url("../assets/perfil.png");
+    background-repeat: no-repeat;
+    background-size:cover;
+    display: flex;
+    justify-content: center;
+    /* padding: 2rem 0; */
+    width: 100%;
+    height:50%;
+    /* background: #caa2a2; */
+    position: absolute !important;
+    top: 9%;
+    left: 0;
+    z-index: -1;
+}
+
 .cardProfile{
     margin: 15% 30px 0 30px;
     box-shadow: 0 16px 24px 2px rgb(0 0 0 / 14%), 0 6px 30px 5px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
     border-radius: 10px;
     background: #FFFFFF;
     padding-bottom: 5%;
+    z-index: 1;
 }
 .card{
     overflow:visible !important;
+    z-index: 2;
 }
 
 .infoPerfil, .card{
     text-align: center;
     display: inline;
     align-items: flex-start;
+    z-index: 3;
 }
 
 .fotoPerfil{

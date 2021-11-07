@@ -5,7 +5,6 @@ import "../css/post.scss";
 const Post = (props) => {
   const { userId } = props;
   const [post, setPost] = useState([]);
-
   useEffect(() => {
     obtenerDatos();
   }, []);
