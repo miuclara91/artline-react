@@ -33,9 +33,10 @@ const Post = (props) => {
     }
   };
 
-  function verComentario(idPost) {
-    // history.push(`/comentarios/${idPost}`);
-    alert('falta mandar a la ruta de comentario por id de publicacion' + idPost);
+  function verComentario(postId) {
+    // history.push(`/comentarios/${postId}`);
+    // alert('falta mandar a la ruta de comentario por id de publicacion' + postId);
+    console.log(postId);
   }
 
   const dataUser = {
@@ -48,7 +49,7 @@ const Post = (props) => {
         <List>
           <ListItem key={item._id}
             secondaryAction={
-              <IconButton edge="end" aria-label="comments" color='secondary' onClick={verComentario(item.id)}>
+              <IconButton edge="end" aria-label="comments" color='secondary' onClick={verComentario}>
                 <CommentIcon />
               </IconButton>
             } >

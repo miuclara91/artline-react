@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 
 const Comentarios = () => {
-    const { userId } = props;
+    const { postId } = props;
     const [comentarios, setComentarios] = useState([]);
 
     useEffect(() => {
@@ -22,7 +22,7 @@ const Comentarios = () => {
 
     return (
         <div>
-
+            renderizo los comentarios
         </div>
     );
 };
