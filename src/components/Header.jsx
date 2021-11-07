@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link as Pages } from 'react-router-dom';
+import { NavLink as Pages } from 'react-router-dom';
 import { useHistory, useLocation } from "react-router";
 // imports de componentes de material ui
 import { Box, AppBar, Toolbar, Button, IconButton, Menu, Badge, MenuItem, Tooltip, Fade, Link } from '@mui/material';
@@ -141,7 +141,7 @@ function Header(props) {
                             <MenuIcon />
                         </IconButton>
                         {/* Logo */}
-                        <Box className="header__log" sx={{ display: { sm: 'block', xs: 'none' } } } >
+                        <Box className="header__log" sx={{ display: { sm: 'block', xs: 'none' } }} >
                             <img src={Logo} alt="Logo" />
                         </Box>
 

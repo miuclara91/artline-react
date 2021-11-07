@@ -1,13 +1,28 @@
-
 import { useEffect, useState } from 'react';
 
 const FakeAPI = (props) => {
+    //const { username, password } = props;
+
     const [user, setUser] = useState([]);
 
     useEffect(() => {
         obtenerDatos();
+        //login();
     }, []);
-
+    /*
+        const opciones = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: 'luis', password: '123' })
+        };
+    
+        const login = async () => {
+            const data = await fetch(`https://artline-team10.herokuapp.com/artline/usuarios/entrar`, opciones);
+            const user = await data.text();
+            console.log(user);
+            // setUser(user);
+        }
+    */
     const obtenerDatos = async () => {
         const data = await fetch(`https://jsonplaceholder.typicode.com/users`);
         const user = await data.json();
