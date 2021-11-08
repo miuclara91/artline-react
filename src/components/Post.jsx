@@ -17,7 +17,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import React, { useEffect, useState } from "react";
 import { useLocalStorage } from "../helpers/useLocalStorage";
-
+import '../css/Posts.scss';
 
 const Post = (props) => {
   const { userId } = props;
@@ -55,28 +55,27 @@ const Post = (props) => {
   }
 
   return (
-    <Container>
+    <Container className="fondoPosts">
       {post.map((item) => (
-        <List key={item._id} style={{ margin: 50}}>
-          <ListItem  secondaryAction={
+        <List key={item._id} style={{ margin: 50 }}>
+          <Card sx={{boxShadow:5 }}>
+            <ListItem secondaryAction={
               <IconButton edge="end" aria-label="comments" color='secondary' onClick={verComentario}>
-            
+
               </IconButton>
             }>
-            <ListItemAvatar style={{ margin: 10 }}>
-              <Avatar
-                alt="fotoPerfil"
-                src={dataUser.foto}
-                sx={{ width: 80, height: 80 }}
-              ></Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="Leanne Graham" secondary="15 min" />
-          </ListItem>
-          <ListItem>
-            <Typography style={{ margin: 10 }}>{item.descripcion}</Typography>
-          </ListItem>
-
-          <Card>
+              <ListItemAvatar style={{ margin: 10 }}>
+                <Avatar
+                  alt="fotoPerfil"
+                  src={dataUser.foto}
+                  sx={{ width: 80, height: 80 }}
+                ></Avatar>
+              </ListItemAvatar>
+              <ListItemText primary={nombre} secondary="15 min" />
+            </ListItem>
+            <ListItem>
+              <Typography style={{ margin: 10 }}>{item.descripcion}</Typography>
+            </ListItem>
             <CardMedia
               component="img"
               height="30%"
