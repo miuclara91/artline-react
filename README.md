@@ -16,5 +16,7 @@ Como parte del desarrollo del proyecto se definieron los componentes que se requ
 ## Descripción técnica :wrench:
 Para el desarrollo de esta SPA se está haciendo uso de Reactjs y Material-UI. Para ejecutar la aplicación use el comando npm start.
 
-## Toda la documentación se encuentra en la Wiki :book:
+## Mockups :newspaper:
+Para la implementación de este proyecto se desarrollaron mockups con la herramienta Figma, pueden ser consultados en [Mockups Artline](https://www.figma.com/file/BEm1hFyzY2Pi6PwsH1ubYW/Untitled?node-id=0%3A1). 
+Para consultar la documentación general de artline puede acceder [aquí](https://www.behance.net/gallery/126576155/Case-study-Artline). 
 
