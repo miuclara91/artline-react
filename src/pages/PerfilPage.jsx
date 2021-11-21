@@ -25,7 +25,7 @@ const PerfilPage = (props) => {
                 usuario.map((item) => (
                     < CardPerfil
                         key={item.id}
-                        data={item}
+                    /*data={item}*/
                     />
                 ))
             }

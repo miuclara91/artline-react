@@ -10,7 +10,8 @@ import {
   CardMedia,
   CardActions,
   IconButton,
-  Divider
+  Divider,
+  CardHeader
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
@@ -22,7 +23,7 @@ import '../css/Posts.scss';
 const Post = (props) => {
   const { userId } = props;
   const [post, setPost] = useState([]);
-  const [nombre, setNombre] = useLocalStorage("nombre", "");
+  const [nombre, setNombre] = useLocalStorage("nombre", ""); // ??????????????????'''
 
   useEffect(() => {
     obtenerDatos();
@@ -54,25 +55,26 @@ const Post = (props) => {
     console.log(postId);
   }
 
+  function getFecha(date) { // Funcion para convertir la fecha en formato largo
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const fecha = new Date(date);
+    return fecha.toLocaleDateString("es-ES", options)
+  }
+
   return (
     <Container className="fondoPosts">
       {post.map((item) => (
         <List key={item._id} style={{ margin: 50 }}>
-          <Card sx={{boxShadow:5 }}>
-            <ListItem secondaryAction={
-              <IconButton edge="end" aria-label="comments" color='secondary' onClick={verComentario}>
-
-              </IconButton>
-            }>
-              <ListItemAvatar style={{ margin: 10 }}>
-                <Avatar
-                  alt="fotoPerfil"
-                  src={dataUser.foto}
-                  sx={{ width: 80, height: 80 }}
-                ></Avatar>
-              </ListItemAvatar>
-              <ListItemText primary={nombre} secondary="15 min" />
-            </ListItem>
+          <Card sx={{ boxShadow: 5 }}>
+            <CardHeader style={{ margin: 10 }}
+              title={item.idUsuario}
+              subheader={getFecha(item.createdAt)}
+              avatar={<Avatar
+                alt="fotoPerfil"
+                src={dataUser.foto}
+                sx={{ width: 80, height: 80 }}
+              ></Avatar>}
+            />
             <ListItem>
               <Typography style={{ margin: 10 }}>{item.descripcion}</Typography>
             </ListItem>
@@ -80,6 +82,12 @@ const Post = (props) => {
               component="img"
               height="30%"
               image="https://www.semana.com/resizer/2sar7iLFSpoiknWkhUh-sAFwKDM=/1200x675/filters:format(jpg):quality(50)//cloudfront-us-east-1.images.arcpublishing.com/semana/RE55ORS5VRHPPLSJPA5LA3PBKY.jpg"
+              alt="img_exa"
+            />
+            <CardMedia
+              component="img"
+              height="30%"
+              image={item.imagen}
               alt="img_exa"
             />
             <CardActions>

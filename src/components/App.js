@@ -12,6 +12,7 @@ import Signup from "./Signup";
 import PerfilPage from "../pages/PerfilPage";
 
 function App() {
+
   const [userFake, setUser] = FakeAPI("", "");
 
   const [email, setEmail] = useLocalStorage("email", "");
@@ -21,8 +22,10 @@ function App() {
   const [nombre, setNombre] = useLocalStorage("nombre", "");
   const [bio, setBio] = useLocalStorage("bio", "");
 
-  console.log(nombre);
+  console.log(userFake[0]);
+
   const handleLogging = (e => {
+
     if (email !== '' && password !== '') {
       setIsLogged(true);
       setUsername(userFake[0].username);

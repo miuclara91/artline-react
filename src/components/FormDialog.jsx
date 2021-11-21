@@ -18,10 +18,11 @@ export default function FormDialog(props) {
         BioChange
     } = props;
 
+    console.log(data);
     const [username, setUsername] = useState(data.username);
-    const [nombre, setNombre] = useState(data.name);
+    const [nombre, setNombre] = useState(data.nombre);
     const [email, setEmail] = useState(data.email);
-    const [bio, setBio] = useState(data.company.catchPhrase);
+    const [bio, setBio] = useState(data.bio);
 
     const handleUsernameChange = (event) => {
         setUsername(event.target.value);

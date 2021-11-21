@@ -13,6 +13,7 @@ import BrushIcon from '@mui/icons-material/Brush';
 import CollectionsIcon from '@mui/icons-material/Collections';
 
 import { styled } from '@mui/material/styles';
+import { useLocalStorage } from '../helpers/useLocalStorage';
 
 const ColorButton = styled(Button)({
     color: '#000000',
@@ -36,7 +37,7 @@ function TabPanel(props) {
         >
             {value === index && (
                 // <Box sx={{ p: 3 }}>
-                    <Typography  variant='div'>{children}</Typography>
+                <Typography variant='div'>{children}</Typography>
                 // </Box>
             )}
         </div>
@@ -50,13 +51,13 @@ TabPanel.propTypes = {
 };
 
 const CardPerfil = (props) => {
-    const { data } = props;
     const [editar, setEditar] = useState(false);
 
-    const [username, setUsername] = useState(data.username);
-    const [nombre, setNombre] = useState(data.name);
-    const [email, setEmail] = useState(data.email);
-    const [bio, setBio] = useState(data.company.catchPhrase);
+    // obtenemos la informacion guardada en LocalStorage
+    const [email, setEmail] = useLocalStorage("email", "");
+    const [username, setUsername] = useLocalStorage("username", "");
+    const [nombre, setNombre] = useLocalStorage("nombre", "");
+    const [bio, setBio] = useLocalStorage("bio", "");
 
     const [value, setValue] = React.useState(0);//Valor de los botones de galeria,favoritos,colecciones
 
@@ -64,7 +65,7 @@ const CardPerfil = (props) => {
         setValue(newValue);
     };
 
-    const handleEditar = (event) => {
+    const handleEditar = (event) => { // Manejo del Dialog
         setEditar(!editar);
     };
     const handleUsernameChange = (event) => {
@@ -109,7 +110,7 @@ const CardPerfil = (props) => {
                             @{username}
                         </Typography>
                         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                            email:{email}
+                            email: {email}
                         </Typography>
 
                         <Box
@@ -131,24 +132,19 @@ const CardPerfil = (props) => {
                                 <Galeria />
                             </TabPanel>
                             <TabPanel value={value} index={1}>
-                                <Favoritos/>
+                                <Favoritos />
                             </TabPanel>
                             <TabPanel value={value} index={2}>
                                 <Cards />
                             </TabPanel>
                         </Box>
                     </CardContent>
-
-                    {/* </div> */}
-                    {/* <div className="contenido"> */}
-
-                    {/* </div> */}
                 </Card>
                 <Container>
                     <FormDialog
                         open={editar}
                         handleEditar={handleEditar}
-                        data={data}
+                        data={{ 'username': username, 'nombre': nombre, 'email': email, 'bio': bio }}
                         UsernameChange={handleUsernameChange}
                         NombreChange={handleNombreChange}
                         EmailChange={handleEmailChange}
