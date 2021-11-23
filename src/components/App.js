@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { useLocalStorage } from "../helpers/useLocalStorage";
 import FakeAPI from "../helpers/fakeAPI";
+import UserAPI from "../helpers/userAPI";
 import Header from "./Header";
 import Footer from './Footer';
 import HomePage from "../pages/HomePage";
@@ -12,8 +13,8 @@ import Signup from "./Signup";
 import PerfilPage from "../pages/PerfilPage";
 
 function App() {
-
-  const [userFake, setUser] = FakeAPI("", "");
+  const [user, setUser] = UserAPI("", "");
+  const [userFake, setUserFake] = FakeAPI("", "");
 
   const [email, setEmail] = useLocalStorage("email", "");
   const [password, setPassword] = useLocalStorage("password", "");
@@ -23,6 +24,7 @@ function App() {
   const [bio, setBio] = useLocalStorage("bio", "");
 
   console.log(userFake[0]);
+  console.log(user); // esta variable tiene los datos de la API artline para que sean usados
 
   const handleLogging = (e => {
 
@@ -51,16 +53,16 @@ function App() {
         </Route>
         <Route path="/profile">
           {isLogged ?
-            <PerfilPage usuarioFake={userFake[0]} setUserFake={setUser} />
+            <PerfilPage usuarioFake={userFake[0]} setUserFake={setUserFake} />
             :
-            <HomePage isLogged={isLogged} usuarioFake={userFake[0]} setUser={setUser} />
+            <HomePage isLogged={isLogged} usuarioFake={userFake[0]} setUser={setUserFake} />
           }
         </Route>
         <Route path="/post">
           {isLogged ?
             <PostPage isLogged={isLogged} usuario={userFake} />
             :
-            <HomePage isLogged={isLogged} usuarioFake={userFake[0]} setUser={setUser} />
+            <HomePage isLogged={isLogged} usuarioFake={userFake[0]} setUser={setUserFake} />
           }
         </Route>
         <Route path="/">

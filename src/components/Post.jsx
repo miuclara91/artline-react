@@ -7,6 +7,7 @@ import {
   Container,
   Typography,
   Card,
+  Box,
   CardMedia,
   CardActions,
   IconButton,
@@ -23,6 +24,7 @@ import '../css/Posts.scss';
 const Post = (props) => {
   const { userId } = props;
   const [post, setPost] = useState([]);
+  const [like, setLike] = useState(false);
   const [nombre, setNombre] = useLocalStorage("nombre", ""); // ??????????????????'''
 
   useEffect(() => {
@@ -61,6 +63,11 @@ const Post = (props) => {
     return fecha.toLocaleDateString("es-ES", options)
   }
 
+  const handleLike = (event) => { // Manejo del like
+    setLike(!like);
+    console.log(like);
+  };
+
   return (
     <Container className="fondoPosts">
       {post.map((item) => (
@@ -78,22 +85,33 @@ const Post = (props) => {
             <ListItem>
               <Typography style={{ margin: 10 }}>{item.descripcion}</Typography>
             </ListItem>
-            <CardMedia
+            {/* <CardMedia
               component="img"
               height="30%"
               image="https://www.semana.com/resizer/2sar7iLFSpoiknWkhUh-sAFwKDM=/1200x675/filters:format(jpg):quality(50)//cloudfront-us-east-1.images.arcpublishing.com/semana/RE55ORS5VRHPPLSJPA5LA3PBKY.jpg"
               alt="img_exa"
-            />
+            /> */}
             <CardMedia
               component="img"
               height="30%"
               image={item.imagen}
               alt="img_exa"
             />
+
+            <CardActions >
+              <IconButton aria-label="resume" >
+                <Typography style={{ margin: 10 }}>{item.likes.length} Likes </Typography>
+
+                <Typography style={{ margin: 10 }}>{item.comentarios} Comments</Typography>
+
+                <Typography style={{ margin: 10 }}>{item.shares} Shares</Typography>
+              </IconButton>
+            </CardActions>
+
             <CardActions>
               <IconButton aria-label="add to favorites">
                 <FavoriteIcon />
-                <Typography style={{ margin: 10 }}>Like</Typography>
+                <Typography style={{ margin: 10 }} onClick={handleLike}>Like</Typography>
               </IconButton>
 
               <IconButton>
