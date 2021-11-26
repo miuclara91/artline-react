@@ -14,10 +14,12 @@ import {
   Divider,
   CardHeader
 } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
-import React, { useEffect, useState } from "react";
+
 import { useLocalStorage } from "../helpers/useLocalStorage";
 import '../css/Posts.scss';
 
@@ -26,6 +28,7 @@ const Post = (props) => {
   const [post, setPost] = useState([]);
   const [like, setLike] = useState(false);
   const [nombre, setNombre] = useLocalStorage("nombre", ""); // ??????????????????'''
+  let history = useHistory();
 
   useEffect(() => {
     obtenerDatos();
@@ -43,6 +46,7 @@ const Post = (props) => {
         `https://artline-team10.herokuapp.com/artline/publicaciones`
       );
       const post = await data.json();
+      console.log(post);
       setPost(post);
     }
   };
@@ -53,6 +57,7 @@ const Post = (props) => {
 
   function verComentario(postId) {
     // history.push(`/comentarios/${postId}`);
+    // history.push(`/comentarios/id`);
     // alert('falta mandar a la ruta de comentario por id de publicacion' + postId);
     console.log(postId);
   }
@@ -74,7 +79,7 @@ const Post = (props) => {
         <List key={item._id} style={{ margin: 50 }}>
           <Card sx={{ boxShadow: 5 }}>
             <CardHeader style={{ margin: 10 }}
-              title={item.idUsuario}
+              title={item.usuario[0].nombre}
               subheader={getFecha(item.createdAt)}
               avatar={<Avatar
                 alt="fotoPerfil"
@@ -100,23 +105,23 @@ const Post = (props) => {
 
             <CardActions >
               <IconButton aria-label="resume" >
-                <Typography style={{ margin: 10 }}>{item.likes.length} Likes </Typography>
+                <Typography style={{ margin: 10 }}># Likes </Typography>
 
-                <Typography style={{ margin: 10 }}>{item.comentarios} Comments</Typography>
+                <Typography style={{ margin: 10 }}># Comments</Typography>
 
-                <Typography style={{ margin: 10 }}>{item.shares} Shares</Typography>
+                <Typography style={{ margin: 10 }}># Shares</Typography>
               </IconButton>
             </CardActions>
 
             <CardActions>
               <IconButton aria-label="add to favorites">
                 <FavoriteIcon />
-                <Typography style={{ margin: 10 }} onClick={handleLike}>Like</Typography>
+                <Typography style={{ margin: 10 }} >Like</Typography>
               </IconButton>
 
               <IconButton>
                 <ChatBubbleIcon />
-                <Typography style={{ margin: 10 }}>Comment</Typography>
+                <Typography style={{ margin: 10 }} >Comment</Typography>
               </IconButton>
 
               <IconButton aria-label="share">
