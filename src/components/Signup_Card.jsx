@@ -12,10 +12,15 @@ import imgLogo from "../assets/coloredLogo.png";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
+
 function Signup_Card() {
   const [newUser, setNewUser] = useState("");
+  const [newName, setNewName] = useState("");
   const [newEmail, setNewEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
+
+  const HOST = "https://artline-team10.herokuapp.com/artline/usuarios/";
+  const HOST_TEST = "http://localhost:4001/Artline/usuarios/";
 
   //Métodos
   const handleNewEmail = (event) => {
@@ -30,26 +35,30 @@ function Signup_Card() {
     setNewUser(event.target.value);
   };
 
-  const createUserArtline = async (user, email, password) => {
+  const handleNewName = (event) => {
+    setNewName(event.target.value);
+  };
+
+  const createUserArtline = async (_user, _name, _email, _password) => {
     const allInfo = {
-      username: user,
-      name: user,
-      email: email,
-      password: password,
+      username: _user,
+      nombre: _name,
+      email: _email,
+      password: _password,
     };
-    if (user !== "" && email !== "" && password !== "") {
-      const data = await fetch(
-        'https://artline-team10.herokuapp.com/Artline/usuarios/',
+
+    if (_user !== "" && _name !== "" && _email !== "" && _password !== "") {
+      const data = await fetch(HOST,
         {
           method: "POST",
           headers: {
-            "Accept": "application/json",
+            Accept: "application/json",
             "Content-Type": "application/json",
           },
           body: JSON.stringify(allInfo),
         }
       );
-      const userComplete = await data.json();
+      const userComplete = await data.text();
       console.log(userComplete);
     }
   };
@@ -68,7 +77,12 @@ function Signup_Card() {
             placeholder="Username"
             onChange={handleNewUser}
           />
-          {/* <TextField id="Age" label="Age *" placeholder="Age" /> */}
+          <TextField
+            id="fullName"
+            label="Full Name *"
+            placeholder="fullName"
+            onChange={handleNewName}
+          />
         </div>
         <TextField
           id="Email Address"
@@ -85,7 +99,9 @@ function Signup_Card() {
 
         <Button
           variant="contained"
-          onClick={() => createUserArtline(newUser, newEmail, newPassword)}
+          onClick={() =>
+            createUserArtline(newUser, newName, newEmail, newPassword)
+          }
         >
           Sign Up
         </Button>
