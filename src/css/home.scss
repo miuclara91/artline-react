@@ -1,7 +1,14 @@
-.header__box {
-    display: flex;
-    justify-content: center;
+.container{
+    background-image: url('../assets/home.jpg');
+    background-repeat: no-repeat;
+    background-size:cover;
+    max-width:max-content !important;
+    box-sizing: initial;
+    padding-bottom: 1%;
     .header__img {
-        width: 65%;
+        width: 100%;
+    }
+    .login{
+        margin-bottom: 0 !important;
     }
 }
