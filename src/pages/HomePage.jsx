@@ -16,7 +16,7 @@ const Home = (props) => {
   return (
     <ThemeProvider theme={Tema}>
       <Container className="container">
-        <Box sx={{height: 480, width:1500}} className="header__box"></Box>
+        <Box sx={{height: 440, width:1450}} className="header__box"></Box>
         <Box textAlign="center">
           <Button component={Link} to="/Signup" variant="contained">Sign Up </Button>
           <Box textAlign="center" mb={1}>
