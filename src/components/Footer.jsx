@@ -1,7 +1,12 @@
 import React from 'react';
-import { Divider, styled, Chip, Avatar, Box, IconButton, Tooltip, Typography } from '@mui/material';
+import { Divider, styled, Chip, Avatar, Box, IconButton, Tooltip, Typography, Stack } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import CelebrationIcon from '@mui/icons-material/Celebration';
+import GroupIcon from '@mui/icons-material/Group';
+import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
+import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
+import MoodIcon from '@mui/icons-material/Mood';
 import Logo from "../assets/logo2.png";
 import '../css/footer.scss';
 import Tema from '../helpers/Tema';
@@ -39,7 +44,7 @@ function Footer() {
                 <Box>
                     <Divider textAlign="left"><span className="azul_iris">Valores & Principios</span></Divider>
                     <Box ml={6} mt={2} mr={6}>
-                        Artline es una aplicación para dispositivos móviles que <strong className="azul_iris">se interesa en sus usuarios</strong>  y <strong className="azul_iris">sus necesidades</strong>.
+                        Artline es una aplicación que <strong className="azul_iris">se interesa en sus usuarios</strong>  y <strong className="azul_iris">sus necesidades</strong>.
 
                         Esto lo reflejamos en la <strong className="azul_iris">seguridad</strong>: hacia nuestros usuarios menores de edad, protegiéndolos de posibles predadores y contenido inadecuado; y hacia nuestros usuarios mayores de edad brindándoles un espacio libre de juicios negativos.
 
@@ -47,14 +52,27 @@ function Footer() {
                             ¡Tú puedes ser quien tú quieras en Artline!
                         </Typography>
 
-                        <h1>Artline es:</h1>
-                        <ul className="azul_iris">
+                        <Typography variant="h5" component="h1" textAlign="center" mb={3} fontStyle="bold"><strong>Artline es</strong></Typography>
+                        <Stack
+                            direction="row"
+                            divider={<Divider orientation="vertical" flexItem />}
+                            spacing={5}
+                            justifyContent="center"
+                            mb={4}
+                            >
+                            <Typography color="primary"><CelebrationIcon fontSize="small" />Divertido</Typography>
+                            <Typography color="primary"><MoodIcon fontSize="small" />Casual</Typography>
+                            <Typography color="primary"><AllInclusiveIcon fontSize="small" />Flexible</Typography>
+                            <Typography color="primary"><GroupIcon fontSize="small" />Amigable</Typography>
+                            <Typography color="primary"><ConnectWithoutContactIcon fontSize="small" />Nurturing</Typography>
+                        </Stack>
+                        {/* <ul className="azul_iris">
                             <li>Divertido</li>
                             <li>Casual</li>
                             <li>Flexible</li>
                             <li>Amigable</li>
                             <li>Nurturing</li>
-                        </ul>
+                        </ul> */}
                     </Box>
                 </Box>
                 <Divider>
