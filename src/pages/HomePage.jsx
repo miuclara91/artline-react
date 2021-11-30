@@ -1,10 +1,11 @@
 import React from "react";
 
-import { Box, Typography, Container, Button, Tooltip, IconButton, Fab } from "@mui/material";
+import { Box, Typography, Container } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 
 import "../css/home.scss";
 import Tema from "../helpers/Tema";
+
 
 import Postpage from "./PostPage";
 import Guestuser from "../components/GuestUser";
@@ -16,6 +17,7 @@ const Home = (props) => {
 
   return (
     <ThemeProvider theme={Tema}>
+      
       {isLogged ? <User /> : <Guestuser />}
 
 

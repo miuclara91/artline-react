@@ -56,7 +56,7 @@ function Footer() {
                         <Stack
                             direction="row"
                             divider={<Divider orientation="vertical" flexItem />}
-                            spacing={5}
+                            spacing={{ sm: 1, md: 5 }}
                             justifyContent="center"
                             mb={4}
                             >

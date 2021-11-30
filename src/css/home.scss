@@ -1,14 +1,17 @@
 .container{
-    background-image: url('../assets/home.jpg');
+    background-image: url('../assets/fondoHome.jpg');
     background-repeat: no-repeat;
     background-size:cover;
-    max-width:max-content !important;
-    box-sizing: initial;
-    padding-bottom: 1%;
-    .header__img {
-        width: 100%;
-    }
+    max-width: 100% !important;
+    padding: 0 0 1% 0;
     .login{
         margin-bottom: 0 !important;
+    }
+    .header__box{
+        .logo{
+            padding-top: 9%;
+            width: 36%;
+        }
+        height:57vh;
     }
 }

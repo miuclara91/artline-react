@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Box, Typography, Container, Button, Tooltip, IconButton, Fab } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Logo from "../assets/coloredLogo.png";
 
 import Tema from "../helpers/Tema";
 
@@ -10,7 +11,15 @@ const Guestuser = () => {
     return (
         <ThemeProvider theme={Tema}>
             <Container className="container">
-                <Box sx={{ height: 440, width: 1450 }} className="header__box"></Box>
+                <Box className="header__box" textAlign="center">
+                    <img src={Logo} alt="Logo" className="logo" />
+                    <Typography variant="h4" pt={7}>
+                        Welcome to Artline! The best platform for artist growth and community!
+                    </Typography>
+                    <Typography variant="h4" >
+                        Join us on the other side!
+                    </Typography>
+                </Box>
                 <Box textAlign="center">
                     <Button component={Link} to="/Signup" variant="contained">Sign Up </Button>
                     <Box textAlign="center" mb={1}>
@@ -18,7 +27,7 @@ const Guestuser = () => {
                         <Link to="/login">Log In</Link>
                     </Box>
                 </Box>
-                <Box textAlign="end">
+                <Box textAlign="end" pr={1}>
                     <Fab color="primary" aria-label="Deslice">
                         <Tooltip title={<Typography fontSize={14}>Desliza para ver las publicaciones en artline</Typography>} arrow placement="left" open="true" sx={{ fontSize: '18' }}>
                             <IconButton>
