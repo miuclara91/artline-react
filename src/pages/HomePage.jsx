@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+
 import { Box, Typography, Container, Button, Tooltip, IconButton, Fab } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 
@@ -8,6 +8,10 @@ import Tema from "../helpers/Tema";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Logo from "../assets/coloredLogo.png";
 import Post from '../components/Post';
+
+import Postpage from "./PostPage";
+import Guestuser from "../components/GuestUser";
+import User from "../components/User";
 
 const Home = (props) => {
   // despues de verificar que este logged el usuario permitirle ver alguna vista
@@ -43,16 +47,19 @@ const Home = (props) => {
         </Box>
       </Container>
       
+      {isLogged ? <User /> : <Guestuser />}
+
+
       <Container >
         <Box textAlign="center" mt={4}>
           <Typography variant="h3" fontFamily="Poppins">
             Lo que está pasando en el mundo artístico
           </Typography>
         </Box>
-
-        <Post userId=''></Post>
-
       </Container>
+
+      <Postpage />
+
     </ThemeProvider>
   );
 };
