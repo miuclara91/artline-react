@@ -11,9 +11,10 @@ import PostPage from "../pages/PostPage";
 import Login from "../pages/LoginPage";
 import Signup from "./Signup";
 import PerfilPage from "../pages/PerfilPage";
+import Notfound from "./NotFound";
 
 function App() {
-  const [user, setUser] = UserAPI("", "");
+  // const [user, setUser] = UserAPI("", "");
   const [userFake, setUserFake] = FakeAPI("", "");
 
   const [email, setEmail] = useLocalStorage("email", "");
@@ -24,7 +25,7 @@ function App() {
   const [bio, setBio] = useLocalStorage("bio", "");
 
   console.log(userFake[0]);
-  console.log(user); // esta variable tiene los datos de la API artline para que sean usados
+  // console.log(user); // esta variable tiene los datos de la API artline para que sean usados
 
   const handleLogging = (e => {
 
@@ -65,9 +66,10 @@ function App() {
             <HomePage isLogged={isLogged} usuarioFake={userFake[0]} setUser={setUserFake} />
           }
         </Route>
-        <Route path="/">
+        <Route path="/" exact>
           <HomePage isLogged={isLogged} usuario={userFake} />
         </Route>
+        <Route component={Notfound} />
       </Switch>
       <Footer />
     </Router>
