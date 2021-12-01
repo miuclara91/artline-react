@@ -1,9 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { useLocalStorage } from "../helpers/useLocalStorage";
-import FakeAPI from "../helpers/fakeAPI";
-import UserAPI from "../helpers/userAPI";
 import Header from "./Header";
 import Footer from './Footer';
 import HomePage from "../pages/HomePage";
@@ -14,29 +12,12 @@ import PerfilPage from "../pages/PerfilPage";
 import Notfound from "./NotFound";
 
 function App() {
-  // const [user, setUser] = UserAPI("", "");
-  const [userFake, setUserFake] = FakeAPI("", "");
+  const [user, setUser] = useState([]);
 
-  const [email, setEmail] = useLocalStorage("email", "");
-  const [password, setPassword] = useLocalStorage("password", "");
   const [isLogged, setIsLogged] = useLocalStorage("isLogged", false);
-  const [username, setUsername] = useLocalStorage("username", "");
-  const [nombre, setNombre] = useLocalStorage("nombre", "");
-  const [bio, setBio] = useLocalStorage("bio", "");
+  const [username] = useLocalStorage("username", "");
 
-  console.log(userFake[0]);
   // console.log(user); // esta variable tiene los datos de la API artline para que sean usados
-
-  const handleLogging = (e => {
-
-    if (email !== '' && password !== '') {
-      setIsLogged(true);
-      setUsername(userFake[0].username);
-      setEmail(userFake[0].email);
-      setNombre(userFake[0].name);
-      setBio(userFake[0].company.catchPhrase);
-    }
-  });
 
   const handleLogOut = (e => {
     setIsLogged(false);
@@ -47,28 +28,27 @@ function App() {
       <Header isLogging={isLogged} usuario={username} LogOut={handleLogOut} />
       <Switch>
         <Route path="/login">
-          {/* <Login isLogged={isLogged} Logged={handleLogging} email={email} setEmail={setEmail} password={password} setPassword={setPassword} /> */}
-          <Login email={email} setEmail={setEmail} password={password} setPassword={setPassword} />
+          <Login user={user} setUser={setUser} />
         </Route>
         <Route path="/Signup">
           <Signup />
         </Route>
         <Route path="/profile">
           {isLogged ?
-            <PerfilPage usuarioFake={userFake[0]} setUserFake={setUserFake} />
+            <PerfilPage />
             :
-            <HomePage isLogged={isLogged} usuarioFake={userFake[0]} setUser={setUserFake} />
+            <HomePage isLogged={isLogged} />
           }
         </Route>
         <Route path="/post">
           {isLogged ?
-            <PostPage isLogged={isLogged} usuario={userFake} />
+            <PostPage isLogged={isLogged} />
             :
-            <HomePage isLogged={isLogged} usuarioFake={userFake[0]} setUser={setUserFake} />
+            <HomePage isLogged={isLogged} />
           }
         </Route>
         <Route path="/" exact>
-          <HomePage isLogged={isLogged} usuario={userFake} />
+          <HomePage isLogged={isLogged} />
         </Route>
         <Route component={Notfound} />
       </Switch>

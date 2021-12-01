@@ -3,17 +3,20 @@ import { Box, Typography, Container, Tooltip, IconButton, Fab } from "@mui/mater
 import { ThemeProvider } from "@mui/material/styles";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Logo from "../assets/coloredLogo.png";
+import { useLocalStorage } from "../helpers/useLocalStorage";
 
 import Tema from "../helpers/Tema";
 
 const Guestuser = () => {
+    const [nombre] = useLocalStorage("nombre", "");
+
     return (
         <ThemeProvider theme={Tema}>
             <Container className="container">
                 <Box className="header__box" textAlign="center">
                     <img src={Logo} alt="Logo" className="logo" />
                     <Typography variant="h4" pt={7}>
-                        Welcome to Artline! The best platform for artist growth and community!
+                        Welcome to Artline! {nombre} The best platform for artist growth and community!
                     </Typography>
                     <Typography variant="h4" >
                         Join us on the other side!

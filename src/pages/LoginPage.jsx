@@ -1,24 +1,29 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Box, Button, Container, FormControl, FormControlLabel, FormGroup, Link, Switch, Typography, TextField, Grid, Stack } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 
 import Alerta from '../components/Alert';
 import { useLocalStorage } from "../helpers/useLocalStorage";
-import { API } from "../helpers/API";
 import imgLogin from '../assets/login.png';
 import imgLogo from '../assets/coloredLogo.png';
 import '../css/login.scss';
 import Tema from '../helpers/Tema';
 
 function Login(props) {
+    const { user, setUser } = props;
+
     const [open, setOpen] = useState(false);
     const [password, setPassword] = useState("");
-    //const { password, setPassword } = props;
+    const [textoRespuesta, setTextoRespuesta] = useState("");
 
+    // REVISAR A QUE NIVEL PONER ESTOS
     const [isLogged, setIsLogged] = useLocalStorage("isLogged", false);
     const [email, setEmail] = useLocalStorage("email", "");
+    const [token, setToken] = useLocalStorage("token", "");
     const [username, setUsername] = useLocalStorage("username", "");
     const [nombre, setNombre] = useLocalStorage("nombre", "");
+    const [bio, setBio] = useLocalStorage("bio", "");
+
     /*
         useEffect(() => {
             const opciones = {
@@ -46,40 +51,46 @@ function Login(props) {
         setPassword(event.target.value);
     };
 
-    const myHeader = new Headers({
+    /*const myHeader = new Headers({
         'Authorization': 'BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYTQwZmM0ZjI5ODUwMDAxNmEzZjBkZSIsInVzZXJuYW1lIjoibWFyeSIsImV4cCI6MTY0MzMyNTg5MiwiaWF0IjoxNjM4MTQxODkyfQ.1OV68O-B3-3S32WTqDNnNwfv6eHx5GndtT2Rk1K22j8',
         'Content-Type': 'application/json'
     });
-    /*
+    
         useEffect(() => {
             obtenerDatos();
         }, [open]);
     */
+
     const obtenerDatos = async () => {
         const opciones = {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYTQwZmM0ZjI5ODUwMDAxNmEzZjBkZSIsInVzZXJuYW1lIjoibWFyeSIsImV4cCI6MTY0MzMyNTg5MiwiaWF0IjoxNjM4MTQxODkyfQ.1OV68O-B3-3S32WTqDNnNwfv6eHx5GndtT2Rk1K22j8',
-            },
-            // headers: myHeader,
-            body: JSON.stringify({ email: email, password: password, username: "mary" })
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, password: password })
         };
 
-        console.log(":::", opciones);
         const data = await fetch(`https://artline-team10.herokuapp.com/artline/usuarios/entrar`, opciones);
         const user = await data.json();
         console.log("usuario: -> ", user);
-        // setUser(user);
+        if (user.error) {
+            setTextoRespuesta(user.error);
+        } else {
+            setIsLogged(true);
+            setUsername(user.username);
+            setEmail(user.email);
+            setToken(user.token);
+            setNombre(user.nombre);
+            setBio(user.bio);
+            setTextoRespuesta(`Bienvenid@ ${user.nombre} Disfruta de Artline. Cierra esta alerta para ver tu perfil`)
+        }
+        setUser(user);
     }
 
     const HandleLoggin = (event) => {
         //Logged(event); // pasa parametro al padre para guardar log
-        console.log(email, " - ", password);
         obtenerDatos();
-        // if (user)
-        // guardar en local
-        setIsLogged(true);
+        if (user !== undefined)
+            console.log("usuario: -> ", user);
+        // console.log("hay error"); // return 
         setOpen(true); // abre alerta
     };
 
@@ -91,14 +102,14 @@ function Login(props) {
                         setOpen={setOpen}
                         isLogged={isLogged}
                         type="success"
-                        text="Sesion iniciada. Disfruta de Artline. Cierra esta alerta para ver tu perfil"
+                        text={textoRespuesta}
                     />
                     :
                     <Alerta open={open}
                         setOpen={setOpen}
                         isLogged={isLogged}
                         type="warning"
-                        text="Llena los campos porfavor. Cualquier dato es válido"
+                        text={textoRespuesta}
                     />
             }
 

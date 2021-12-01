@@ -9,68 +9,17 @@ import {
   Divider,
   CardHeader
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 
-import { useLocalStorage } from "../helpers/useLocalStorage";
-
-
 const Post = (props) => {
   const { userId, data } = props;
-  console.log("data: ", data);
-  const [post, setPost] = useState([]);
   const [like, setLike] = useState(data.likes.length); // post.like
   const [isLiked, setIsLiked] = useState(false);
   let history = useHistory();
-  /*
-    useEffect(() => {
-      obtenerDatos();
-    }, []);
-  
-    const obtenerDatos = async () => {
-      if (userId !== '') {
-        const data = await fetch(
-          `https://artline-team10.herokuapp.com/artline/publicaciones/postBYusuario/${userId}`
-        );
-        const post = await data.json();
-        setPost(post);
-      } else {
-        const data = await fetch(
-          `https://artline-team10.herokuapp.com/artline/publicaciones`
-        );
-        const post = await data.json();
-        console.log(post);
-        setPost(post);
-      }
-    };
-  
-    const dataUser = {
-      foto: "https://www.dzoom.org.es/wp-content/uploads/2020/02/portada-foto-perfil-redes-sociales-consejos.jpg",
-    };
-  
-    function verComentario(postId) {
-      // history.push(`/comentarios/${postId}`);
-      // history.push(`/comentarios/id`);
-      // alert('falta mandar a la ruta de comentario por id de publicacion' + postId);
-      console.log(postId);
-    }
-  
-    function getFecha(date) { // Funcion para convertir la fecha en formato largo
-      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-      const fecha = new Date(date);
-      return fecha.toLocaleDateString("es-ES", options)
-    }
-  
-    const handleLike = () => { // Manejo del like
-      setLike(isLiked ? like - 1 : like + 1);
-      setIsLiked(!isLiked);
-      console.log(like);
-    };
-  */
-
 
   const dataUser = {
     foto: "https://www.dzoom.org.es/wp-content/uploads/2020/02/portada-foto-perfil-redes-sociales-consejos.jpg",
@@ -84,6 +33,7 @@ const Post = (props) => {
   const handleLike = () => { // Manejo del like
     setLike(isLiked ? like - 1 : like + 1);
     setIsLiked(!isLiked);
+    // UPDATE A PUBLICACION
     console.log(like);
   };
 

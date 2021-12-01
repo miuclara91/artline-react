@@ -59,7 +59,7 @@ const CardPerfil = (props) => {
     const [nombre, setNombre] = useLocalStorage("nombre", "");
     const [bio, setBio] = useLocalStorage("bio", "");
 
-    const [value, setValue] = React.useState(0);//Valor de los botones de galeria,favoritos,colecciones
+    const [value, setValue] = useState(0);//Valor de los botones de galeria,favoritos,colecciones
 
     const handleChange = (event, newValue) => {//Manejar el valor del tab seleccionado
         setValue(newValue);

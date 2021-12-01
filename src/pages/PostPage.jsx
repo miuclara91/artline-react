@@ -35,10 +35,6 @@ const Postpage = (props) => {
         }
     };
 
-    const dataUser = {
-        foto: "https://www.dzoom.org.es/wp-content/uploads/2020/02/portada-foto-perfil-redes-sociales-consejos.jpg",
-    };
-
     return (
         <>
             <Container className="fondoPosts">
