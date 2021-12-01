@@ -47,7 +47,8 @@ function App() {
       <Header isLogging={isLogged} usuario={username} LogOut={handleLogOut} />
       <Switch>
         <Route path="/login">
-          <Login isLogged={isLogged} Logged={handleLogging} email={email} setEmail={setEmail} password={password} setPassword={setPassword} />
+          {/* <Login isLogged={isLogged} Logged={handleLogging} email={email} setEmail={setEmail} password={password} setPassword={setPassword} /> */}
+          <Login email={email} setEmail={setEmail} password={password} setPassword={setPassword} />
         </Route>
         <Route path="/Signup">
           <Signup />
