@@ -12,6 +12,8 @@ Artline en una SPA (Single Page Application) desarrollada con React <img src="ht
 
 Artline está conectada a su propia [API](https://artline-team10.herokuapp.com/artline) que se encuentra alojada en la plataforma <img src="https://iconape.com/wp-content/files/xn/371066/svg/371066.svg" alt="logo React" height="15px"> Heroku, permitiendo acceder a datos de sus usuarios artistas, obras y múltiples endpoints que permiten el buen funcionamiento de Artline.
 
+[Flujo de trabajo](https://github.com/miuclara91/artline-react/wiki/Flujo-de-trabajo)
+
 ## Mockups :newspaper:
 Para la implementación de este proyecto se desarrollaron mockups con la herramienta Figma, pueden ser consultados en [Mockups Artline](https://www.figma.com/file/BEm1hFyzY2Pi6PwsH1ubYW/Untitled?node-id=0%3A1). 
 Para consultar la documentación general de Artline puede acceder [aquí](https://www.behance.net/gallery/126576155/Case-study-Artline). 
