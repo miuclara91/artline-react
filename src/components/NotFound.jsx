@@ -1,18 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import HomeIcon from '@mui/icons-material/Home';
+import { Box, Typography, Container, Button} from "@mui/material";
+import { ThemeProvider } from "@mui/material/styles";
+import Logo from "../assets/error-404.png";
+import "../css/notFound.scss";
+import Tema from "../helpers/Tema";
 
 const Notfound = () => {
     return (
-        <div>
-            <p>Not Found</p>
-            <p>La pagina que buscas no exite</p>
-            <p> y una imagen podria aparecer</p>
-            <Link to="/">
-                Ir a territorio conocido
-                <ArrowBackIcon color="secondary" />
-            </Link>
-        </div>
+        <ThemeProvider theme={Tema}>
+            <Container className="containerNotfound">
+                <Box className="header__boxNotfound" textAlign="center">
+                    <img src={Logo} alt="Logo" className="logoNotfound" />
+                    <Typography variant="h5" py={2} sx={{fontWeight:"bold"}}>
+                        Esta página no está disponible
+                    </Typography>
+                    <Button component={Link} to="/" variant="contained"> Ir a Home <HomeIcon fontSize="small" sx={{paddingLeft:1}}/> </Button>
+                </Box>
+            </Container>
+        </ThemeProvider>
     );
 }
 

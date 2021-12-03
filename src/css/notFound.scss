@@ -1,0 +1,36 @@
+.containerNotfound{
+    background-image: url('../assets/notFound.jpg');
+    background-repeat:no-repeat;
+    background-size:cover;
+    max-width: 100% !important;
+    padding: 0 0 8% 0;
+}
+@media (min-width:1200px) {
+    .header__boxNotfound{
+        .logoNotfound{
+            padding-top: 9%;
+            width: 15%;
+        }
+        height:65vh;
+    }
+}
+
+@media (max-width:1200px) {
+    .header__boxNotfound{
+        .logoNotfound{
+            padding-top: 15%;
+            width: 20%;
+        }
+        height:70vh;
+    }
+}
+
+@media (max-width:685px) {
+    .header__boxNotfound{
+        .logoNotfound{
+            padding-top: 25%;
+            width: 35%;
+        }
+        height:75vh;
+    }
+}
