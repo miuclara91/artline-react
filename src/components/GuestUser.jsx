@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Box, Typography, Container, Button, Tooltip, IconButton, Fab } from "@mui/material";
+import { Box, Typography, Container, Button, Tooltip, Fab } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Logo from "../assets/coloredLogo.png";

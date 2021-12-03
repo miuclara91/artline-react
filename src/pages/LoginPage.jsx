@@ -132,7 +132,6 @@ function Login(props) {
                             <FormControl fullWidth>
                                 <TextField
                                     type="email"
-                                    id="outlined-basic"
                                     label="Email Address"
                                     value={email}
                                     onChange={handleEmailChange}
@@ -141,7 +140,6 @@ function Login(props) {
                                 />
 
                                 <TextField
-                                    id="outlined-basic"
                                     type="password"
                                     label="Password"
                                     value={password}
