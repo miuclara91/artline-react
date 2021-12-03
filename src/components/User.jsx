@@ -27,13 +27,11 @@ const Guestuser = () => {
                 es decir llamar a componente new post
 
                 <Box textAlign="end" pr={1}>
-                    <Fab color="primary" aria-label="Deslice">
-                        <Tooltip title={<Typography fontSize={14}>Desliza para ver las publicaciones en artline</Typography>} arrow placement="left" open="true" sx={{ fontSize: '18' }}>
-                            <IconButton>
-                                <ExpandMoreIcon htmlColor="white" />
-                            </IconButton>
-                        </Tooltip>
-                    </Fab>
+                    <Tooltip title={<Typography fontSize={14}>Desliza para ver las publicaciones en artline</Typography>} arrow placement="left" open={true} sx={{ fontSize: '18' }}>
+                        <Fab color="primary">
+                            <ExpandMoreIcon />
+                        </Fab>
+                    </Tooltip>
                 </Box>
             </Container>
         </ThemeProvider>
