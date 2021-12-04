@@ -93,6 +93,7 @@ function Signup_Card() {
         <TextField
           id="Password"
           label="Password *"
+          type="password"
           placeholder="Password"
           onChange={handleNewPassword}
         />
