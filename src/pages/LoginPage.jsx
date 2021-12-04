@@ -1,29 +1,23 @@
 import { useState } from 'react';
+//Components Material UI
 import { Box, Button, Container, FormControl, FormControlLabel, FormGroup, Link, Switch, Typography, TextField, Grid, Stack } from '@mui/material';
-import { ThemeProvider } from '@mui/material/styles';
-
+//Components
 import Alerta from '../components/Alert';
-import { useLocalStorage } from "../helpers/useLocalStorage";
+//Assets
 import imgLogin from '../assets/login.png';
 import imgLogo from '../assets/coloredLogo.png';
-import '../css/login.scss';
+//Style
+import { ThemeProvider } from '@mui/material/styles';
 import Tema from '../helpers/Tema';
+import '../css/login.scss';
 
 function Login(props) {
-    const { user, setUser } = props;
+    const { user, setUser, isLogged, setIsLogged } = props;
 
     const [open, setOpen] = useState(false);
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [textoRespuesta, setTextoRespuesta] = useState("");
-
-    // REVISAR A QUE NIVEL PONER ESTOS
-    const [isLogged, setIsLogged] = useLocalStorage("isLogged", false);
-    const [email, setEmail] = useLocalStorage("email", "");
-    const [token, setToken] = useLocalStorage("token", "");
-    const [username, setUsername] = useLocalStorage("username", "");
-    const [nombre, setNombre] = useLocalStorage("nombre", "");
-    const [bio, setBio] = useLocalStorage("bio", "");
-
     /*
         useEffect(() => {
             const opciones = {
@@ -75,14 +69,14 @@ function Login(props) {
             setTextoRespuesta(user.error);
         } else {
             setIsLogged(true);
-            setUsername(user.username);
-            setEmail(user.email);
-            setToken(user.token);
-            setNombre(user.nombre);
-            setBio(user.bio);
             setTextoRespuesta(`Bienvenid@ ${user.nombre} Disfruta de Artline. Cierra esta alerta para ver tu perfil`)
         }
-        setUser(user);
+        setUser({
+            username: user.username,
+            email: user.email,
+            nombre: user.nombre,
+            bio: user.bio
+        });
     }
 
     const HandleLoggin = (event) => {
@@ -112,7 +106,6 @@ function Login(props) {
                         text={textoRespuesta}
                     />
             }
-
             <Container className="login__container">
                 <Grid container >
                     <Grid item xs={6}>
@@ -125,7 +118,6 @@ function Login(props) {
                             <Box textAlign="center" mt={1}>
                                 <img src={imgLogo} alt="LogoImage" ></img>
                             </Box>
-
                             <Box textAlign="center" mt={1} mb={1}>
                                 <Typography>Log in</Typography>
                             </Box>
@@ -138,7 +130,6 @@ function Login(props) {
                                     margin="normal"
                                     required
                                 />
-
                                 <TextField
                                     type="password"
                                     label="Password"
@@ -147,15 +138,11 @@ function Login(props) {
                                     margin="normal"
                                     required
                                 />
-
                                 <FormGroup >
                                     <FormControlLabel control={<Switch defaultChecked />} label="Remember me" />
                                 </FormGroup>
-
                                 <Button type="submit" onClick={HandleLoggin} variant="contained" >LOG IN</Button>
-
                             </FormControl>
-
                             <Stack
                                 direction={{ xs: 'column', sm: 'row' }}
                                 justifyContent="space-between"
@@ -166,12 +153,10 @@ function Login(props) {
                                 <Link href="#" >Forgot password?</Link>
                                 <Link href="/signup">Don’t have an account? Sign Up</Link>
                             </Stack>
-
                         </Container>
                     </Grid>
                 </Grid>
             </Container>
-
         </ThemeProvider >
     );
 }

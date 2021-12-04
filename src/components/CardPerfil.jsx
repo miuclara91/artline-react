@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+//Components Material UI
 import { Button, Card, CardActions, CardContent, Container, Typography, Avatar, Tab, Tabs, Box } from '@mui/material';
+//Components
 import FormDialog from './FormDialog';
 import Galeria from './Galeria';
 import Favoritos from './Favoritos';
 import Cards from './Cards';
-import '../css/Perfil.css';
-
 //Icons
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import BrushIcon from '@mui/icons-material/Brush';
 import CollectionsIcon from '@mui/icons-material/Collections';
-
+//Style
 import { styled } from '@mui/material/styles';
-import { useLocalStorage } from '../helpers/useLocalStorage';
+import '../css/Perfil.css';
 
 const ColorButton = styled(Button)({
     color: '#000000',
@@ -36,9 +36,7 @@ function TabPanel(props) {
             {...other}
         >
             {value === index && (
-                // <Box sx={{ p: 3 }}>
                 <Typography variant='div'>{children}</Typography>
-                // </Box>
             )}
         </div>
     );
@@ -51,13 +49,15 @@ TabPanel.propTypes = {
 };
 
 const CardPerfil = (props) => {
+    const { user, setUser } = props;
+
     const [editar, setEditar] = useState(false);
 
     // obtenemos la informacion guardada en LocalStorage
-    const [email, setEmail] = useLocalStorage("email", "");
-    const [username, setUsername] = useLocalStorage("username", "");
-    const [nombre, setNombre] = useLocalStorage("nombre", "");
-    const [bio, setBio] = useLocalStorage("bio", "");
+    const [email, setEmail] = useState(user.email);
+    const [username, setUsername] = useState(user.username);
+    const [nombre, setNombre] = useState(user.nombre);
+    const [bio, setBio] = useState(user.bio);
 
     const [value, setValue] = useState(0);//Valor de los botones de galeria,favoritos,colecciones
 
@@ -89,7 +89,6 @@ const CardPerfil = (props) => {
             <div className="fondoPerfil"></div>
             <div className="cardProfile">
                 <Card className="card">
-                    {/* <div className="infoPerfil"> */}
                     <CardActions sx={{ justifyContent: 'right' }}>
                         <ColorButton className="navButton" onClick={handleEditar} sx={{ justify: 'right', marginRight: '2%' }}>Editar</ColorButton>
                     </CardActions>
@@ -101,16 +100,16 @@ const CardPerfil = (props) => {
                             sx={{ width: 151, height: 151 }}
                         />
                         <Typography variant="h4" component="h4">
-                            {nombre}
+                            {user.nombre}
                         </Typography>
                         <Typography variant="body2">
-                            {bio}
+                            {user.bio}
                         </Typography>
                         <Typography variant="h5" component="h5">
-                            @{username}
+                            @{user.username}
                         </Typography>
                         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                            email: {email}
+                            email: {user.email}
                         </Typography>
 
                         <Box

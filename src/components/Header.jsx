@@ -1,35 +1,21 @@
 import React, { useState } from "react";
 import { NavLink as Pages } from "react-router-dom";
 import { useHistory, useLocation } from "react-router";
-// imports de componentes de material ui
-import {
-  Box,
-  AppBar,
-  Toolbar,
-  Button,
-  IconButton,
-  Menu,
-  Badge,
-  MenuItem,
-  Tooltip,
-  Fade,
-} from "@mui/material";
-import { ThemeProvider } from "@mui/material/styles";
-// imports de iconos de material ui
-import {
-  Menu as MenuIcon,
-  AccountCircle,
-  Mail as MailIcon,
-} from "@mui/icons-material";
+//Components Material UI
+import {Box,AppBar, Toolbar, Button, IconButton, Menu, Badge, MenuItem, Tooltip, Fade} from "@mui/material";
+//Icons
+import { Menu as MenuIcon, AccountCircle, Mail as MailIcon} from "@mui/icons-material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
-// imports locales
+// Assets
 import Logo from "../assets/logo.png";
-import "../css/header.scss";
+//Style
+import { ThemeProvider } from "@mui/material/styles";
 import Tema from "../helpers/Tema";
+import "../css/header.scss";
 
 function Header(props) {
-  const { isLogging, usuario, LogOut } = props;
+  const { isLogging, user, LogOut } = props;
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
@@ -134,7 +120,7 @@ function Header(props) {
         >
           <AccountCircle />
         </IconButton>
-        <p>{usuario}</p>
+        <p>{user}</p>
       </MenuItem>
     </Menu>
   );
@@ -217,7 +203,7 @@ function Header(props) {
                     color="inherit"
                   >
                     <Tooltip
-                      title={usuario}
+                      title={user}
                       TransitionComponent={Fade}
                       TransitionProps={{ timeout: 600 }}
                     >
