@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { useLocalStorage } from "../helpers/useLocalStorage";
@@ -12,11 +12,8 @@ import PerfilPage from "../pages/PerfilPage";
 import Notfound from "./NotFound";
 
 function App() {
-  const [user, setUser] = useState([]);
-
+  const [user, setUser] = useLocalStorage("user", "");
   const [isLogged, setIsLogged] = useLocalStorage("isLogged", false);
-  const [username] = useLocalStorage("username", "");
-
   // console.log(user); // esta variable tiene los datos de la API artline para que sean usados
 
   const handleLogOut = (e => {
@@ -25,17 +22,17 @@ function App() {
 
   return (
     <Router>
-      <Header isLogging={isLogged} usuario={username} LogOut={handleLogOut} />
+      <Header isLogging={isLogged} user={user.username} LogOut={handleLogOut} />
       <Switch>
         <Route path="/login">
-          <Login user={user} setUser={setUser} />
+          <Login user={user} setUser={setUser} isLogged={isLogged} setIsLogged={setIsLogged} />
         </Route>
         <Route path="/Signup">
           <Signup />
         </Route>
         <Route path="/profile">
           {isLogged ?
-            <PerfilPage />
+            <PerfilPage isLogged={isLogged} user={user} setUser={setUser} />
             :
             <HomePage isLogged={isLogged} />
           }
@@ -48,7 +45,7 @@ function App() {
           }
         </Route>
         <Route path="/" exact>
-          <HomePage isLogged={isLogged} />
+          <HomePage isLogged={isLogged} user={user} />
         </Route>
         <Route component={Notfound} />
       </Switch>
