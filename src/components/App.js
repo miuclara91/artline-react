@@ -28,7 +28,7 @@ function App() {
           <Login user={user} setUser={setUser} isLogged={isLogged} setIsLogged={setIsLogged} />
         </Route>
         <Route path="/Signup">
-          <Signup />
+          <Signup isLogged={isLogged} setIsLogged={setIsLogged}/>
         </Route>
         <Route path="/profile">
           {isLogged ?
