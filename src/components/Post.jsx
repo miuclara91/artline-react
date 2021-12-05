@@ -11,13 +11,16 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
+import Comentarios from "./PostDetalle";
 
 const Post = (props) => {
   const { userId, data } = props;
   const [like, setLike] = useState(data.likes.length); // post.like
+
   const [isLiked, setIsLiked] = useState(false);
   let history = useHistory();
 
@@ -35,6 +38,20 @@ const Post = (props) => {
     setIsLiked(!isLiked);
     // UPDATE A PUBLICACION
     console.log(like);
+  };
+
+  const handleComentario = (id) => { // Manejo del comentario
+    history.push(`/post/detalle/${data._id}`);
+
+    // <Link to="/post/comentarios:id" component={Comentarios} />
+
+
+    // history.push({
+    //   pathname: '/comentarios',
+    //   state: { fromDashboard: true },
+    //   postId: id
+    // });
+    console.log(id);
   };
 
   return (
@@ -71,13 +88,21 @@ const Post = (props) => {
 
         <CardActions>
           <IconButton aria-label="add to favorites">
+            {
+              data.likes.map((item) => {
+                if (data.idUsuario === item)
+                  isLiked = true;
+                console.log(item);
+                console.log(data.idUsuario);
+              })
+            }
             <FavoriteIcon />
-            <Typography style={{ margin: 10 }} onClick={handleLike} >Like</Typography>
+            <Typography style={{ margin: 10 }} onClick={handleLike} >Like {data.likes[0]} </Typography>
           </IconButton>
 
           <IconButton>
             <ChatBubbleIcon />
-            <Typography style={{ margin: 10 }} >Comment</Typography>
+            <Typography style={{ margin: 10 }} onClick={() => handleComentario(data._id)}>Comment</Typography>
           </IconButton>
 
           <IconButton aria-label="share">

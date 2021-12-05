@@ -8,6 +8,7 @@ import HomePage from "../pages/HomePage";
 import PostPage from "../pages/PostPage";
 import Login from "../pages/LoginPage";
 import Signup from "./Signup";
+import Comentarios from "./PostDetalle";
 import PerfilPage from "../pages/PerfilPage";
 import Notfound from "./NotFound";
 
@@ -37,12 +38,15 @@ function App() {
             <HomePage isLogged={isLogged} />
           }
         </Route>
-        <Route path="/post">
+        <Route exact path="/post">
           {isLogged ?
             <PostPage isLogged={isLogged} />
             :
             <HomePage isLogged={isLogged} />
           }
+        </Route>
+        <Route path="/post/detalle/:id">
+          <Comentarios />
         </Route>
         <Route path="/" exact>
           <HomePage isLogged={isLogged} user={user} />

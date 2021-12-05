@@ -35,6 +35,10 @@ const Postpage = (props) => {
         }
     };
 
+    const handleComentario = () => {
+
+    };
+
     return (
         <>
             <Container className="fondoPosts">
