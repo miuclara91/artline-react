@@ -7,6 +7,8 @@ import FormDialog from './FormDialog';
 import Galeria from './Galeria';
 import Favoritos from './Favoritos';
 import Cards from './Cards';
+import Newpost from './NewPost'
+
 //Icons
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import BrushIcon from '@mui/icons-material/Brush';
@@ -14,7 +16,6 @@ import CollectionsIcon from '@mui/icons-material/Collections';
 //Style
 import { styled } from '@mui/material/styles';
 import '../css/Perfil.css';
-
 const ColorButton = styled(Button)({
     color: '#000000',
     justifyContent: 'right',
@@ -52,13 +53,13 @@ const CardPerfil = (props) => {
     const { user, setUser } = props;
 
     const [editar, setEditar] = useState(false);
-
+    const [Post, setNewPost] = useState(false);
     // obtenemos la informacion guardada en LocalStorage
     const [email, setEmail] = useState(user.email);
     const [username, setUsername] = useState(user.username);
     const [nombre, setNombre] = useState(user.nombre);
     const [bio, setBio] = useState(user.bio);
-
+    const [idU, setId] = useState(user.id);
     const [value, setValue] = useState(0);//Valor de los botones de galeria,favoritos,colecciones
 
     const handleChange = (event, newValue) => {//Manejar el valor del tab seleccionado
@@ -67,6 +68,9 @@ const CardPerfil = (props) => {
 
     const handleEditar = (event) => { // Manejo del Dialog
         setEditar(!editar);
+    };
+    const handleNewPost = (event) => { // Manejo del Dialog
+        setNewPost(!Post);
     };
     const handleUsernameChange = (event) => {
         setUsername(event.target.value);
@@ -90,6 +94,7 @@ const CardPerfil = (props) => {
             <div className="cardProfile">
                 <Card className="card">
                     <CardActions sx={{ justifyContent: 'right' }}>
+                        <ColorButton className="navButton" onClick={handleNewPost} sx={{ justify: 'right', marginRight: '2%' }}>NUEVO POST</ColorButton>
                         <ColorButton className="navButton" onClick={handleEditar} sx={{ justify: 'right', marginRight: '2%' }}>Editar</ColorButton>
                     </CardActions>
                     <CardContent className="descripcion">
@@ -140,6 +145,14 @@ const CardPerfil = (props) => {
                     </CardContent>
                 </Card>
                 <Container>
+                    <Newpost
+                        open={Post}
+                        handleNewPost={handleNewPost}
+                        id={idU}
+                    />
+
+                </Container>
+                <Container>
                     <FormDialog
                         open={editar}
                         handleEditar={handleEditar}
@@ -157,7 +170,7 @@ const CardPerfil = (props) => {
 
 
 CardPerfil.propTypes = {
-    //
+    //f
 };
 
 

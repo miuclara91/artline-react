@@ -75,7 +75,8 @@ function Login(props) {
             username: user.username,
             email: user.email,
             nombre: user.nombre,
-            bio: user.bio
+            bio: user.bio,
+            id: user.id,
         });
     }
 
