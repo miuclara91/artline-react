@@ -71,20 +71,21 @@ function Login(props) {
             setIsLogged(true);
             setTextoRespuesta(`Bienvenid@ ${user.nombre} Disfruta de Artline. Cierra esta alerta para ver tu perfil`)
         }
-        setUser({
+        /*setUser({
             username: user.username,
             email: user.email,
             nombre: user.nombre,
             bio: user.bio,
             id: user.id,
-        });
+        });*/
+        setUser(user)
     }
 
     const HandleLoggin = (event) => {
         //Logged(event); // pasa parametro al padre para guardar log
         obtenerDatos();
         if (user !== undefined)
-            console.log("usuario: -> ", user);
+            console.log("usuario HandleLoggin: -> ", user);
         // console.log("hay error"); // return 
         setOpen(true); // abre alerta
     };

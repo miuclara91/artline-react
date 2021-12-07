@@ -20,12 +20,13 @@ const Postpage = (props) => {
     const obtenerDatos = async () => {
         // si islogged mostrar publicaciones de amigos
         // si no mostrar todo ramdom
-        if (!isLogged) { // info random
+        if (isLogged === "false") { // info random
             const data = await fetch(
                 `https://artline-team10.herokuapp.com/artline/publicaciones`
             );
-            const post = await data.json();
-            setPost(post);
+            const postResponse = await data.json();
+            console.log(postResponse)
+            setPost(postResponse);
         } else { // info propia y (amigos future)
             const data = await fetch(
                 `https://artline-team10.herokuapp.com/artline/publicaciones/postBYusuario/${userId}`

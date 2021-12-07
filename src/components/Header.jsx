@@ -203,7 +203,7 @@ function Header(props) {
                     color="inherit"
                   >
                     <Tooltip
-                      title={user}
+                      title= {user !== undefined ? user : ""}
                       TransitionComponent={Fade}
                       TransitionProps={{ timeout: 600 }}
                     >
