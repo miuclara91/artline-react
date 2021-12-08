@@ -10,7 +10,8 @@ import '../css/PostsPage.scss';
 
 const Postpage = (props) => {
     const [isLogged] = useLocalStorage("isLogged", "");
-    const [userId, setUserId] = useLocalStorage("userId", "614f5fdefe1ce23824bca80d");
+    const [user] = useLocalStorage("user", "");
+
     const [post, setPost] = useState([]);
 
     useEffect(() => {
@@ -28,15 +29,11 @@ const Postpage = (props) => {
             setPost(post);
         } else { // info propia y (amigos future)
             const data = await fetch(
-                `https://artline-team10.herokuapp.com/artline/publicaciones/postBYusuario/${userId}`
+                `https://artline-team10.herokuapp.com/artline/publicaciones/postBYusuario/${user.id}`
             );
             const post = await data.json();
             setPost(post);
         }
-    };
-
-    const handleComentario = () => {
-
     };
 
     return (

@@ -5,11 +5,12 @@ import { Container } from '@mui/material';
 import CardPerfil from '../components/CardPerfil';
 
 const PerfilPage = (props) => {
-    const { user, setUser } = props;
+    // const { user, setUser } = props;
 
     return (
         <Container>
-            < CardPerfil user={user} setUser={setUser} />
+            {/* < CardPerfil user={user} setUser={setUser} /> */}
+            < CardPerfil />
         </Container>
     );
 }

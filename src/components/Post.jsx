@@ -9,7 +9,7 @@ import {
   Divider,
   CardHeader
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -18,11 +18,25 @@ import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import Comentarios from "./PostDetalle";
 
 const Post = (props) => {
-  const { userId, data } = props;
-  const [like, setLike] = useState(data.likes.length); // post.like
+  const { data } = props;
+  const URL = 'https://artline-team10.herokuapp.com/artline/publicaciones/';
+
+  const [likes, setLikes] = useState(data.likes.length);
 
   const [isLiked, setIsLiked] = useState(false);
+
   let history = useHistory();
+
+  useEffect(() => {
+    estadoInicial();
+  }, [isLiked]);
+
+  const estadoInicial = () => {
+    data.likes.map((item) => {
+      if (data.idUsuario === item)
+        setIsLiked(true);
+    });
+  };
 
   const dataUser = {
     foto: "https://www.dzoom.org.es/wp-content/uploads/2020/02/portada-foto-perfil-redes-sociales-consejos.jpg",
@@ -33,12 +47,28 @@ const Post = (props) => {
     const fecha = new Date(date);
     return fecha.toLocaleDateString("es-ES", options)
   }
+
   const handleLike = () => { // Manejo del like
-    setLike(isLiked ? like - 1 : like + 1);
+
+    // aumenta los likes del post localmente
+    console.log(likes, isLiked);
+    setLikes(isLiked ? likes - 1 : likes + 1);
     setIsLiked(!isLiked);
+
     // UPDATE A PUBLICACION
-    console.log(like);
+
+    // guardarLike();
+    console.log(likes);
   };
+
+  const guardarLike = async () => {
+    const opciones = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ likes: '' }) // kshflkahfhdhf       revisar
+    }
+    const data = await fetch(URL, opciones);
+  }
 
   const handleComentario = (id) => { // Manejo del comentario
     history.push(`/post/detalle/${data._id}`);
@@ -78,7 +108,7 @@ const Post = (props) => {
 
         <CardActions >
           <IconButton aria-label="resume" >
-            <Typography style={{ margin: 10 }}>{data.likes.length} Likes </Typography>
+            <Typography style={{ margin: 10 }}>{likes} Likes </Typography>
 
             <Typography style={{ margin: 10 }}># Comments</Typography>
 
@@ -87,18 +117,19 @@ const Post = (props) => {
         </CardActions>
 
         <CardActions>
-          <IconButton aria-label="add to favorites">
-            {
-              data.likes.map((item) => {
-                if (data.idUsuario === item)
-                  isLiked = true;
-                console.log(item);
-                console.log(data.idUsuario);
-              })
-            }
-            <FavoriteIcon />
-            <Typography style={{ margin: 10 }} onClick={handleLike} >Like {data.likes[0]} </Typography>
-          </IconButton>
+          {
+            isLiked ?
+              <IconButton aria-label="add to favorites" color="secondary" onClick={handleLike}>
+                <FavoriteIcon />
+                <Typography style={{ margin: 10 }} >Like </Typography>
+              </IconButton>
+              :
+              <IconButton aria-label="add to favorites" onClick={handleLike} >
+                <FavoriteIcon />
+                <Typography style={{ margin: 10 }} >Like </Typography>
+              </IconButton>
+          }
+
 
           <IconButton>
             <ChatBubbleIcon />
