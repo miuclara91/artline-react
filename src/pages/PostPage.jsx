@@ -9,6 +9,7 @@ import { useLocalStorage } from '../helpers/useLocalStorage';
 import '../css/PostsPage.scss';
 
 const Postpage = (props) => {
+    const URLBase = 'https://artline-team10.herokuapp.com/artline/publicaciones';
     const [isLogged] = useLocalStorage("isLogged", "");
     const [user] = useLocalStorage("user", "");
 
@@ -22,15 +23,11 @@ const Postpage = (props) => {
         // si islogged mostrar publicaciones de amigos
         // si no mostrar todo ramdom
         if (!isLogged) { // info random
-            const data = await fetch(
-                `https://artline-team10.herokuapp.com/artline/publicaciones`
-            );
+            const data = await fetch(URLBase);
             const post = await data.json();
             setPost(post);
         } else { // info propia y (amigos future)
-            const data = await fetch(
-                `https://artline-team10.herokuapp.com/artline/publicaciones/postBYusuario/${user.id}`
-            );
+            const data = await fetch(`${URLBase}/postBYusuario/${user.id}`);
             const post = await data.json();
             setPost(post);
         }

@@ -7,7 +7,8 @@ import {
   CardActions,
   IconButton,
   Divider,
-  CardHeader
+  CardHeader,
+  Button
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -15,6 +16,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import { useLocalStorage } from '../helpers/useLocalStorage';
+import AlertaSesion from "./AlertaSesion";
 
 const Post = (props) => {
   const { data } = props;
@@ -22,9 +24,10 @@ const Post = (props) => {
   const [isLogged] = useLocalStorage("isLogged");
   const URL = 'https://artline-team10.herokuapp.com/artline/publicaciones/';
 
-  const [likes, setLikes] = useState(data.likes.length);
 
+  const [likes, setLikes] = useState(data.likes.length);
   const [isLiked, setIsLiked] = useState(false);
+  const [openAlerta, setOpenAlerta] = useState(false);
 
   let history = useHistory();
 
@@ -52,33 +55,22 @@ const Post = (props) => {
   const handleLike = () => { // Manejo del like
     if (isLogged) { // UPDATE A PUBLICACION
       // aumenta los likes del post localmente
-      // console.log(likes, isLiked);
-
-
       setLikes(isLiked ? likes - 1 : likes + 1);
       setIsLiked(!isLiked);
-      // console.log('Bienvenido')
-      // crear endpoint
-      // console.log("incluido:", data.likes.includes(user.id));
-
-
 
       if (data.likes.includes(user.id)) { // YA DI LIKE A ESTE POST (eliminar Like)
         const newData = data.likes;
         const posicion = newData.indexOf(user.id);
-        // console.log("a eliminar: ", newData[posicion]);
         newData.splice(posicion, 1);
-        // console.log("nuevo array del: ", newData);
         modificarLike(newData);
       } else {// (guardar Like)
         const newData = data.likes;
         newData.push(user.id);
-        // console.log("nuevo array add: ", newData);
         modificarLike(newData);
       }
 
     } else {
-      alert('inicie sesion para continuar');
+      handleOpenAlerta();
     }
   };
 
@@ -88,24 +80,27 @@ const Post = (props) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ likes: newData })
     }
-    const response = await fetch(`${URL}/${user.id}`, opciones);
-    const data = await response.json();
-    console.log("cambiado: ", data);
+    const response = await fetch(`${URL}${data._id}`, opciones);
+    const datos = await response.json();
+    console.log("cambiado: ", datos);
   }
 
   const handleComentario = (id) => { // Manejo del comentario
-    history.push(`/post/detalle/${data._id}`);
-
-    // <Link to="/post/comentarios:id" component={Comentarios} />
-
-
-    // history.push({
-    //   pathname: '/comentarios',
-    //   state: { fromDashboard: true },
-    //   postId: id
-    // });
-    console.log(id);
+    if (isLogged) { // UPDATE A PUBLICACION
+      history.push(`/post/detalle/${data._id}`);
+    } else {
+      handleOpenAlerta();
+    }
   };
+
+  // Alerta
+  const handleOpenAlerta = () => {
+    setOpenAlerta(true);
+  };
+  const handleCloseAlerta = () => {
+    setOpenAlerta(false);
+  };
+
 
   return (
     <>
@@ -167,6 +162,7 @@ const Post = (props) => {
       </Card>
       <Divider variant="middle" />
       <Divider variant="middle" />
+      <AlertaSesion open={openAlerta} setOpen={setOpenAlerta} handleClickOpen={handleOpenAlerta} handleClose={handleCloseAlerta} />
     </>
   );
 };

@@ -59,7 +59,7 @@ function Footer() {
                             spacing={{ sm: 1, md: 5 }}
                             justifyContent="center"
                             mb={4}
-                            >
+                        >
                             <Typography color="primary"><CelebrationIcon fontSize="small" />Divertido</Typography>
                             <Typography color="primary"><MoodIcon fontSize="small" />Casual</Typography>
                             <Typography color="primary"><AllInclusiveIcon fontSize="small" />Flexible</Typography>
@@ -79,10 +79,6 @@ function Footer() {
                     <Chip label="Desarrollado por" />
                 </Divider>
                 <Box textAlign="center" mt={5} mb={5}>
-                    <Chip avatar={<Avatar alt="Annie" src="https://ca.slack-edge.com/T75T8EACX-U01HYKW0FMK-c9c6b563c27b-512"></Avatar>}
-                        label="Delia Anahí Venegas Amador"
-                        variant="outlined"
-                    />
                     <Chip
                         avatar={<Avatar alt="Steff" src="/static/images/avatar/1.jpg" />}
                         label="Estefanía Cervantes Lara"

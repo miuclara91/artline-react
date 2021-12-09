@@ -3,8 +3,8 @@ import React from "react";
 import { Box, Typography, Container } from "@mui/material";
 //Components
 import Postpage from "./PostPage";
-import Guestuser from "../components/GuestUser";
-import User from "../components/User";
+import UserGuest from "../components/UserGuest";
+import User from "../components/UserAuth";
 //Style
 import { ThemeProvider } from "@mui/material/styles";
 import Tema from "../helpers/Tema";
@@ -16,7 +16,7 @@ const Home = (props) => {
 
   return (
     <ThemeProvider theme={Tema}>
-      {isLogged ? <User user={user} /> : <Guestuser />}
+      {isLogged ? <User user={user} /> : <UserGuest />}
 
       <Container >
         <Box textAlign="center" mt={4}>
