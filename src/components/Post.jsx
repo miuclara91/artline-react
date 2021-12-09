@@ -11,14 +11,15 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
-import Comentarios from "./PostDetalle";
+import { useLocalStorage } from '../helpers/useLocalStorage';
 
 const Post = (props) => {
   const { data } = props;
+  const [user] = useLocalStorage("user", "");
+  const [isLogged] = useLocalStorage("isLogged");
   const URL = 'https://artline-team10.herokuapp.com/artline/publicaciones/';
 
   const [likes, setLikes] = useState(data.likes.length);
@@ -49,25 +50,47 @@ const Post = (props) => {
   }
 
   const handleLike = () => { // Manejo del like
+    if (isLogged) { // UPDATE A PUBLICACION
+      // aumenta los likes del post localmente
+      // console.log(likes, isLiked);
 
-    // aumenta los likes del post localmente
-    console.log(likes, isLiked);
-    setLikes(isLiked ? likes - 1 : likes + 1);
-    setIsLiked(!isLiked);
 
-    // UPDATE A PUBLICACION
+      setLikes(isLiked ? likes - 1 : likes + 1);
+      setIsLiked(!isLiked);
+      // console.log('Bienvenido')
+      // crear endpoint
+      // console.log("incluido:", data.likes.includes(user.id));
 
-    // guardarLike();
-    console.log(likes);
+
+
+      if (data.likes.includes(user.id)) { // YA DI LIKE A ESTE POST (eliminar Like)
+        const newData = data.likes;
+        const posicion = newData.indexOf(user.id);
+        // console.log("a eliminar: ", newData[posicion]);
+        newData.splice(posicion, 1);
+        // console.log("nuevo array del: ", newData);
+        modificarLike(newData);
+      } else {// (guardar Like)
+        const newData = data.likes;
+        newData.push(user.id);
+        // console.log("nuevo array add: ", newData);
+        modificarLike(newData);
+      }
+
+    } else {
+      alert('inicie sesion para continuar');
+    }
   };
 
-  const guardarLike = async () => {
+  const modificarLike = async (newData) => {
     const opciones = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ likes: '' }) // kshflkahfhdhf       revisar
+      body: JSON.stringify({ likes: newData })
     }
-    const data = await fetch(URL, opciones);
+    const response = await fetch(`${URL}/${user.id}`, opciones);
+    const data = await response.json();
+    console.log("cambiado: ", data);
   }
 
   const handleComentario = (id) => { // Manejo del comentario
