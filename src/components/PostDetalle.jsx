@@ -1,34 +1,50 @@
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Card, CardHeader, CardContent, CardMedia, CardActions, Container, Typography, IconButton, ListItemAvatar, ListItemText, Divider, List, ListItem, ListItemButton, ListItemIcon, TextField, } from '@mui/material';
+import { Card, CardHeader, CardContent, CardMedia, CardActions, Container, Typography, IconButton, Divider, List, TextField, Button, Stack, ListItemIcon, ListItemText } from '@mui/material';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 import Avatar from '@mui/material/Avatar';
-import { Favorite as FavoriteIcon, Share as ShareIcon, ExpandMore as ExpandMoreIcon, MoreVert as MoreVertIcon, Bookmark as BookmarkIcon } from '@mui/icons-material';
+import { Favorite as FavoriteIcon, Share as ShareIcon, Send as SendIcon, MoreVert as MoreVertIcon } from '@mui/icons-material';
 import { red } from '@mui/material/colors';
+import { useLocalStorage } from "../helpers/useLocalStorage";
+import Comentario from './Comentario';
 
 const PostDetalle = (props) => {
-    //const { postId } = props;
     const postId = props.match.params.id;
+    const [user] = useLocalStorage("user");
+    const URLBase = 'https://artline-team10.herokuapp.com/artline/';
 
     const [comentarios, setComentarios] = useState([]);
     const [post, setPost] = useState([]);
+    const [comentario, setComentario] = useState("");
 
 
+    // Menu
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    // Otros
     useEffect(() => {
         obtenerDatos();
-    }, []);
+    }, [comentario]);
 
     const obtenerDatos = async () => {
         if (postId !== '') {
-            const data = await fetch(
-                `https://artline-team10.herokuapp.com/artline/comentarios/comentariosBYpublicacion/${postId}`
-            );
+            const data = await fetch(`${URLBase}/comentarios/comentariosBYpublicacion/${postId}`);
             const comentarios = await data.json();
             console.log(comentarios);
 
-            const datapost = await fetch(
-                `https://artline-team10.herokuapp.com/artline/publicaciones/${postId}`
-            );
+            const datapost = await fetch(`${URLBase}/publicaciones/${postId}`);
             const post = await datapost.json();
             console.log(post);
             setComentarios(comentarios);
@@ -41,10 +57,53 @@ const PostDetalle = (props) => {
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         const fecha = new Date(date);
         return fecha.toLocaleDateString("es-ES", options)
-    }
+    };
+
+    const handleComentario = (event) => {
+        setComentario(event.target.value);
+    };
+
+    const handleNewComment = async (event) => {
+        event.preventDefault();
+        const opciones = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ idUsuario: user.id, idPublicacion: postId, texto: comentario })
+        }
+        const newComment = await fetch(`${URLBase}/comentarios`, opciones);
+        const respuesta = await newComment.json();
+        setComentario('');
+        console.log("come:", comentario);
+    };
+
+
+
 
     return (
         <Container>
+            <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                }}
+            >
+                <MenuItem onClick={handleClose}>
+                    <ListItemIcon>
+                        <EditIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText>Editar</ListItemText>
+                </MenuItem>
+                <MenuItem onClick={handleClose}>
+                    <ListItemIcon>
+                        <DeleteIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText>Eliminar</ListItemText>
+                </MenuItem>
+                <MenuItem onClick={handleClose}>Logout</MenuItem>
+            </Menu>
             {
                 post.map((item) => (
                     <Card >
@@ -55,9 +114,18 @@ const PostDetalle = (props) => {
                                 </Avatar>
                             }
                             action={
-                                <IconButton aria-label="settings">
+                                <IconButton
+                                    aria-label="settings"
+                                    id="basic-button"
+                                    aria-controls="basic-menu"
+                                    aria-haspopup="true"
+                                    aria-expanded={open ? 'true' : undefined}
+                                    onClick={handleClick}
+                                >
                                     <MoreVertIcon />
+
                                 </IconButton>
+
                             }
                             title={item.usuario[0].nombre}
                             subheader={getFecha(item.createdAt)}
@@ -90,53 +158,27 @@ const PostDetalle = (props) => {
             <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
                 {
                     comentarios.map((item) => (
-                        <ListItem alignItems="flex-start" key={item._id}
-                            secondaryAction={
-                                <IconButton>
-                                    <BookmarkIcon />
-                                </IconButton>
-                            }
-                        >
-                            <ListItemAvatar>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                            </ListItemAvatar>
-                            <ListItemText
-                                primary={
-                                    <>
-                                        <Typography
-                                            sx={{ display: 'inline' }}
-                                            component="span"
-                                            variant="body2"
-                                            color="text.primary"
-                                        >
-                                            Usuario {item.idUsuario}
-                                        </Typography>
-                                        {" - " + getFecha(item.createdAt)}
-                                    </>
-                                }
-                                secondary={
-                                    <React.Fragment>
-                                        <Typography
-                                            sx={{ display: 'inline' }}
-                                            component="span"
-                                            variant="body2"
-                                            color="text.primary"
-                                        >
-                                            {item.respuesta}
-                                        </Typography>
-                                        {" — " + item.texto}
-                                    </React.Fragment>
-                                }
-                            />
-
-                        </ListItem>
-
+                        <Comentario data={item} />
                     ))
                 }
 
                 <Divider variant="inset" component="li" />
-                <TextField fullWidth id="outlined-basic" label="Nuevo Comentario" variant="outlined" color="secondary" />
             </List>
+            <Divider variant="inset" />
+            <TextField
+                fullWidth
+                multiline
+                id="outlined-textarea"
+                label="Escribe un GRAN comentario"
+                placeholder="Inspirate"
+                color="secondary"
+                onChange={handleComentario}
+            />
+            <Stack direction="row" justifyContent="end" mt={1} >
+                <Button variant="contained" endIcon={<SendIcon />} onClick={handleNewComment}>
+                    Comentar
+                </Button>
+            </Stack>
 
         </Container>
     );

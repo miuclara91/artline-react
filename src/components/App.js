@@ -23,13 +23,13 @@ function App() {
 
   return (
     <Router>
-      <Header isLogging={isLogged} user={user.username} LogOut={handleLogOut} />
+      <Header isLogged={isLogged} LogOut={handleLogOut} />
       <Switch>
         <Route path="/login">
           <Login user={user} setUser={setUser} isLogged={isLogged} setIsLogged={setIsLogged} />
         </Route>
         <Route path="/Signup">
-          <Signup isLogged={isLogged} setIsLogged={setIsLogged}/>
+          <Signup isLogged={isLogged} setIsLogged={setIsLogged} />
         </Route>
         <Route path="/profile">
           {isLogged ?

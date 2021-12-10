@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink as Pages } from "react-router-dom";
 import { useHistory, useLocation } from "react-router";
+import { useLocalStorage } from "../helpers/useLocalStorage";
 //Components Material UI
-import {Box,AppBar, Toolbar, Button, IconButton, Menu, Badge, MenuItem, Tooltip, Fade} from "@mui/material";
+import { Box, AppBar, Toolbar, Button, IconButton, Menu, Badge, MenuItem, Tooltip, Fade, InputBase, Divider } from "@mui/material";
 //Icons
-import { Menu as MenuIcon, AccountCircle, Mail as MailIcon} from "@mui/icons-material";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import MoreIcon from "@mui/icons-material/MoreVert";
+import { Menu as MenuIcon, AccountCircle, Mail as MailIcon, Search as SearchIcon, Notifications as NotificationsIcon, MoreVert as MoreIcon } from "@mui/icons-material";
 // Assets
 import Logo from "../assets/logo.png";
 //Style
@@ -15,7 +14,10 @@ import Tema from "../helpers/Tema";
 import "../css/header.scss";
 
 function Header(props) {
-  const { isLogging, user, LogOut } = props;
+  const { isLogged, LogOut } = props;
+  const [user] = useLocalStorage("user");
+  const URLBase = 'https://artline-team10.herokuapp.com/artline/publicaciones';
+  const [totalPost, setTotalPost] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
@@ -24,7 +26,23 @@ function Header(props) {
   let history = useHistory();
   let location = useLocation();
   let { from } = location.state || { from: { pathname: "/login" } };
-
+  /*
+    useEffect(() => {
+      obtenerDatos();
+      // return () => {
+      //   setTotalPost(0); // This worked for me
+      // };
+    }, [totalPost]);
+  
+    const obtenerDatos = async () => {
+      if (isLogged) {
+        const data = await fetch(`${URLBase}/totalpostBYusuario/${user.id}`);
+        const totalpost = await data.json();
+        console.log(totalpost);
+        //setTotalPost(totalpost);
+      }
+    };
+  */
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -149,10 +167,23 @@ function Header(props) {
                 <img src={Logo} alt="Logo" />
               </Pages>
             </Box>
+            <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+            <Box>
+              <InputBase
+                sx={{ ml: 1, flex: 1 }}
+                placeholder="Buscar"
+                color="white"
+                inputProps={{ 'aria-label': 'buscar' }}
+              />
+              <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
+                <SearchIcon color="white" />
+              </IconButton>
+            </Box>
+
 
             <Box sx={{ flexGrow: 1 }} />
             {/* Parte derecha del menu */}
-            {isLogging ? (
+            {isLogged ? (
               <>
                 <Box sx={{ display: { xs: "none", md: "flex" } }}>
                   <Button color="inherit">
@@ -170,7 +201,12 @@ function Header(props) {
                       to="/post"
                       style={{ textDecoration: "none", color: "white" }}
                     >
-                      Post
+                      <Tooltip title="Publicaciones hechas">
+                        {/* <Badge badgeContent={totalPost.total} color="success"> */}
+                        <Badge badgeContent={"99"} color="success">
+                          Post
+                        </Badge>
+                      </Tooltip>
                     </Pages>
                   </Button>
                 </Box>

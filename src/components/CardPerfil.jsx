@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 //Components Material UI
 import { Button, Card, CardActions, CardContent, Container, Typography, Avatar, Tab, Tabs, Box } from '@mui/material';
 //Components
+import { useLocalStorage } from "../helpers/useLocalStorage";
 import FormDialog from './FormDialog';
 import Galeria from './Galeria';
 import Favoritos from './Favoritos';
@@ -50,7 +51,8 @@ TabPanel.propTypes = {
 };
 
 const CardPerfil = (props) => {
-    const { user, setUser } = props;
+    // const { user, setUser } = props;
+    const [user, setUser] = useLocalStorage("user", "");
 
     const [editar, setEditar] = useState(false);
     const [Post, setNewPost] = useState(false);

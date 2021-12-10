@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Box, Button, Container, FormControl, FormControlLabel, FormGroup, Link, Switch, Typography, TextField, Grid, Stack } from '@mui/material';
 //Components
 import Alerta from '../components/Alert';
+import { useLocalStorage } from "../helpers/useLocalStorage";
 //Assets
 import imgLogin from '../assets/login.png';
 import imgLogo from '../assets/coloredLogo.png';
@@ -12,35 +13,20 @@ import Tema from '../helpers/Tema';
 import '../css/login.scss';
 
 function Login(props) {
-    const { user, setUser, isLogged, setIsLogged } = props;
+    const { isLogged, setIsLogged } = props;
+    const [user, setUser] = useLocalStorage("user", "");
 
     const [open, setOpen] = useState(false);
+    const [textoRespuesta, setTextoRespuesta] = useState("");
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [textoRespuesta, setTextoRespuesta] = useState("");
-    /*
-        useEffect(() => {
-            const opciones = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: email, password: password })
-            };
-    
-            const obtenerDatos = async () => {
-                const data = await fetch(`https://artline-team10.herokuapp.com/artline/usuarios/entrar`, opciones);
-                const user = await data.json();
-                console.log(user);
-                // setUser(user);
-            }
-    
-            obtenerDatos();
-        }, []);
-    */
-    //Métodos
+
+
+    //Métodos de captura Textfiled
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
     };
-
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
     };
@@ -64,29 +50,25 @@ function Login(props) {
 
         const data = await fetch(`https://artline-team10.herokuapp.com/artline/usuarios/entrar`, opciones);
         const user = await data.json();
-        console.log("usuario: -> ", user);
+
         if (user.error) {
             setTextoRespuesta(user.error);
         } else {
             setIsLogged(true);
             setTextoRespuesta(`Bienvenid@ ${user.nombre} Disfruta de Artline. Cierra esta alerta para ver tu perfil`)
         }
-        /*setUser({
+        setUser({
             username: user.username,
             email: user.email,
             nombre: user.nombre,
             bio: user.bio,
             id: user.id,
-        });*/
-        setUser(user)
+            token: user.token
+        });
     }
 
     const HandleLoggin = (event) => {
-        //Logged(event); // pasa parametro al padre para guardar log
         obtenerDatos();
-        if (user !== undefined)
-            console.log("usuario HandleLoggin: -> ", user);
-        // console.log("hay error"); // return 
         setOpen(true); // abre alerta
     };
 

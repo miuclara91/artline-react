@@ -7,22 +7,40 @@ import {
   CardActions,
   IconButton,
   Divider,
-  CardHeader
+  CardHeader,
+  Button
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
-import Comentarios from "./PostDetalle";
+import { useLocalStorage } from '../helpers/useLocalStorage';
+import AlertaSesion from "./AlertaSesion";
 
 const Post = (props) => {
-  const { userId, data } = props;
-  const [like, setLike] = useState(data.likes.length); // post.like
+  const { data } = props;
+  const [user] = useLocalStorage("user", "");
+  const [isLogged] = useLocalStorage("isLogged");
+  const URL = 'https://artline-team10.herokuapp.com/artline/publicaciones/';
 
+
+  const [likes, setLikes] = useState(data.likes.length);
   const [isLiked, setIsLiked] = useState(false);
+  const [openAlerta, setOpenAlerta] = useState(false);
+
   let history = useHistory();
+
+  useEffect(() => {
+    estadoInicial();
+  }, [isLiked]);
+
+  const estadoInicial = () => {
+    data.likes.map((item) => {
+      if (data.idUsuario === item)
+        setIsLiked(true);
+    });
+  };
 
   const dataUser = {
     foto: "https://www.dzoom.org.es/wp-content/uploads/2020/02/portada-foto-perfil-redes-sociales-consejos.jpg",
@@ -33,26 +51,56 @@ const Post = (props) => {
     const fecha = new Date(date);
     return fecha.toLocaleDateString("es-ES", options)
   }
+
   const handleLike = () => { // Manejo del like
-    setLike(isLiked ? like - 1 : like + 1);
-    setIsLiked(!isLiked);
-    // UPDATE A PUBLICACION
-    console.log(like);
+    if (isLogged) { // UPDATE A PUBLICACION
+      // aumenta los likes del post localmente
+      setLikes(isLiked ? likes - 1 : likes + 1);
+      setIsLiked(!isLiked);
+
+      if (data.likes.includes(user.id)) { // YA DI LIKE A ESTE POST (eliminar Like)
+        const newData = data.likes;
+        const posicion = newData.indexOf(user.id);
+        newData.splice(posicion, 1);
+        modificarLike(newData);
+      } else {// (guardar Like)
+        const newData = data.likes;
+        newData.push(user.id);
+        modificarLike(newData);
+      }
+
+    } else {
+      handleOpenAlerta();
+    }
   };
+
+  const modificarLike = async (newData) => {
+    const opciones = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ likes: newData })
+    }
+    const response = await fetch(`${URL}${data._id}`, opciones);
+    const datos = await response.json();
+    console.log("cambiado: ", datos);
+  }
 
   const handleComentario = (id) => { // Manejo del comentario
-    history.push(`/post/detalle/${data._id}`);
-
-    // <Link to="/post/comentarios:id" component={Comentarios} />
-
-
-    // history.push({
-    //   pathname: '/comentarios',
-    //   state: { fromDashboard: true },
-    //   postId: id
-    // });
-    console.log(id);
+    if (isLogged) { // UPDATE A PUBLICACION
+      history.push(`/post/detalle/${data._id}`);
+    } else {
+      handleOpenAlerta();
+    }
   };
+
+  // Alerta
+  const handleOpenAlerta = () => {
+    setOpenAlerta(true);
+  };
+  const handleCloseAlerta = () => {
+    setOpenAlerta(false);
+  };
+
 
   return (
     <>
@@ -78,7 +126,7 @@ const Post = (props) => {
 
         <CardActions >
           <IconButton aria-label="resume" >
-            <Typography style={{ margin: 10 }}>{data.likes.length} Likes </Typography>
+            <Typography style={{ margin: 10 }}>{likes} Likes </Typography>
 
             <Typography style={{ margin: 10 }}># Comments</Typography>
 
@@ -87,18 +135,19 @@ const Post = (props) => {
         </CardActions>
 
         <CardActions>
-          <IconButton aria-label="add to favorites">
-            {
-              data.likes.map((item) => {
-                if (data.idUsuario === item)
-                  isLiked = true;
-                console.log(item);
-                console.log(data.idUsuario);
-              })
-            }
-            <FavoriteIcon />
-            <Typography style={{ margin: 10 }} onClick={handleLike} >Like {data.likes[0]} </Typography>
-          </IconButton>
+          {
+            isLiked ?
+              <IconButton aria-label="add to favorites" color="secondary" onClick={handleLike}>
+                <FavoriteIcon />
+                <Typography style={{ margin: 10 }} >Like </Typography>
+              </IconButton>
+              :
+              <IconButton aria-label="add to favorites" onClick={handleLike} >
+                <FavoriteIcon />
+                <Typography style={{ margin: 10 }} >Like </Typography>
+              </IconButton>
+          }
+
 
           <IconButton>
             <ChatBubbleIcon />
@@ -113,6 +162,7 @@ const Post = (props) => {
       </Card>
       <Divider variant="middle" />
       <Divider variant="middle" />
+      <AlertaSesion open={openAlerta} setOpen={setOpenAlerta} handleClickOpen={handleOpenAlerta} handleClose={handleCloseAlerta} />
     </>
   );
 };
