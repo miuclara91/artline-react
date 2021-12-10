@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 //Components Material UI
 import { Button, Card, CardActions, CardContent, Container, Typography, Avatar, Tab, Tabs, Box } from '@mui/material';
@@ -54,72 +54,75 @@ const CardPerfil = (props) => {
 
     const [editar, setEditar] = useState(false);
     const [Post, setNewPost] = useState(false);
-    // obtenemos la informacion guardada en LocalStorage
-    const [email, setEmail] = useState(user.email);
-    const [username, setUsername] = useState(user.username);
-    const [nombre, setNombre] = useState(user.nombre);
-    const [bio, setBio] = useState(user.bio);
-    const [idU, setId] = useState(user.id);
+    // obtenemos la informacion de una consulta con el id de localStorage
+    const [infoUsuario, setInfoUsuario] = useState({});
+    const [fotoPerfil, setFotoPerfil] = useState('');
+    const [id, setId] = useState(user.id);
     const [value, setValue] = useState(0);//Valor de los botones de galeria,favoritos,colecciones
+
+    const obtenerDatos = async () => {//Obtiene de la base de datos la información del usuario
+        const opciones = {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        };
+        const data = await fetch(`http://localhost:4001/Artline/usuarios/${id}`, opciones);
+        const userInfo = await data.json();
+        // console.log("Info usuario: -> ", userInfo);
+        setInfoUsuario(userInfo)
+        setFotoPerfil(userInfo.fotoPerfil.imageURL)
+    }
+
+    useEffect(() => {//Carga datos por primera vez
+        setId(user.id)
+        obtenerDatos();
+    }, []);
+
+    useEffect(() => {//Carga datos al cerrar la ventana de editar
+        obtenerDatos();
+    }, [editar]);
 
     const handleChange = (event, newValue) => {//Manejar el valor del tab seleccionado
         setValue(newValue);
     };
 
-    const handleEditar = (event) => { // Manejo del Dialog
+    const handleEditar = (event) => { // Manejo del Dialog Editar
         setEditar(!editar);
     };
-    const handleNewPost = (event) => { // Manejo del Dialog
+
+    const handleNewPost = (event) => { // Manejo del Dialog Post
         setNewPost(!Post);
     };
-    const handleUsernameChange = (event) => {
-        setUsername(event.target.value);
-    };
-    const handleNombreChange = (event) => {
-        setNombre(event.target.value);
-    };
-    const handleEmailChange = (event) => {
-        setEmail(event.target.value);
-    };
-    const handleBioChange = (event) => {
-        setBio(event.target.value);
-    };
-
-    const dataUser = {
-        foto: 'https://www.dzoom.org.es/wp-content/uploads/2020/02/portada-foto-perfil-redes-sociales-consejos.jpg',
-    }
+    
     return (
         <Box>
             <div className="fondoPerfil"></div>
             <div className="cardProfile">
                 <Card className="card">
                     <CardActions sx={{ justifyContent: 'right' }}>
-                        <ColorButton className="navButton" onClick={handleNewPost} sx={{ justify: 'right', marginRight: '2%' }}>NUEVO POST</ColorButton>
-                        <ColorButton className="navButton" onClick={handleEditar} sx={{ justify: 'right', marginRight: '2%' }}>Editar</ColorButton>
+                        <ColorButton className="navButton" onClick={handleNewPost} sx={{ justify: 'right', marginRight: '2%' }}>NEW POST</ColorButton>
+                        <ColorButton className="navButton" onClick={handleEditar} sx={{ justify: 'right', marginRight: '2%' }}>EDIT PROFILE</ColorButton>
                     </CardActions>
                     <CardContent className="descripcion">
                         <Avatar
                             className="fotoPerfil"
                             alt="fotoPerfil"
-                            src={dataUser.foto}
+                            src={fotoPerfil}
                             sx={{ width: 151, height: 151 }}
                         />
                         <Typography variant="h4" component="h4">
-                            {user.nombre}
+                            {infoUsuario.nombre}
                         </Typography>
                         <Typography variant="body2">
-                            {user.bio}
+                            {infoUsuario.bio}
                         </Typography>
                         <Typography variant="h5" component="h5">
-                            @{user.username}
+                            @{infoUsuario.username}
                         </Typography>
                         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                            email: {user.email}
+                            email: {infoUsuario.email}
                         </Typography>
 
-                        <Box
-                            sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', justifyContent: 'center' }}
-                        >
+                        <Box sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', justifyContent: 'center' }} >
                             <Tabs
                                 orientation="vertical"
                                 variant="scrollable"
@@ -148,19 +151,16 @@ const CardPerfil = (props) => {
                     <Newpost
                         open={Post}
                         handleNewPost={handleNewPost}
-                        id={idU}
+                        id={id}
                     />
-
                 </Container>
                 <Container>
                     <FormDialog
                         open={editar}
                         handleEditar={handleEditar}
-                        data={{ 'username': username, 'nombre': nombre, 'email': email, 'bio': bio }}
-                        UsernameChange={handleUsernameChange}
-                        NombreChange={handleNombreChange}
-                        EmailChange={handleEmailChange}
-                        BioChange={handleBioChange}
+                        infoUsuario={infoUsuario}
+                        data={{'token': user.token}}
+                        setUser= {setUser}
                     />
                 </Container>
             </div>

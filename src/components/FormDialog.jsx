@@ -1,65 +1,123 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 export default function FormDialog(props) {
     const {
         open,
         handleEditar,
-        data,
-        UsernameChange,
-        NombreChange,
-        EmailChange,
-        BioChange
+        // data,
+        infoUsuario,
+        // setUser
     } = props;
 
-    console.log(data);
-    const [username, setUsername] = useState(data.username);
-    const [nombre, setNombre] = useState(data.nombre);
-    const [email, setEmail] = useState(data.email);
-    const [bio, setBio] = useState(data.bio);
+    console.log(infoUsuario);
+    // const [token, setToken] = useState(data.token);
+    // const [id, setId] = useState(infoUsuario.id);
+    const [nombre, setNombre] = useState('');
+    const [bio, setBio] = useState('');
+    //Foto de perfil
+    const [fileInputState, setFileInputState] = useState('');
+    const [previewSource, setPreviewSource] = useState('');
+    const [selectedFile, setSelectedFile] = useState('');
 
-    const handleUsernameChange = (event) => {
-        setUsername(event.target.value);
-        UsernameChange(event);
-    };
+    useEffect(() => {//Carga la información del usuario en los input
+        setNombre(infoUsuario.nombre);
+        setBio(infoUsuario.bio);
+    }, []);
+
     const handleNombreChange = (event) => {
         setNombre(event.target.value);
-        NombreChange(event);
-    };
-    const handleEmailChange = (event) => {
-        setEmail(event.target.value);
-        EmailChange(event);
     };
     const handleBioChange = (event) => {
         setBio(event.target.value);
-        BioChange(event);
+    };
+
+    const handleImageInputChange = (event) =>{
+        const file = event.target.files[0];
+        previewFile(file);
+        setSelectedFile(file);
+        setFileInputState(event.target.value);
+    };
+
+    const previewFile = (file) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            setPreviewSource(reader.result);
+        };
+    };
+
+    const handleSubmitInfo = (e) => {
+        e.preventDefault();
+        if (selectedFile){
+            const reader = new FileReader();
+            reader.readAsDataURL(selectedFile);
+            reader.onloadend = () => {
+                uploadImage(reader.result);
+            };
+            reader.onerror = () => {
+                console.error('AHHHHHHHH!!');
+            };
+        } else{
+            uploadImage('')
+        }
+    };
+
+    const uploadImage = async (base64EncodedImage) => {
+        // console.log(base64EncodedImage)
+        let data = { nombre, bio }
+        if(base64EncodedImage !== ''){
+            data = { nombre, bio, base64EncodedImage }
+        }
+        try {
+            const opciones = {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // 'Authorization': 'Bearer ' + token,
+                },
+                body: JSON.stringify({ data}),
+            };
+            const result = await fetch(`http://localhost:4001/Artline/usuarios/${infoUsuario.id}`, opciones);
+            console.log("newDataUser: -> ", result.json());
+            setFileInputState('');
+            setPreviewSource('');
+            setSelectedFile('');
+            handleEditar()
+        } catch (err) {
+            console.error(err);
+        }
     };
 
     return (
         <div>
             <Dialog open={open} onClose={handleEditar}>
-                <DialogTitle>Editar</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        Modifique los campos que desee
-                    </DialogContentText>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="username"
-                        label="Username"
-                        value={username}
-                        onChange={handleUsernameChange}
-                        type="text"
-                        fullWidth
-                        variant="filled"
-                    />
+            <form onSubmit={handleSubmitInfo}>
+                <DialogTitle>Editar información del perfil</DialogTitle>
+                <DialogContent align="center">
+                    {previewSource && (
+                        <Box mt={2} textAlign="center">
+                            <img src={previewSource} alt='Imagen seleccionada' height="200px" />
+                        </Box>
+                    )}
+                    <input
+                        type="file"
+                        id="select-image"
+                        name="image"
+                        style={{ display: 'none' }}
+                        onChange={handleImageInputChange}
+                        value={fileInputState} />
+                    <label htmlFor="select-image">
+                        <Button variant="contained" color="primary" component="span">
+                            Nueva foto de Perfil
+                        </Button>
+                    </label>
                     <TextField
                         margin="dense"
                         id="nombre"
@@ -68,32 +126,25 @@ export default function FormDialog(props) {
                         onChange={handleNombreChange}
                         type="text"
                         fullWidth
-                        variant="standard"
-                    />
-                    <TextField
-                        margin="dense"
-                        id="email"
-                        label="Email"
-                        value={email}
-                        onChange={handleEmailChange}
-                        type="email"
-                        fullWidth
-                        variant="standard"
+                        color='secondary'
                     />
                     <TextField
                         margin="dense"
                         id="bio"
-                        label="Bio"
                         value={bio}
                         onChange={handleBioChange}
                         type="text"
                         fullWidth
-                        variant="standard"
+                        label="Biografía"
+                        multiline
+                        color='secondary'
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleEditar}>Cerrar</Button>
+                    <Button variant="contained" color="secondary"  onClick={handleEditar}>Cerrar</Button>
+                    <Button variant="contained" color="primary" type='submit' >Actualizar</Button>
                 </DialogActions>
+                </form>
             </Dialog>
         </div>
     );
