@@ -20,6 +20,9 @@ export default function FormDialog(props) {
     const [previewSource, setPreviewSource] = useState('');
     const [selectedFile, setSelectedFile] = useState('');
 
+    const HOST = "https://artline-team10.herokuapp.com/artline/usuarios/";
+    // const HOST_TEST = "http://localhost:4001/Artline/usuarios/"; 
+
     useEffect(() => {//Carga la información del usuario en los input
         setNombre(infoUsuario.nombre);
         setBio(infoUsuario.bio);
@@ -78,7 +81,7 @@ export default function FormDialog(props) {
                 },
                 body: JSON.stringify({ data}),
             };
-            const result = await fetch(`http://localhost:4001/Artline/usuarios/${infoUsuario.id}`, opciones);
+            const result = await fetch(`${HOST}/${infoUsuario.id}`, opciones);
             console.log("newDataUser: -> ", result.json());
             setFileInputState('');
             setPreviewSource('');

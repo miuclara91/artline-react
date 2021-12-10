@@ -9,7 +9,6 @@ import Galeria from './Galeria';
 import Favoritos from './Favoritos';
 import Cards from './Cards';
 import Newpost from './NewPost'
-
 //Icons
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import BrushIcon from '@mui/icons-material/Brush';
@@ -17,6 +16,7 @@ import CollectionsIcon from '@mui/icons-material/Collections';
 //Style
 import { styled } from '@mui/material/styles';
 import '../css/Perfil.css';
+
 const ColorButton = styled(Button)({
     color: '#000000',
     justifyContent: 'right',
@@ -53,7 +53,6 @@ TabPanel.propTypes = {
 const CardPerfil = (props) => {
     // const { user, setUser } = props;
     const [user, setUser] = useLocalStorage("user", "");
-
     const [editar, setEditar] = useState(false);
     const [Post, setNewPost] = useState(false);
     // obtenemos la informacion de una consulta con el id de localStorage
@@ -62,12 +61,15 @@ const CardPerfil = (props) => {
     const [id, setId] = useState(user.id);
     const [value, setValue] = useState(0);//Valor de los botones de galeria,favoritos,colecciones
 
+    const HOST = "https://artline-team10.herokuapp.com/artline/usuarios/";
+// const HOST_TEST = "http://localhost:4001/Artline/usuarios/";
+
     const obtenerDatos = async () => {//Obtiene de la base de datos la información del usuario
         const opciones = {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         };
-        const data = await fetch(`http://localhost:4001/Artline/usuarios/${id}`, opciones);
+        const data = await fetch(`${HOST}/${id}`, opciones);
         const userInfo = await data.json();
         // console.log("Info usuario: -> ", userInfo);
         setInfoUsuario(userInfo)
