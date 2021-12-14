@@ -53,13 +53,13 @@ TabPanel.propTypes = {
 const CardPerfil = (props) => {
     // const { user, setUser } = props;
     const [user, setUser] = useLocalStorage("user", "");
-    const [token, setToken] = useState(user.token);
+    const [token, setToken] = useState(user[1].token);
     const [editar, setEditar] = useState(false);
     const [Post, setNewPost] = useState(false);
     // obtenemos la informacion de una consulta con el id de localStorage
     const [infoUsuario, setInfoUsuario] = useState({});
     const [fotoPerfil, setFotoPerfil] = useState('');
-    const [id, setId] = useState(user.id);
+    const [id, setId] = useState(user[0].id);
     const [value, setValue] = useState(0);//Valor de los botones de galeria,favoritos,colecciones
 
     const HOST = "https://artline-team10.herokuapp.com/artline/usuarios/";
@@ -83,7 +83,7 @@ const CardPerfil = (props) => {
     }
 
     useEffect(() => {//Carga datos por primera vez
-        setId(user.id)
+        setId(user[0].id)
         obtenerDatos();
     }, []);
 
@@ -169,7 +169,7 @@ const CardPerfil = (props) => {
                         open={editar}
                         handleEditar={handleEditar}
                         infoUsuario={infoUsuario}
-                        data={{ 'token': user.token }}
+                        data={{ 'token': user[1].token }}
                         setUser={setUser}
                     />
                 </Container>

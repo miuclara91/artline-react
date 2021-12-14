@@ -118,6 +118,7 @@ export default function BackToTop(props) {
             onClose={handleMenuClose}
         >
             {/* <MenuItem onClick={handleMenuClose}>Settings</MenuItem> */}
+            <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
             <MenuItem onClick={handleCerrarSesion}>Cerrar Sesión</MenuItem>
         </Menu>
     );
