@@ -62,7 +62,7 @@ const CardPerfil = (props) => {
     const [value, setValue] = useState(0);//Valor de los botones de galeria,favoritos,colecciones
 
     const HOST = "https://artline-team10.herokuapp.com/artline/usuarios/";
-// const HOST_TEST = "http://localhost:4001/Artline/usuarios/";
+    // const HOST_TEST = "http://localhost:4001/Artline/usuarios/";
 
     const obtenerDatos = async () => {//Obtiene de la base de datos la información del usuario
         const opciones = {
@@ -96,7 +96,7 @@ const CardPerfil = (props) => {
     const handleNewPost = (event) => { // Manejo del Dialog Post
         setNewPost(!Post);
     };
-    
+
     return (
         <Box>
             <div className="fondoPerfil"></div>
@@ -163,8 +163,8 @@ const CardPerfil = (props) => {
                         open={editar}
                         handleEditar={handleEditar}
                         infoUsuario={infoUsuario}
-                        data={{'token': user.token}}
-                        setUser= {setUser}
+                        data={{ 'token': user.token }}
+                        setUser={setUser}
                     />
                 </Container>
             </div>

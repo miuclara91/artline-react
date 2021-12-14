@@ -132,7 +132,7 @@ const PostDetalle = (props) => {
                         />
                         <CardMedia
                             component="img"
-                            height="194"
+                            height="400"
                             image={item.imagen}
                             alt="Imagen de post"
                         />
