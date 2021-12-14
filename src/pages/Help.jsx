@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { NavLink as Pages } from "react-router-dom";
 import { useHistory, useLocation } from "react-router";
-import { useLocalStorage } from "../helpers/useLocalStorage";
 //Components Material UI
-import { Box, AppBar, Toolbar, Button, IconButton, Menu, Badge, MenuItem, Tooltip, Fade, InputBase, Divider } from "@mui/material";
+import { Box, AppBar, Toolbar, Button, IconButton, Menu, Badge, MenuItem, Tooltip, Fade, InputBase, Divider, Avatar, Zoom, Fab, useScrollTrigger, CssBaseline } from "@mui/material";
 //Icons
-import { Menu as MenuIcon, AccountCircle, Mail as MailIcon, Search as SearchIcon, Notifications as NotificationsIcon, MoreVert as MoreIcon } from "@mui/icons-material";
+import { KeyboardArrowUp as KeyboardArrowUpIcon, Menu as MenuIcon, AccountCircle, Mail as MailIcon, Search as SearchIcon, Notifications as NotificationsIcon, MoreVert as MoreIcon } from "@mui/icons-material";
 // Assets
 import Logo from "../assets/logo.png";
 //Style
@@ -13,12 +12,6 @@ import { ThemeProvider } from "@mui/material/styles";
 import Tema from "../helpers/Tema";
 import "../css/header.scss";
 import PropTypes from 'prop-types';
-import CssBaseline from '@mui/material/CssBaseline';
-import useScrollTrigger from '@mui/material/useScrollTrigger';
-import Container from '@mui/material/Container';
-import Fab from '@mui/material/Fab';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import Zoom from '@mui/material/Zoom';
 
 function ScrollTop(props) {
 
@@ -62,15 +55,16 @@ ScrollTop.propTypes = {
 };
 
 export default function BackToTop(props) {
-    const { isLogged, LogOut } = props;
-    const [user] = useLocalStorage("user");
+    const { user, isLogged, LogOut } = props;
     const URLBase = 'https://artline-team10.herokuapp.com/artline/publicaciones';
     const [totalPost, setTotalPost] = useState(0);
+
     const [anchorEl, setAnchorEl] = useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
     let history = useHistory();
     let location = useLocation();
     let { from } = location.state || { from: { pathname: "/login" } };
@@ -99,6 +93,31 @@ export default function BackToTop(props) {
         setMobileMoreAnchorEl(event.currentTarget);
     };
 
+    useEffect(() => {
+        obtenerDatos();
+        // return () => {
+        //     cleanup
+        // };
+    }, []);
+
+    const obtenerDatos = async () => {//Obtiene de la base de datos la información del usuario
+        const opciones = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user[1].token}`,
+            }
+        };
+
+        const data = await fetch(`${URLBase}/totalpostBYUsuario/${user[0].id}`, opciones);
+
+        const total = await data.json();
+        console.log("Info usuario: -> ", total);
+        setTotalPost(total[0].total)
+        console.log("Info usuario: -> ", totalPost);
+        // setFotoPerfil(userInfo.fotoPerfil.imageURL)
+    }
+
     // Renderiza menu
     const menuId = "primary-search-account-menu";
     const renderMenu = (
@@ -118,9 +137,10 @@ export default function BackToTop(props) {
             onClose={handleMenuClose}
         >
             {/* <MenuItem onClick={handleMenuClose}>Settings</MenuItem> */}
-            <MenuItem onClick={handleMenuClose}>Usuario</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
-            <MenuItem onClick={handleCerrarSesion}>Cerrar Sesión</MenuItem>
+
+            <MenuItem key="user" onClick={handleMenuClose}>Usuario</MenuItem>
+            <MenuItem key="settings" onClick={handleMenuClose}>Settings</MenuItem>
+            <MenuItem key="logout" onClick={handleCerrarSesion}>Cerrar Sesión</MenuItem>
         </Menu>
     );
 
@@ -175,6 +195,126 @@ export default function BackToTop(props) {
             </MenuItem>
         </Menu>
     );
+
+    const renderLogin = (
+        <>
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+                <Button color="inherit">
+                    <Pages
+                        to="/profile"
+                        style={{ textDecoration: "none", color: "white" }}
+                    >
+                        Perfil
+                    </Pages>
+                </Button>
+            </Box>
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+                <Button color="inherit">
+                    <Pages
+                        to="/discover"
+                        style={{ textDecoration: "none", color: "white" }}
+                    >
+                        Discover
+                    </Pages>
+                </Button>
+            </Box>
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+                <Button color="inherit">
+                    <Pages
+                        to="/post"
+                        style={{ textDecoration: "none", color: "white" }}
+                    >
+                        <Tooltip title="Publicaciones hechas">
+                            {/* <Badge badgeContent={totalPost.total} color="success"> */}
+                            <Badge badgeContent={totalPost} color="success">
+                                Post
+                            </Badge>
+                        </Tooltip>
+                    </Pages>
+                </Button>
+            </Box>
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+                <IconButton
+                    size="large"
+                    aria-label="show 4 new mails"
+                    color="inherit"
+                >
+                    <Tooltip title="Bandeja de entreada">
+                        <Badge badgeContent={100} color="error">
+                            <MailIcon />
+                        </Badge>
+                    </Tooltip>
+                </IconButton>
+                <IconButton size="large" color="inherit">
+                    <Tooltip title="Notificaciones">
+                        <Badge badgeContent={100} color="error">
+                            <NotificationsIcon />
+                        </Badge>
+                    </Tooltip>
+                </IconButton>
+                <IconButton
+                    size="large"
+                    edge="end"
+                    aria-label="account of current user"
+                    aria-controls={menuId}
+                    aria-haspopup="true"
+                    onClick={handleProfileMenuOpen}
+                    color="inherit"
+                >
+                    <Tooltip
+                        title={user ? user[2].username : "username"}
+                        TransitionComponent={Fade}
+                        TransitionProps={{ timeout: 600 }}
+                    >
+                        {
+                            user !== "" ? < Avatar alt="Username" src={user[5].fotoPerfil} /> : <AccountCircle />
+                        }
+                    </Tooltip>
+                </IconButton>
+            </Box>
+            <Box sx={{ display: { xs: "flex", md: "none" } }}>
+                <IconButton
+                    size="large"
+                    aria-label="show more"
+                    aria-controls={mobileMenuId}
+                    aria-haspopup="true"
+                    onClick={handleMobileMenuOpen}
+                    color="inherit"
+                >
+                    <MoreIcon />
+                </IconButton>
+            </Box>
+        </>
+    );
+    const renderNotLogin = (
+        <Box sx={{ display: { xs: "none", md: "flex" } }}>
+            <Button color="inherit">
+                <Pages
+                    to="/"
+                    style={{ textDecoration: "none", color: "white" }}
+                >
+                    Home
+                </Pages>
+            </Button>
+            <Button color="inherit">
+                <Pages
+                    to="/login"
+                    style={{ textDecoration: "none", color: "white" }}
+                >
+                    Login
+                </Pages>
+            </Button>
+            <Button color="inherit">
+                <Pages
+                    to="/signup"
+                    style={{ textDecoration: "none", color: "white" }}
+                >
+                    Signup
+                </Pages>
+            </Button>
+        </Box>
+    );
+
     return (
         <ThemeProvider theme={Tema}>
             <CssBaseline />
@@ -215,121 +355,7 @@ export default function BackToTop(props) {
 
                     <Box sx={{ flexGrow: 1 }} />
                     {/* Parte derecha del menu */}
-                    {isLogged ? (
-                        <>
-                            <Box sx={{ display: { xs: "none", md: "flex" } }}>
-                                <Button color="inherit">
-                                    <Pages
-                                        to="/profile"
-                                        style={{ textDecoration: "none", color: "white" }}
-                                    >
-                                        Perfil
-                                    </Pages>
-                                </Button>
-                            </Box>
-                            <Box sx={{ display: { xs: "none", md: "flex" } }}>
-                                <Button color="inherit">
-                                    <Pages
-                                        to="/discover"
-                                        style={{ textDecoration: "none", color: "white" }}
-                                    >
-                                        Discover
-                                    </Pages>
-                                </Button>
-                            </Box>
-                            <Box sx={{ display: { xs: "none", md: "flex" } }}>
-                                <Button color="inherit">
-                                    <Pages
-                                        to="/post"
-                                        style={{ textDecoration: "none", color: "white" }}
-                                    >
-                                        <Tooltip title="Publicaciones hechas">
-                                            {/* <Badge badgeContent={totalPost.total} color="success"> */}
-                                            <Badge badgeContent={"99"} color="success">
-                                                Post
-                                            </Badge>
-                                        </Tooltip>
-                                    </Pages>
-                                </Button>
-                            </Box>
-                            <Box sx={{ display: { xs: "none", md: "flex" } }}>
-                                <IconButton
-                                    size="large"
-                                    aria-label="show 4 new mails"
-                                    color="inherit"
-                                >
-                                    <Tooltip title="Bandeja de entreada">
-                                        <Badge badgeContent={100} color="error">
-                                            <MailIcon />
-                                        </Badge>
-                                    </Tooltip>
-                                </IconButton>
-                                <IconButton size="large" color="inherit">
-                                    <Tooltip title="Notificaciones">
-                                        <Badge badgeContent={100} color="error">
-                                            <NotificationsIcon />
-                                        </Badge>
-                                    </Tooltip>
-                                </IconButton>
-                                <IconButton
-                                    size="large"
-                                    edge="end"
-                                    aria-label="account of current user"
-                                    aria-controls={menuId}
-                                    aria-haspopup="true"
-                                    onClick={handleProfileMenuOpen}
-                                    color="inherit"
-                                >
-                                    <Tooltip
-                                        title="Usuario"
-                                        TransitionComponent={Fade}
-                                        TransitionProps={{ timeout: 600 }}
-                                    >
-                                        <AccountCircle />
-                                    </Tooltip>
-                                </IconButton>
-                            </Box>
-                            <Box sx={{ display: { xs: "flex", md: "none" } }}>
-                                <IconButton
-                                    size="large"
-                                    aria-label="show more"
-                                    aria-controls={mobileMenuId}
-                                    aria-haspopup="true"
-                                    onClick={handleMobileMenuOpen}
-                                    color="inherit"
-                                >
-                                    <MoreIcon />
-                                </IconButton>
-                            </Box>
-                        </>
-                    ) : (
-                        <Box sx={{ display: { xs: "none", md: "flex" } }}>
-                            <Button color="inherit">
-                                <Pages
-                                    to="/"
-                                    style={{ textDecoration: "none", color: "white" }}
-                                >
-                                    Home
-                                </Pages>
-                            </Button>
-                            <Button color="inherit">
-                                <Pages
-                                    to="/login"
-                                    style={{ textDecoration: "none", color: "white" }}
-                                >
-                                    Login
-                                </Pages>
-                            </Button>
-                            <Button color="inherit">
-                                <Pages
-                                    to="/signup"
-                                    style={{ textDecoration: "none", color: "white" }}
-                                >
-                                    Signup
-                                </Pages>
-                            </Button>
-                        </Box>
-                    )}
+                    {isLogged ? renderLogin : renderNotLogin}
                 </Toolbar>
             </AppBar>
             {renderMobileMenu}

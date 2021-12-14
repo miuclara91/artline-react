@@ -28,9 +28,8 @@ function App() {
       {/* <Header isLogged={isLogged} LogOut={handleLogOut} /> */}
 
       <Switch>
-
         <Route path="/login">
-          <Help isLogged={isLogged} LogOut={handleLogOut} />
+          <Help user={user} isLogged={isLogged} LogOut={handleLogOut} />
           <Login user={user} setUser={setUser} isLogged={isLogged} setIsLogged={setIsLogged} />
         </Route>
         <Route path="/Signup">
@@ -38,11 +37,11 @@ function App() {
           <Signup isLogged={isLogged} setIsLogged={setIsLogged} />
         </Route>
         <Route path="/discover">
-          <Help isLogged={isLogged} LogOut={handleLogOut} />
+          <Help user={user} isLogged={isLogged} LogOut={handleLogOut} />
           <DiscoverPage isLogged={isLogged} setIsLogged={setIsLogged} />
         </Route>
         <Route path="/profile">
-          <Help isLogged={isLogged} LogOut={handleLogOut} />
+          <Help user={user} isLogged={isLogged} LogOut={handleLogOut} />
           {isLogged ?
             <PerfilPage isLogged={isLogged} user={user} setUser={setUser} />
             :
@@ -50,7 +49,7 @@ function App() {
           }
         </Route>
         <Route exact path="/post">
-          <Help isLogged={isLogged} LogOut={handleLogOut} />
+          <Help user={user} isLogged={isLogged} LogOut={handleLogOut} />
           {isLogged ?
             <PostPage isLogged={isLogged} />
             :
@@ -58,11 +57,11 @@ function App() {
           }
         </Route>
         <Route path="/post/detalle/:id">
-          <Help isLogged={isLogged} LogOut={handleLogOut} />
+          <Help user={user} isLogged={isLogged} LogOut={handleLogOut} />
           <Comentarios />
         </Route>
         <Route path="/" exact>
-          <Help isLogged={isLogged} LogOut={handleLogOut} />
+          <Help user={user} isLogged={isLogged} LogOut={handleLogOut} />
           <HomePage isLogged={isLogged} user={user} />
         </Route>
         <Route component={Notfound} />
