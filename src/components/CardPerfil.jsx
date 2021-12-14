@@ -68,13 +68,14 @@ const CardPerfil = (props) => {
     const obtenerDatos = async () => {//Obtiene de la base de datos la información del usuario
         const opciones = {
             method: 'GET',
-            headers: { 
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`, }
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            }
         };
-      
+
         const data = await fetch(`${HOST}/${id}`, opciones);
-        
+
         const userInfo = await data.json();
         // console.log("Info usuario: -> ", userInfo);
         setInfoUsuario(userInfo)

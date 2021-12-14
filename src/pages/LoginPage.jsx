@@ -13,8 +13,8 @@ import Tema from '../helpers/Tema';
 import '../css/login.scss';
 
 function Login(props) {
-    const { isLogged, setIsLogged } = props;
-    const [user, setUser] = useLocalStorage("user", "");
+    const { isLogged, setIsLogged, user, setUser } = props;
+    // const [user, setUser] = useLocalStorage("user", "");
 
     const [open, setOpen] = useState(false);
     const [textoRespuesta, setTextoRespuesta] = useState("");
@@ -23,7 +23,7 @@ function Login(props) {
     const [password, setPassword] = useState("");
 
     const HOST = "https://artline-team10.herokuapp.com/artline/usuarios/entrar";
-    const HOST_TEST = "http://localhost:4001/Artline/usuarios/entrar"; 
+    const HOST_TEST = "http://localhost:4001/Artline/usuarios/entrar";
 
     //Métodos de captura Textfiled
     const handleEmailChange = (event) => {
@@ -52,7 +52,7 @@ function Login(props) {
 
         const data = await fetch(HOST, opciones);
         const user = await data.json();
-     
+
         if (user.error) {
             setTextoRespuesta(user.error);
         } else {
@@ -67,7 +67,7 @@ function Login(props) {
             id: user.id,
             token: user.token
         });
-        
+
     }
 
     const HandleLoggin = (event) => {
