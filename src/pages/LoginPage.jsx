@@ -33,16 +33,6 @@ function Login(props) {
         setPassword(event.target.value);
     };
 
-    /*const myHeader = new Headers({
-        'Authorization': 'BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYTQwZmM0ZjI5ODUwMDAxNmEzZjBkZSIsInVzZXJuYW1lIjoibWFyeSIsImV4cCI6MTY0MzMyNTg5MiwiaWF0IjoxNjM4MTQxODkyfQ.1OV68O-B3-3S32WTqDNnNwfv6eHx5GndtT2Rk1K22j8',
-        'Content-Type': 'application/json'
-    });
-    
-        useEffect(() => {
-            obtenerDatos();
-        }, [open]);
-    */
-
     const obtenerDatos = async () => {
         const opciones = {
             method: 'POST',
@@ -59,14 +49,14 @@ function Login(props) {
             setIsLogged(true);
             setTextoRespuesta(`Bienvenid@ ${user.nombre} Disfruta de Artline. Cierra esta alerta para ver tu perfil`)
         }
-        setUser({
-            username: user.username,
-            email: user.email,
-            nombre: user.nombre,
-            bio: user.bio,
-            id: user.id,
-            token: user.token
-        });
+        setUser([
+            { id: user.id },
+            { token: user.token },
+            { username: user.username },
+            { email: user.email },
+            { nombre: user.nombre },
+            { bio: user.bio }
+        ]);
 
     }
 
