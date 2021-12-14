@@ -5,13 +5,13 @@ export default function FormDialog(props) {
     const {
         open,
         handleEditar,
-        // data,
+        data,
         infoUsuario,
         // setUser
     } = props;
 
     console.log(infoUsuario);
-    // const [token, setToken] = useState(data.token);
+    const [token, setToken] = useState(data.token);
     // const [id, setId] = useState(infoUsuario.id);
     const [nombre, setNombre] = useState('');
     const [bio, setBio] = useState('');
@@ -21,7 +21,7 @@ export default function FormDialog(props) {
     const [selectedFile, setSelectedFile] = useState('');
 
     const HOST = "https://artline-team10.herokuapp.com/artline/usuarios/";
-    // const HOST_TEST = "http://localhost:4001/Artline/usuarios/"; 
+    const HOST_TEST = "http://localhost:4001/Artline/usuarios"; 
 
     useEffect(() => {//Carga la información del usuario en los input
         setNombre(infoUsuario.nombre);
@@ -30,6 +30,7 @@ export default function FormDialog(props) {
 
     const handleNombreChange = (event) => {
         setNombre(event.target.value);
+    
     };
     const handleBioChange = (event) => {
         setBio(event.target.value);
@@ -77,10 +78,11 @@ export default function FormDialog(props) {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    // 'Authorization': 'Bearer ' + token,
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify({ data}),
             };
+           
             const result = await fetch(`${HOST}/${infoUsuario.id}`, opciones);
             console.log("newDataUser: -> ", result.json());
             setFileInputState('');
