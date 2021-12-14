@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { useLocalStorage } from "../helpers/useLocalStorage";
 import Header from "./Header";
+import Help from "../pages/Help";
+import DiscoverPage from "../pages/DiscoverPage";
 import Footer from './Footer';
 import HomePage from "../pages/HomePage";
 import PostPage from "../pages/PostPage";
@@ -24,12 +26,16 @@ function App() {
   return (
     <Router>
       <Header isLogged={isLogged} LogOut={handleLogOut} />
+      <Help isLogged={isLogged} LogOut={handleLogOut} />
       <Switch>
         <Route path="/login">
           <Login user={user} setUser={setUser} isLogged={isLogged} setIsLogged={setIsLogged} />
         </Route>
         <Route path="/Signup">
           <Signup isLogged={isLogged} setIsLogged={setIsLogged} />
+        </Route>
+        <Route path="/discover">
+          <DiscoverPage isLogged={isLogged} setIsLogged={setIsLogged} />
         </Route>
         <Route path="/profile">
           {isLogged ?

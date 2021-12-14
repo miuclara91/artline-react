@@ -195,6 +195,7 @@ function Header(props) {
                     </Pages>
                   </Button>
                 </Box>
+
                 <Box sx={{ display: { xs: "none", md: "flex" } }}>
                   <Button color="inherit">
                     <Pages
@@ -239,7 +240,7 @@ function Header(props) {
                     color="inherit"
                   >
                     <Tooltip
-                      title= {user !== undefined ? user : ""}
+                      title={user !== undefined ? user : ""}
                       TransitionComponent={Fade}
                       TransitionProps={{ timeout: 600 }}
                     >
