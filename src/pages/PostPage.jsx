@@ -11,7 +11,9 @@ import '../css/PostsPage.scss';
 const Postpage = (props) => {
     const URLBase = 'https://artline-team10.herokuapp.com/artline/publicaciones';
     const [isLogged] = useLocalStorage("isLogged", "");
-    const [user] = useLocalStorage("user", "");
+    const [user, setUser] = useLocalStorage("user", "");
+    console.log(user);
+    const [token, setToken] = useState(user[1].token);
 
     const [post, setPost] = useState([]);
 
@@ -27,7 +29,14 @@ const Postpage = (props) => {
             const post = await data.json();
             setPost(post);
         } else { // info propia y (amigos future)
-            const data = await fetch(`${URLBase}/postBYusuario/${user.id}`);
+            const opciones = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                }
+            };
+            const data = await fetch(`${URLBase}/postBYusuario/${user[0].id}`, opciones);
             const post = await data.json();
             setPost(post);
         }

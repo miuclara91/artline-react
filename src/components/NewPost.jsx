@@ -3,6 +3,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import { useState } from "react";
+import { useLocalStorage } from "../helpers/useLocalStorage";
 import {
     Button,
     TextField,
@@ -14,6 +15,8 @@ const Newpost = (props) => {
         handleNewPost,
         id
     } = props;
+    const [user, setUser] = useLocalStorage("user", "");
+    const [token, setToken] = useState(user[1].token);
     const [newImg, setnewImg] = useState("");
     const [newDesc, setnewDesc] = useState("");
     const HOST = "https://artline-team10.herokuapp.com/artline/publicaciones";
@@ -34,7 +37,10 @@ const Newpost = (props) => {
 
         const data = await fetch(HOST, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
             body: JSON.stringify(allInfo),
         });
         const PostComplete = await data.json();
