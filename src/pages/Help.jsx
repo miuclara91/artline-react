@@ -118,6 +118,7 @@ export default function BackToTop(props) {
             onClose={handleMenuClose}
         >
             {/* <MenuItem onClick={handleMenuClose}>Settings</MenuItem> */}
+            <MenuItem onClick={handleMenuClose}>Usuario</MenuItem>
             <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
             <MenuItem onClick={handleCerrarSesion}>Cerrar Sesión</MenuItem>
         </Menu>
@@ -171,7 +172,6 @@ export default function BackToTop(props) {
                 >
                     <AccountCircle />
                 </IconButton>
-                <p>{user}</p>
             </MenuItem>
         </Menu>
     );
@@ -281,7 +281,7 @@ export default function BackToTop(props) {
                                     color="inherit"
                                 >
                                     <Tooltip
-                                        title={user !== undefined ? user : ""}
+                                        title="Usuario"
                                         TransitionComponent={Fade}
                                         TransitionProps={{ timeout: 600 }}
                                     >
@@ -335,18 +335,7 @@ export default function BackToTop(props) {
             {renderMobileMenu}
             {renderMenu}
             <Toolbar id="back-to-top-anchor" />
-            <Container>
-                <Box sx={{ my: 2 }}>
-                    {[...new Array(12)]
-                        .map(
-                            () => `Cras mattis consectetur purus sit amet fermentum.
-Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,
-                        )
-                        .join('\n')}
-                </Box>
-            </Container>
+            {/* container */}
             <ScrollTop {...props}>
                 <Fab color="secondary" size="small" aria-label="scroll back to top">
                     <KeyboardArrowUpIcon />
