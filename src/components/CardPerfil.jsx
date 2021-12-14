@@ -63,11 +63,7 @@ const CardPerfil = (props) => {
     const [value, setValue] = useState(0);//Valor de los botones de galeria,favoritos,colecciones
 
     const HOST = "https://artline-team10.herokuapp.com/artline/usuarios/";
-<<<<<<< HEAD
-    // const HOST_TEST = "http://localhost:4001/Artline/usuarios/";
-=======
     const HOST_TEST = "http://localhost:4001/Artline/usuarios";
->>>>>>> e6ef13f7a8a38165dcdf1d1dda47315f6aa9e094
 
     const obtenerDatos = async () => {//Obtiene de la base de datos la información del usuario
         const opciones = {
