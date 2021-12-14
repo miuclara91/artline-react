@@ -53,6 +53,7 @@ TabPanel.propTypes = {
 const CardPerfil = (props) => {
     // const { user, setUser } = props;
     const [user, setUser] = useLocalStorage("user", "");
+    const [token, setToken] = useState(user.token);
     const [editar, setEditar] = useState(false);
     const [Post, setNewPost] = useState(false);
     // obtenemos la informacion de una consulta con el id de localStorage
@@ -62,14 +63,22 @@ const CardPerfil = (props) => {
     const [value, setValue] = useState(0);//Valor de los botones de galeria,favoritos,colecciones
 
     const HOST = "https://artline-team10.herokuapp.com/artline/usuarios/";
+<<<<<<< HEAD
     // const HOST_TEST = "http://localhost:4001/Artline/usuarios/";
+=======
+    const HOST_TEST = "http://localhost:4001/Artline/usuarios";
+>>>>>>> e6ef13f7a8a38165dcdf1d1dda47315f6aa9e094
 
     const obtenerDatos = async () => {//Obtiene de la base de datos la información del usuario
         const opciones = {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`, }
         };
+      
         const data = await fetch(`${HOST}/${id}`, opciones);
+        
         const userInfo = await data.json();
         // console.log("Info usuario: -> ", userInfo);
         setInfoUsuario(userInfo)
