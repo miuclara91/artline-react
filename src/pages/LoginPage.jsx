@@ -22,6 +22,8 @@ function Login(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    const HOST = "https://artline-team10.herokuapp.com/artline/usuarios/entrar";
+    const HOST_TEST = "http://localhost:4001/Artline/usuarios/entrar"; 
 
     //Métodos de captura Textfiled
     const handleEmailChange = (event) => {
@@ -48,9 +50,9 @@ function Login(props) {
             body: JSON.stringify({ email: email, password: password })
         };
 
-        const data = await fetch(`https://artline-team10.herokuapp.com/artline/usuarios/entrar`, opciones);
+        const data = await fetch(HOST, opciones);
         const user = await data.json();
-
+     
         if (user.error) {
             setTextoRespuesta(user.error);
         } else {
@@ -65,6 +67,7 @@ function Login(props) {
             id: user.id,
             token: user.token
         });
+        
     }
 
     const HandleLoggin = (event) => {
