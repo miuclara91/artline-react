@@ -7,7 +7,7 @@ function DiscoverPage(props) {
     const [isLogged, setIsLogged] = useLocalStorage("isLogged", false);
     // const { data } = props;
     const [user, setUser] = useLocalStorage("user", "");
-    const [token, setToken] = useState(user.token);
+    const [token, setToken] = useState(user[1].token);
     const URLBase = 'https://artline-team10.herokuapp.com/artline/usuarios';
     const [users, setUsers] = useState([]);
 
