@@ -8,18 +8,25 @@ import {
   IconButton,
   Divider,
   CardHeader,
-  Button
+  Button,
+  Menu,
+  ListItemIcon,
+  ListItemText
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
-import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
+import { MoreVert as MoreVertIcon, ChatBubble as ChatBubbleIcon } from "@mui/icons-material";
+
 import { useLocalStorage } from '../helpers/useLocalStorage';
 import AlertaSesion from "./AlertaSesion";
 
+import MenuItem from '@mui/material/MenuItem';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 const Post = (props) => {
-  const { data } = props;
+  const { data, token } = props;
   const [user] = useLocalStorage("user", "");
   const [isLogged] = useLocalStorage("isLogged");
   const URL = 'https://artline-team10.herokuapp.com/artline/publicaciones/';
@@ -28,6 +35,13 @@ const Post = (props) => {
   const [likes, setLikes] = useState(data.likes.length);
   const [isLiked, setIsLiked] = useState(false);
   const [openAlerta, setOpenAlerta] = useState(false);
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
   let history = useHistory();
 
@@ -44,6 +58,10 @@ const Post = (props) => {
 
   const dataUser = {
     foto: user[5].fotoPerfil,
+  }
+  
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
   function getFecha(date) { // Funcion para convertir la fecha en formato largo
@@ -77,7 +95,10 @@ const Post = (props) => {
   const modificarLike = async (newData) => {
     const opciones = {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
       body: JSON.stringify({ likes: newData })
     }
     const response = await fetch(`${URL}${data._id}`, opciones);
@@ -101,18 +122,56 @@ const Post = (props) => {
     setOpenAlerta(false);
   };
 
+  const renderMenu = (
+    <Menu
+      id="basic-menu"
+      anchorEl={anchorEl}
+      open={open}
+      onClose={handleClose}
+      MenuListProps={{
+        'aria-labelledby': 'basic-button',
+      }}
+    >
+      <MenuItem onClick={handleClose}>
+        <ListItemIcon>
+          <EditIcon fontSize="small" />
+        </ListItemIcon>
+        <ListItemText>Editar</ListItemText>
+      </MenuItem>
+      <MenuItem onClick={handleClose}>
+        <ListItemIcon>
+          <DeleteIcon fontSize="small" />
+        </ListItemIcon>
+        <ListItemText>Eliminar</ListItemText>
+      </MenuItem>
+    </Menu>
+  );
 
   return (
     <>
+      {renderMenu}
+
       <Card sx={{ boxShadow: 5 }}>
         <CardHeader style={{ margin: 10 }}
           title={data.usuario[0].nombre}
           subheader={getFecha(data.createdAt)}
           avatar={<Avatar
             alt="fotoPerfil"
-            src={dataUser.foto}
+            src={data.usuario[0].fotoPerfil.imageURL}
             sx={{ width: 80, height: 80 }}
           ></Avatar>}
+          action={
+            <IconButton
+              aria-label="settings"
+              id="basic-button"
+              aria-controls="basic-menu"
+              aria-haspopup="true"
+              aria-expanded={open ? 'true' : undefined}
+              onClick={handleClick}
+            >
+              <MoreVertIcon />
+            </IconButton>
+          }
         />
         <ListItem>
           <Typography style={{ margin: 10 }}>{data.descripcion}</Typography>
@@ -129,8 +188,6 @@ const Post = (props) => {
             <Typography style={{ margin: 10 }}>{likes} Likes </Typography>
 
             <Typography style={{ margin: 10 }}># Comments</Typography>
-
-            <Typography style={{ margin: 10 }}># Shares</Typography>
           </IconButton>
         </CardActions>
 
@@ -154,10 +211,6 @@ const Post = (props) => {
             <Typography style={{ margin: 10 }} onClick={() => handleComentario(data._id)}>Comment</Typography>
           </IconButton>
 
-          <IconButton aria-label="share">
-            <ShareIcon />
-            <Typography style={{ margin: 10 }}>Share</Typography>
-          </IconButton>
         </CardActions>
       </Card>
       <Divider variant="middle" />

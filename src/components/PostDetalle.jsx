@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Card, CardHeader, CardContent, CardMedia, CardActions, Container, Typography, IconButton, Divider, List, TextField, Button, Stack, ListItemIcon, ListItemText } from '@mui/material';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-
-import Avatar from '@mui/material/Avatar';
-import { Favorite as FavoriteIcon, Share as ShareIcon, Send as SendIcon, MoreVert as MoreVertIcon } from '@mui/icons-material';
+import { Avatar, Card, CardHeader, CardContent, CardMedia, CardActions, Container, Typography, IconButton, Divider, List, TextField, Button, Stack, Menu, MenuItem, ListItemIcon, ListItemText } from '@mui/material';
+import { Edit as EditIcon, Delete as DeleteIcon, Favorite as FavoriteIcon, Share as ShareIcon, Send as SendIcon, MoreVert as MoreVertIcon } from '@mui/icons-material';
 import { red } from '@mui/material/colors';
 import { useLocalStorage } from "../helpers/useLocalStorage";
 import Comentario from './Comentario';
@@ -46,7 +40,7 @@ const PostDetalle = (props) => {
 
             const datapost = await fetch(`${URLBase}/publicaciones/${postId}`);
             const post = await datapost.json();
-            console.log(post);
+            console.log("-->", post);
             setComentarios(comentarios);
             setPost(post);
 
@@ -123,9 +117,7 @@ const PostDetalle = (props) => {
                                     onClick={handleClick}
                                 >
                                     <MoreVertIcon />
-
                                 </IconButton>
-
                             }
                             title={item.usuario[0].nombre}
                             subheader={getFecha(item.createdAt)}
