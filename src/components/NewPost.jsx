@@ -15,6 +15,7 @@ const Newpost = (props) => {
         handleNewPost,
         id
     } = props;
+   
     const [user, setUser] = useLocalStorage("user", "");
     const [token, setToken] = useState(user[1].token);
     const [newImg, setnewImg] = useState("");
@@ -45,6 +46,7 @@ const Newpost = (props) => {
         });
         const PostComplete = await data.json();
         console.log(PostComplete);
+        handleNewPost();       
     }
     return (
         <Dialog open={open}>
