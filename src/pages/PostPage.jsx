@@ -10,12 +10,10 @@ import { useLocalStorage } from '../helpers/useLocalStorage';
 import '../css/PostsPage.scss';
 
 const Postpage = (props) => {
-    const { user } = props;
+    const { user, token } = props;
     const URLBase = 'https://artline-team10.herokuapp.com/artline/publicaciones';
     const [isLogged] = useLocalStorage("isLogged", "");
-    const [token, setToken] = useState(user[1].token);
-
-
+    // const [token, setToken] = useState("");
 
     const [post, setPost] = useState([]);
 
@@ -32,7 +30,7 @@ const Postpage = (props) => {
             const post = await data.json();
             setPost(post);
         } else { // info propia y (amigos future)
-            setToken(user[1].token);
+            // setToken(user[1].token);
             const opciones = {
                 method: 'GET',
                 headers: {
@@ -54,7 +52,7 @@ const Postpage = (props) => {
                     {
                         post.length > 0 ?
                             post.map((item) => (
-                                <Post key={item._id} data={item} token={token} />
+                                < Post key={item._id} data={item} token={token} />
                             ))
                             :
                             <PostVacio />
