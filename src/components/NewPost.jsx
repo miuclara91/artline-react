@@ -20,7 +20,7 @@ const Newpost = (props) => {
     const [newImg, setnewImg] = useState("");
     const [newDesc, setnewDesc] = useState("");
     const HOST = "https://artline-team10.herokuapp.com/artline/publicaciones";
-    console.log(id)
+   
     const handlenewImg = (event) => {
         setnewImg(event.target.value);
     };
