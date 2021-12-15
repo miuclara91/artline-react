@@ -25,7 +25,7 @@ const Guestuser = (props) => {
                     <img src={Logo} alt="Logo" className="logo" />
                     <Typography variant="h4" pt={7}>
                         Welcome to Artline
-                        <Typography variant="h4" color="primary" >{user.nombre}!</Typography>
+                        <Typography variant="h4" color="primary" >{user[4].nombre}!</Typography>
                         The best platform for artist growth and community!
                     </Typography>
                     <Typography variant="h4" >
@@ -48,7 +48,7 @@ const Guestuser = (props) => {
                 <Newpost
                     open={Post}
                     handleNewPost={handleNewPost}
-                    id={user.id}
+                    id={user[1].id}
                 />
 
             </Container>

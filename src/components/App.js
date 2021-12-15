@@ -38,7 +38,7 @@ function App() {
         </Route>
         <Route path="/discover">
           <Help user={user} isLogged={isLogged} LogOut={handleLogOut} />
-          <DiscoverPage isLogged={isLogged} setIsLogged={setIsLogged} />
+          <DiscoverPage user={user} isLogged={isLogged} setIsLogged={setIsLogged} />
         </Route>
         <Route path="/profile">
           <Help user={user} isLogged={isLogged} LogOut={handleLogOut} />

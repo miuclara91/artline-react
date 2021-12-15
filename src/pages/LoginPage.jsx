@@ -58,7 +58,6 @@ function Login(props) {
             { fotoPerfil: user.fotoPerfil.imageURL },
             { bio: user.bio }
         ]);
-        console.log("userrjhdkjfjsd:    -> ", user);
     }
 
     const HandleLoggin = (event) => {
