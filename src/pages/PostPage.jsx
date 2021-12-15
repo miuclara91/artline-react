@@ -49,7 +49,7 @@ const Postpage = (props) => {
                     {
                         post.length > 0 ?
                             post.map((item) => (
-                                <Post key={item._id} data={item} />
+                                <Post key={item._id} data={item} token={user[1].token} />
                             ))
                             :
                             <PostVacio />
