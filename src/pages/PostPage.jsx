@@ -13,9 +13,6 @@ const Postpage = (props) => {
     const URLBase = 'https://artline-team10.herokuapp.com/artline/publicaciones';
     const [isLogged] = useLocalStorage("isLogged", "");
     const [user, setUser] = useLocalStorage("user", "");
-
-    const [token, setToken] = useState("");
-
     const [post, setPost] = useState([]);
 
     useEffect(() => {
@@ -30,7 +27,7 @@ const Postpage = (props) => {
             const post = await data.json();
             setPost(post);
         } else { // info propia y (amigos future)
-            setToken(user[1].token);
+            const token = user[1].token;
             const opciones = {
                 method: 'GET',
                 headers: {
