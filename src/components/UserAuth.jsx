@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 //Components Material UI
-import { Box, Typography, Container, Tooltip, Fab, Button } from "@mui/material";
+import { Box, Typography, Container, Tooltip, Fab} from "@mui/material";
 //Icons
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 //Assets
@@ -32,10 +32,6 @@ const Guestuser = (props) => {
                         Join us on the other side!
                     </Typography>
                 </Box>
-
-                <Box>
-                    <Button className="navButton" onClick={handleNewPost} sx={{ justify: 'right', marginRight: '2%' }}>NUEVO POST</Button>
-                </Box>
                 <Box textAlign="end" pr={1}>
                     <Tooltip title={<Typography fontSize={14}>Desliza para ver las publicaciones en artline</Typography>} arrow placement="left" open={true} sx={{ fontSize: '18' }}>
                         <Fab color="primary">
@@ -48,7 +44,7 @@ const Guestuser = (props) => {
                 <Newpost
                     open={Post}
                     handleNewPost={handleNewPost}
-                    id={user[1].id}
+                    id={user[0].id}
                 />
 
             </Container>
