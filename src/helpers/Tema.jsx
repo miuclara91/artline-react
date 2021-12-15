@@ -11,6 +11,9 @@ const Tema = createTheme({
         tertiary: {
             main: '#03a9f4',
         },
+        amarilloFugaz: {
+            main: '#FFDF00'
+        }
     },
 });
 

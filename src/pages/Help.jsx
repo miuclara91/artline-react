@@ -94,7 +94,8 @@ export default function BackToTop(props) {
     };
 
     useEffect(() => {
-        obtenerDatos();
+        if (isLogged)
+            obtenerDatos();
         // return () => {
         //     cleanup
         // };

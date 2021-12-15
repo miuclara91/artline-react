@@ -5,6 +5,7 @@ import {
 } from "@mui/material";
 
 import Post from '../components/Post';
+import PostVacio from '../components/PostVacio';
 import { useLocalStorage } from '../helpers/useLocalStorage';
 import '../css/PostsPage.scss';
 
@@ -13,7 +14,7 @@ const Postpage = (props) => {
     const [isLogged] = useLocalStorage("isLogged", "");
     const [user, setUser] = useLocalStorage("user", "");
     console.log(user);
-    const [token, setToken] = useState(user[1].token);
+    const [token, setToken] = useState("");
 
     const [post, setPost] = useState([]);
 
@@ -29,6 +30,7 @@ const Postpage = (props) => {
             const post = await data.json();
             setPost(post);
         } else { // info propia y (amigos future)
+            setToken(user[1].token);
             const opciones = {
                 method: 'GET',
                 headers: {
@@ -42,13 +44,19 @@ const Postpage = (props) => {
         }
     };
 
+
     return (
         <>
             <Container className="fondoPosts">
                 <List style={{ margin: 50 }}>
-                    {post.map((item) => (
-                        <Post key={item._id} data={item} />
-                    ))}
+                    {
+                        post.length > 0 ?
+                            post.map((item) => (
+                                <Post key={item._id} data={item} />
+                            ))
+                            :
+                            <PostVacio />
+                    }
                 </List>
             </Container>
 
