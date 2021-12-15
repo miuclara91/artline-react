@@ -20,6 +20,7 @@ import { MoreVert as MoreVertIcon, ChatBubble as ChatBubbleIcon } from "@mui/ico
 
 import { useLocalStorage } from '../helpers/useLocalStorage';
 import AlertaSesion from "./AlertaSesion";
+import PostEdit from "./PostEdit"
 
 import MenuItem from '@mui/material/MenuItem';
 import EditIcon from '@mui/icons-material/Edit';
@@ -36,28 +37,53 @@ const Post = (props) => {
   const [isLiked, setIsLiked] = useState(false);
   const [openAlerta, setOpenAlerta] = useState(false);
 
+  // Menu
+  const [openEdit, setOpenEdit] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const handleOpenEditPost = () => {
+    setAnchorEl(null); // cierra el menu
+    setOpenEdit(true);
+  };
+  const handleCloseEditPost = () => {
+    setOpenEdit(false);
+  };
+  const handleDeletePost = () => {
+    setAnchorEl(null); // cierra el menu
+    eliminarPost();
+  };
+  const eliminarPost = async () => {
+    const opciones = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    }
+    const response = await fetch(`${URL}${data._id}`, opciones);
+    const datos = await response.json();
+    console.log("eliminado: ", datos);
+  }
+
 
   let history = useHistory();
 
   useEffect(() => {
     estadoInicial();
-  }, [isLiked]);
+  }, [isLiked, data]);
 
   const estadoInicial = () => {
     data.likes.map((item) => {
       if (data.idUsuario === item)
         setIsLiked(true);
     });
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
   };
 
   function getFecha(date) { // Funcion para convertir la fecha en formato largo
@@ -128,13 +154,13 @@ const Post = (props) => {
         'aria-labelledby': 'basic-button',
       }}
     >
-      <MenuItem onClick={handleClose}>
+      <MenuItem onClick={handleOpenEditPost}>
         <ListItemIcon>
           <EditIcon fontSize="small" />
         </ListItemIcon>
         <ListItemText>Editar</ListItemText>
       </MenuItem>
-      <MenuItem onClick={handleClose}>
+      <MenuItem onClick={handleDeletePost}>
         <ListItemIcon>
           <DeleteIcon fontSize="small" />
         </ListItemIcon>
@@ -212,6 +238,7 @@ const Post = (props) => {
       <Divider variant="middle" />
       <Divider variant="middle" />
       <AlertaSesion open={openAlerta} setOpen={setOpenAlerta} handleClickOpen={handleOpenAlerta} handleClose={handleCloseAlerta} />
+      <PostEdit data={data} open={openEdit} setOpen={setOpenEdit} handleClickOpen={handleOpenEditPost} handleClose={handleCloseEditPost} />
     </>
   );
 };

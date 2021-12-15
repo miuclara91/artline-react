@@ -30,6 +30,7 @@ const PostDetalle = (props) => {
     // Otros
     useEffect(() => {
         obtenerDatos();
+        console.log("comenta:", comentarios);
     }, [comentario]);
 
     const obtenerDatos = async () => {
@@ -62,42 +63,46 @@ const PostDetalle = (props) => {
         const opciones = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ idUsuario: user.id, idPublicacion: postId, texto: comentario })
+            body: JSON.stringify({ idUsuario: user[0].id, idPublicacion: postId, texto: comentario })
         }
+        console.log("body->", opciones);
+        console.log("user->", user);
         const newComment = await fetch(`${URLBase}/comentarios`, opciones);
         const respuesta = await newComment.json();
         setComentario('');
         console.log("come:", comentario);
     };
 
-
+    const renderMenu = (
+        <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+                'aria-labelledby': 'basic-button',
+            }}
+        >
+            <MenuItem onClick={handleClose}>
+                <ListItemIcon>
+                    <EditIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>Editar</ListItemText>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+                <ListItemIcon>
+                    <DeleteIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>Eliminar</ListItemText>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>Logout</MenuItem>
+        </Menu>
+    );
 
 
     return (
         <Container>
-            <Menu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                    'aria-labelledby': 'basic-button',
-                }}
-            >
-                <MenuItem onClick={handleClose}>
-                    <ListItemIcon>
-                        <EditIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Editar</ListItemText>
-                </MenuItem>
-                <MenuItem onClick={handleClose}>
-                    <ListItemIcon>
-                        <DeleteIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Eliminar</ListItemText>
-                </MenuItem>
-                <MenuItem onClick={handleClose}>Logout</MenuItem>
-            </Menu>
+            {renderMenu}
             {
                 post.map((item) => (
                     <Card >
