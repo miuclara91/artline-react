@@ -113,7 +113,8 @@ export default function BackToTop(props) {
         const data = await fetch(`${URLBase}/totalpostBYUsuario/${user[0].id}`, opciones);
 
         const total = await data.json();
-        setTotalPost(total[0].total)
+        console.log('total ->',total)
+        total.length > 0 ? setTotalPost(total[0].total) : setTotalPost(0)
     }
 
     // Renderiza menu

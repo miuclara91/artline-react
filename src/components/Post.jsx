@@ -1,18 +1,4 @@
-import {
-  Avatar,
-  ListItem,
-  Typography,
-  Card,
-  CardMedia,
-  CardActions,
-  IconButton,
-  Divider,
-  CardHeader,
-  Button,
-  Menu,
-  ListItemIcon,
-  ListItemText
-} from "@mui/material";
+import { Avatar, ListItem, Typography, Card, CardMedia, CardActions, IconButton, Divider, CardHeader, Menu, ListItemIcon, ListItemText } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -98,14 +84,14 @@ const Post = (props) => {
       setLikes(isLiked ? likes - 1 : likes + 1);
       setIsLiked(!isLiked);
 
-      if (data.likes.includes(user.id)) { // YA DI LIKE A ESTE POST (eliminar Like)
+      if (data.likes.includes(user[0].id)) { // YA DI LIKE A ESTE POST (eliminar Like)
         const newData = data.likes;
-        const posicion = newData.indexOf(user.id);
+        const posicion = newData.indexOf(user[0].id);
         newData.splice(posicion, 1);
         modificarLike(newData);
       } else {// (guardar Like)
         const newData = data.likes;
-        newData.push(user.id);
+        newData.push(user[0].id);
         modificarLike(newData);
       }
 
