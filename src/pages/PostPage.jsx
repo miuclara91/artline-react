@@ -13,7 +13,7 @@ const Postpage = (props) => {
     const URLBase = 'https://artline-team10.herokuapp.com/artline/publicaciones';
     const [isLogged] = useLocalStorage("isLogged", "");
     const [user, setUser] = useLocalStorage("user", "");
-    const [token, setToken] = useState(user[1].token);
+   
 
     const [post, setPost] = useState([]);
 
@@ -24,12 +24,14 @@ const Postpage = (props) => {
     const obtenerDatos = async () => {
         // si islogged mostrar publicaciones de amigos
         // si no mostrar todo ramdom
+        
         if (!isLogged) { // info random
             const data = await fetch(URLBase);
             const post = await data.json();
             setPost(post);
         } else { // info propia y (amigos future)
-            setToken(user[1].token);
+            const token = user[1].token;
+           
             const opciones = {
                 method: 'GET',
                 headers: {
@@ -37,6 +39,7 @@ const Postpage = (props) => {
                     'Authorization': `Bearer ${token}`,
                 }
             };
+            console.log(opciones);
             const data = await fetch(`${URLBase}/postBYusuario/${user[0].id}`, opciones);
             const post = await data.json();
             setPost(post);
