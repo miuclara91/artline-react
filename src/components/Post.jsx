@@ -56,10 +56,6 @@ const Post = (props) => {
     });
   };
 
-  const dataUser = {
-    foto: user[5].fotoPerfil,
-  }
-  
   const handleClose = () => {
     setAnchorEl(null);
   };
