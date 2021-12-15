@@ -4,6 +4,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import { useState } from "react";
 import { useLocalStorage } from "../helpers/useLocalStorage";
+import { useHistory } from "react-router-dom";
 import {
     Button,
     TextField,
@@ -15,12 +16,14 @@ const Newpost = (props) => {
         handleNewPost,
         id
     } = props;
-    const [user, setUser] = useLocalStorage("user", "");
-    const [token, setToken] = useState(user[1].token);
+    const [user] = useLocalStorage("user", "");
+    const [token] = useState(user ? user[1].token: '');
     const [newImg, setnewImg] = useState("");
     const [newDesc, setnewDesc] = useState("");
     const HOST = "https://artline-team10.herokuapp.com/artline/publicaciones";
-   
+
+    let history = useHistory();
+
     const handlenewImg = (event) => {
         setnewImg(event.target.value);
     };
@@ -45,6 +48,8 @@ const Newpost = (props) => {
         });
         const PostComplete = await data.json();
         console.log(PostComplete);
+        handleNewPost()
+        history.push(`/post`);
     }
     return (
         <Dialog open={open}>
@@ -69,7 +74,7 @@ const Newpost = (props) => {
                 />
             </DialogContent>
             <DialogActions>
-                <Button onClick={() =>
+                <Button disabled={newImg === ""} onClick={() =>
                     createPostArtline()
                 } >CREAR</Button>
                 <Button onClick={handleNewPost}>Cancel</Button>
