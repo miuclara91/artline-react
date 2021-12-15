@@ -43,7 +43,7 @@ const Post = (props) => {
   };
 
   const dataUser = {
-    foto: "https://www.dzoom.org.es/wp-content/uploads/2020/02/portada-foto-perfil-redes-sociales-consejos.jpg",
+    foto: user[5].fotoPerfil,
   };
 
   function getFecha(date) { // Funcion para convertir la fecha en formato largo
