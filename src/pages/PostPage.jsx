@@ -13,8 +13,7 @@ const Postpage = (props) => {
     const URLBase = 'https://artline-team10.herokuapp.com/artline/publicaciones';
     const [isLogged] = useLocalStorage("isLogged", "");
     const [user, setUser] = useLocalStorage("user", "");
-    console.log(user);
-    const [token, setToken] = useState("");
+    const [token, setToken] = useState(user[1].token);
 
     const [post, setPost] = useState([]);
 
