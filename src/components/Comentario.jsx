@@ -66,10 +66,10 @@ const Comentario = (props) => {
             }
         >
             <ListItemAvatar>
-                {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" > */}
-                <Avatar sx={{ bgcolor: green[500] }} aria-label="recipe">
+                <Avatar alt="Remy Sharp" src={data.usuario[0].fotoPerfil.imageURL} />
+                {/* <Avatar sx={{ bgcolor: green[500] }} aria-label="user">
                     U
-                </Avatar>
+                </Avatar> */}
             </ListItemAvatar>
             <ListItemText
                 primary={
@@ -80,9 +80,9 @@ const Comentario = (props) => {
                             variant="body2"
                             color="text.primary"
                         >
-                            Usuario {data.idUsuario}
+                            {data.respuesta}
                         </Typography>
-                        {" - " + getFecha(data.createdAt)}
+                        {" - " + data.texto}
                     </>
                 }
                 secondary={
@@ -93,9 +93,9 @@ const Comentario = (props) => {
                             variant="body2"
                             color="text.primary"
                         >
-                            {data.respuesta}
+                            {data.usuario[0].nombre}
                         </Typography>
-                        {" — " + data.texto}
+                        {" — " + getFecha(data.createdAt)}
                     </React.Fragment>
                 }
             />

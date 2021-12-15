@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { useLocalStorage } from "../helpers/useLocalStorage";
@@ -17,7 +17,8 @@ import Notfound from "./NotFound";
 function App() {
   const [user, setUser] = useLocalStorage("user", "");
   const [isLogged, setIsLogged] = useLocalStorage("isLogged", false);
-  // console.log(user); // esta variable tiene los datos de la API artline para que sean usados
+  const [token, setToken] = useState("");
+
 
   const handleLogOut = (e => {
     setIsLogged(false);
@@ -25,8 +26,6 @@ function App() {
 
   return (
     <Router>
-      {/* <Header isLogged={isLogged} LogOut={handleLogOut} /> */}
-
       <Switch>
         <Route path="/login">
           <Help user={user} isLogged={isLogged} LogOut={handleLogOut} />
@@ -43,7 +42,7 @@ function App() {
         <Route path="/profile">
           <Help user={user} isLogged={isLogged} LogOut={handleLogOut} />
           {isLogged ?
-            <PerfilPage isLogged={isLogged} user={user} setUser={setUser} />
+            <PerfilPage isLogged={isLogged} user={user} token={user !== "" ? user[1].token : ""} />
             :
             <HomePage isLogged={isLogged} />
           }
@@ -51,7 +50,7 @@ function App() {
         <Route exact path="/post">
           <Help user={user} isLogged={isLogged} LogOut={handleLogOut} />
           {isLogged ?
-            <PostPage isLogged={isLogged} />
+            <PostPage isLogged={isLogged} user={user} token={user !== "" ? user[1].token : ""} />
             :
             <HomePage isLogged={isLogged} />
           }
@@ -62,7 +61,7 @@ function App() {
         </Route>
         <Route path="/" exact>
           <Help user={user} isLogged={isLogged} LogOut={handleLogOut} />
-          <HomePage isLogged={isLogged} user={user} />
+          <HomePage isLogged={isLogged} user={user} token={user !== "" ? user[1].token : ""} />
         </Route>
         <Route component={Notfound} />
       </Switch>

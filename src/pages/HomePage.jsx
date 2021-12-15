@@ -12,7 +12,7 @@ import "../css/home.scss";
 
 const Home = (props) => {
   // despues de verificar que este AUTENTIFICADO el usuario permitirle ver alguna vista
-  const { isLogged, user } = props;
+  const { isLogged, user, token } = props;
 
   return (
     <ThemeProvider theme={Tema}>
@@ -26,7 +26,7 @@ const Home = (props) => {
         </Box>
       </Container>
 
-      <Postpage />
+      <Postpage user={user} token={token} />
 
     </ThemeProvider>
   );

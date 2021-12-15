@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Card, CardHeader, CardContent, CardMedia, CardActions, Container, Typography, IconButton, Divider, List, TextField, Button, Stack, ListItemIcon, ListItemText } from '@mui/material';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-
-import Avatar from '@mui/material/Avatar';
-import { Favorite as FavoriteIcon, Share as ShareIcon, Send as SendIcon, MoreVert as MoreVertIcon } from '@mui/icons-material';
+import { Avatar, Card, CardHeader, CardContent, CardMedia, CardActions, Container, Typography, IconButton, Divider, List, TextField, Button, Stack, Menu, MenuItem, ListItemIcon, ListItemText } from '@mui/material';
+import { Edit as EditIcon, Delete as DeleteIcon, Favorite as FavoriteIcon, Share as ShareIcon, Send as SendIcon, MoreVert as MoreVertIcon } from '@mui/icons-material';
 import { red } from '@mui/material/colors';
 import { useLocalStorage } from "../helpers/useLocalStorage";
 import Comentario from './Comentario';
@@ -36,6 +30,7 @@ const PostDetalle = (props) => {
     // Otros
     useEffect(() => {
         obtenerDatos();
+        console.log("comenta:", comentarios);
     }, [comentario]);
 
     const obtenerDatos = async () => {
@@ -46,7 +41,7 @@ const PostDetalle = (props) => {
 
             const datapost = await fetch(`${URLBase}/publicaciones/${postId}`);
             const post = await datapost.json();
-            console.log(post);
+            console.log("-->", post);
             setComentarios(comentarios);
             setPost(post);
 
@@ -68,42 +63,46 @@ const PostDetalle = (props) => {
         const opciones = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ idUsuario: user.id, idPublicacion: postId, texto: comentario })
+            body: JSON.stringify({ idUsuario: user[0].id, idPublicacion: postId, texto: comentario })
         }
+        console.log("body->", opciones);
+        console.log("user->", user);
         const newComment = await fetch(`${URLBase}/comentarios`, opciones);
         const respuesta = await newComment.json();
         setComentario('');
         console.log("come:", comentario);
     };
 
-
+    const renderMenu = (
+        <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+                'aria-labelledby': 'basic-button',
+            }}
+        >
+            <MenuItem onClick={handleClose}>
+                <ListItemIcon>
+                    <EditIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>Editar</ListItemText>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+                <ListItemIcon>
+                    <DeleteIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>Eliminar</ListItemText>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>Logout</MenuItem>
+        </Menu>
+    );
 
 
     return (
         <Container>
-            <Menu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                    'aria-labelledby': 'basic-button',
-                }}
-            >
-                <MenuItem onClick={handleClose}>
-                    <ListItemIcon>
-                        <EditIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Editar</ListItemText>
-                </MenuItem>
-                <MenuItem onClick={handleClose}>
-                    <ListItemIcon>
-                        <DeleteIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Eliminar</ListItemText>
-                </MenuItem>
-                <MenuItem onClick={handleClose}>Logout</MenuItem>
-            </Menu>
+            {renderMenu}
             {
                 post.map((item) => (
                     <Card >
@@ -123,9 +122,7 @@ const PostDetalle = (props) => {
                                     onClick={handleClick}
                                 >
                                     <MoreVertIcon />
-
                                 </IconButton>
-
                             }
                             title={item.usuario[0].nombre}
                             subheader={getFecha(item.createdAt)}

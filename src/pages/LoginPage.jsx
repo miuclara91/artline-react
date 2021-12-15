@@ -14,7 +14,6 @@ import '../css/login.scss';
 
 function Login(props) {
     const { isLogged, setIsLogged, user, setUser } = props;
-    // const [user, setUser] = useLocalStorage("user", "");
 
     const [open, setOpen] = useState(false);
     const [textoRespuesta, setTextoRespuesta] = useState("");
@@ -42,6 +41,7 @@ function Login(props) {
 
         const data = await fetch(HOST, opciones);
         const user = await data.json();
+        console.log("user::::", user);
 
         if (user.error) {
             setTextoRespuesta(user.error);

@@ -1,28 +1,69 @@
-import {Avatar, ListItem, Typography, Card, CardMedia, CardActions, IconButton, Divider, CardHeader} from "@mui/material";
+import { Avatar, ListItem, Typography, Card, CardMedia, CardActions, IconButton, Divider, CardHeader, Menu, ListItemIcon, ListItemText } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
-import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
+import { MoreVert as MoreVertIcon, ChatBubble as ChatBubbleIcon } from "@mui/icons-material";
+
 import { useLocalStorage } from '../helpers/useLocalStorage';
 import AlertaSesion from "./AlertaSesion";
+import PostEdit from "./PostEdit"
+
+import MenuItem from '@mui/material/MenuItem';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const Post = (props) => {
-  const { data } = props;
+  const { data, token } = props;
   const [user] = useLocalStorage("user", "");
   const [isLogged] = useLocalStorage("isLogged");
   const URL = 'https://artline-team10.herokuapp.com/artline/publicaciones/';
-
+  console.log(data);
 
   const [likes, setLikes] = useState(data.likes.length);
   const [isLiked, setIsLiked] = useState(false);
   const [openAlerta, setOpenAlerta] = useState(false);
 
+  // Menu
+  const [openEdit, setOpenEdit] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const handleOpenEditPost = () => {
+    setAnchorEl(null); // cierra el menu
+    setOpenEdit(true);
+  };
+  const handleCloseEditPost = () => {
+    setOpenEdit(false);
+  };
+  const handleDeletePost = () => {
+    setAnchorEl(null); // cierra el menu
+    eliminarPost();
+  };
+  const eliminarPost = async () => {
+    const opciones = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    }
+    const response = await fetch(`${URL}${data._id}`, opciones);
+    const datos = await response.json();
+    console.log("eliminado: ", datos);
+  }
+
+
   let history = useHistory();
 
   useEffect(() => {
     estadoInicial();
-  }, [isLiked]);
+  }, [isLiked, data]);
 
   const estadoInicial = () => {
     data.likes.map((item) => {
@@ -62,7 +103,10 @@ const Post = (props) => {
   const modificarLike = async (newData) => {
     const opciones = {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
       body: JSON.stringify({ likes: newData })
     }
     const response = await fetch(`${URL}${data._id}`, opciones);
@@ -86,18 +130,56 @@ const Post = (props) => {
     setOpenAlerta(false);
   };
 
+  const renderMenu = (
+    <Menu
+      id="basic-menu"
+      anchorEl={anchorEl}
+      open={open}
+      onClose={handleClose}
+      MenuListProps={{
+        'aria-labelledby': 'basic-button',
+      }}
+    >
+      <MenuItem onClick={handleOpenEditPost}>
+        <ListItemIcon>
+          <EditIcon fontSize="small" />
+        </ListItemIcon>
+        <ListItemText>Editar</ListItemText>
+      </MenuItem>
+      <MenuItem onClick={handleDeletePost}>
+        <ListItemIcon>
+          <DeleteIcon fontSize="small" />
+        </ListItemIcon>
+        <ListItemText>Eliminar</ListItemText>
+      </MenuItem>
+    </Menu>
+  );
 
   return (
     <>
+      {renderMenu}
+
       <Card sx={{ boxShadow: 5 }}>
         <CardHeader style={{ margin: 10 }}
           title={data.usuario[0].nombre}
           subheader={getFecha(data.createdAt)}
           avatar={<Avatar
             alt="fotoPerfil"
-            src={user ? user[5].fotoPerfil : ''}
+            src={data.usuario[0].fotoPerfil.imageURL}
             sx={{ width: 80, height: 80 }}
           ></Avatar>}
+          action={
+            <IconButton
+              aria-label="settings"
+              id="basic-button"
+              aria-controls="basic-menu"
+              aria-haspopup="true"
+              aria-expanded={open ? 'true' : undefined}
+              onClick={handleClick}
+            >
+              <MoreVertIcon />
+            </IconButton>
+          }
         />
         <ListItem>
           <Typography style={{ margin: 10 }}>{data.descripcion}</Typography>
@@ -114,8 +196,6 @@ const Post = (props) => {
             <Typography style={{ margin: 10 }}>{likes} Likes </Typography>
 
             <Typography style={{ margin: 10 }}># Comments</Typography>
-
-            <Typography style={{ margin: 10 }}># Shares</Typography>
           </IconButton>
         </CardActions>
 
@@ -139,15 +219,12 @@ const Post = (props) => {
             <Typography style={{ margin: 10 }} onClick={() => handleComentario(data._id)}>Comment</Typography>
           </IconButton>
 
-          <IconButton aria-label="share">
-            <ShareIcon />
-            <Typography style={{ margin: 10 }}>Share</Typography>
-          </IconButton>
         </CardActions>
       </Card>
       <Divider variant="middle" />
       <Divider variant="middle" />
       <AlertaSesion open={openAlerta} setOpen={setOpenAlerta} handleClickOpen={handleOpenAlerta} handleClose={handleCloseAlerta} />
+      <PostEdit data={data} open={openEdit} setOpen={setOpenEdit} handleClickOpen={handleOpenEditPost} handleClose={handleCloseEditPost} />
     </>
   );
 };
