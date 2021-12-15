@@ -113,10 +113,7 @@ export default function BackToTop(props) {
         const data = await fetch(`${URLBase}/totalpostBYUsuario/${user[0].id}`, opciones);
 
         const total = await data.json();
-        console.log("Info usuario: -> ", total);
         setTotalPost(total[0].total)
-        console.log("Info usuario: -> ", totalPost);
-        // setFotoPerfil(userInfo.fotoPerfil.imageURL)
     }
 
     // Renderiza menu
