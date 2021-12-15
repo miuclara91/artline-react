@@ -51,7 +51,7 @@ function App() {
         <Route exact path="/post">
           <Help user={user} isLogged={isLogged} LogOut={handleLogOut} />
           {isLogged ?
-            <PostPage isLogged={isLogged} />
+            <PostPage isLogged={isLogged} user={user} />
             :
             <HomePage isLogged={isLogged} />
           }
