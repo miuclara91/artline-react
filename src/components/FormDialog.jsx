@@ -21,7 +21,7 @@ export default function FormDialog(props) {
     const [selectedFile, setSelectedFile] = useState('');
 
     const HOST = "https://artline-team10.herokuapp.com/artline/usuarios/";
-    const HOST_TEST = "http://localhost:4001/Artline/usuarios"; 
+    const HOST_TEST = "http://localhost:4001/Artline/usuarios";
 
     useEffect(() => {//Carga la información del usuario en los input
         setNombre(infoUsuario.nombre);
@@ -30,13 +30,13 @@ export default function FormDialog(props) {
 
     const handleNombreChange = (event) => {
         setNombre(event.target.value);
-    
+
     };
     const handleBioChange = (event) => {
         setBio(event.target.value);
     };
 
-    const handleImageInputChange = (event) =>{
+    const handleImageInputChange = (event) => {
         const file = event.target.files[0];
         previewFile(file);
         setSelectedFile(file);
@@ -53,7 +53,7 @@ export default function FormDialog(props) {
 
     const handleSubmitInfo = (e) => {
         e.preventDefault();
-        if (selectedFile){
+        if (selectedFile) {
             const reader = new FileReader();
             reader.readAsDataURL(selectedFile);
             reader.onloadend = () => {
@@ -62,7 +62,7 @@ export default function FormDialog(props) {
             reader.onerror = () => {
                 console.error('AHHHHHHHH!!');
             };
-        } else{
+        } else {
             uploadImage('')
         }
     };
@@ -70,7 +70,7 @@ export default function FormDialog(props) {
     const uploadImage = async (base64EncodedImage) => {
         // console.log(base64EncodedImage)
         let data = { nombre, bio }
-        if(base64EncodedImage !== ''){
+        if (base64EncodedImage !== '') {
             data = { nombre, bio, base64EncodedImage }
         }
         try {
@@ -80,10 +80,11 @@ export default function FormDialog(props) {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
                 },
-                body: JSON.stringify({ data}),
+                body: JSON.stringify({ data }),
             };
-           
+
             const result = await fetch(`${HOST}/${infoUsuario.id}`, opciones);
+            console.log("opcios: ", result);
             console.log("newDataUser: -> ", result.json());
             setFileInputState('');
             setPreviewSource('');
@@ -97,52 +98,52 @@ export default function FormDialog(props) {
     return (
         <div>
             <Dialog open={open} onClose={handleEditar}>
-            <form onSubmit={handleSubmitInfo}>
-                <DialogTitle>Editar información del perfil</DialogTitle>
-                <DialogContent align="center">
-                    {previewSource && (
-                        <Box mt={2} textAlign="center">
-                            <img src={previewSource} alt='Imagen seleccionada' height="200px" />
-                        </Box>
-                    )}
-                    <input
-                        type="file"
-                        id="select-image"
-                        name="image"
-                        style={{ display: 'none' }}
-                        onChange={handleImageInputChange}
-                        value={fileInputState} />
-                    <label htmlFor="select-image">
-                        <Button variant="contained" color="primary" component="span">
-                            Nueva foto de Perfil
-                        </Button>
-                    </label>
-                    <TextField
-                        margin="dense"
-                        id="nombre"
-                        label="Nombre"
-                        value={nombre}
-                        onChange={handleNombreChange}
-                        type="text"
-                        fullWidth
-                        color='secondary'
-                    />
-                    <TextField
-                        margin="dense"
-                        id="bio"
-                        value={bio}
-                        onChange={handleBioChange}
-                        type="text"
-                        fullWidth
-                        label="Biografía"
-                        multiline
-                        color='secondary'
-                    />
-                </DialogContent>
-                <DialogActions>
-                    <Button variant="contained" color="secondary"  onClick={handleEditar}>Cerrar</Button>
-                    <Button variant="contained" color="primary" type='submit' >Actualizar</Button>
-                </DialogActions>
+                <form onSubmit={handleSubmitInfo}>
+                    <DialogTitle>Editar información del perfil</DialogTitle>
+                    <DialogContent align="center">
+                        {previewSource && (
+                            <Box mt={2} textAlign="center">
+                                <img src={previewSource} alt='Imagen seleccionada' height="200px" />
+                            </Box>
+                        )}
+                        <input
+                            type="file"
+                            id="select-image"
+                            name="image"
+                            style={{ display: 'none' }}
+                            onChange={handleImageInputChange}
+                            value={fileInputState} />
+                        <label htmlFor="select-image">
+                            <Button variant="contained" color="primary" component="span">
+                                Nueva foto de Perfil
+                            </Button>
+                        </label>
+                        <TextField
+                            margin="dense"
+                            id="nombre"
+                            label="Nombre"
+                            value={nombre}
+                            onChange={handleNombreChange}
+                            type="text"
+                            fullWidth
+                            color='secondary'
+                        />
+                        <TextField
+                            margin="dense"
+                            id="bio"
+                            value={bio}
+                            onChange={handleBioChange}
+                            type="text"
+                            fullWidth
+                            label="Biografía"
+                            multiline
+                            color='secondary'
+                        />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button variant="contained" color="secondary" onClick={handleEditar}>Cerrar</Button>
+                        <Button variant="contained" color="primary" type='submit' >Actualizar</Button>
+                    </DialogActions>
                 </form>
             </Dialog>
         </div>

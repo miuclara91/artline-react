@@ -54,7 +54,7 @@ ScrollTop.propTypes = {
     window: PropTypes.func,
 };
 
-export default function BackToTop(props) {
+export default function Header(props) {
     const { user, isLogged, LogOut } = props;
     const URLBase = 'https://artline-team10.herokuapp.com/artline/publicaciones';
     const [totalPost, setTotalPost] = useState(0);
@@ -110,10 +110,9 @@ export default function BackToTop(props) {
             }
         };
 
-        const data = await fetch(`${URLBase}/totalpostBYUsuario/${user[0].id}`, opciones);
+        const result = await fetch(`${URLBase}/totalpostBYUsuario/${user[0].id}`, opciones);
 
-        const total = await data.json();
-        console.log('total ->',total)
+        const total = await result.json();
         total.length > 0 ? setTotalPost(total[0].total) : setTotalPost(0)
     }
 
@@ -137,7 +136,7 @@ export default function BackToTop(props) {
         >
             {/* <MenuItem onClick={handleMenuClose}>Settings</MenuItem> */}
 
-            <MenuItem key="user" onClick={handleMenuClose}>Usuario</MenuItem>
+            <MenuItem key="user" onClick={handleMenuClose}>V2.0 soon</MenuItem>
             <MenuItem key="settings" onClick={handleMenuClose}>Settings</MenuItem>
             <MenuItem key="logout" onClick={handleCerrarSesion}>Cerrar Sesión</MenuItem>
         </Menu>
@@ -163,7 +162,7 @@ export default function BackToTop(props) {
         >
             <MenuItem>
                 <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={4} color="error">
+                    <Badge badgeContent={0} color="error">
                         <MailIcon />
                     </Badge>
                 </IconButton>
@@ -175,7 +174,7 @@ export default function BackToTop(props) {
                     aria-label="show 17 new notifications"
                     color="inherit"
                 >
-                    <Badge badgeContent={17} color="error">
+                    <Badge badgeContent={0} color="error">
                         <NotificationsIcon />
                     </Badge>
                 </IconButton>
@@ -266,7 +265,7 @@ export default function BackToTop(props) {
                         TransitionProps={{ timeout: 600 }}
                     >
                         {
-                            user !== "" ? < Avatar alt="Username" src={user ? user[5].fotoPerfil : ""}  /> : <AccountCircle />
+                            user !== "" ? < Avatar alt="Username" src={user ? user[5].fotoPerfil : ""} /> : <AccountCircle />
                         }
                     </Tooltip>
                 </IconButton>
@@ -338,19 +337,6 @@ export default function BackToTop(props) {
                             <img src={Logo} alt="Logo" />
                         </Pages>
                     </Box>
-                    <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-                    <Box>
-                        <InputBase
-                            sx={{ ml: 1, flex: 1 }}
-                            placeholder="Buscar"
-                            color="white"
-                            inputProps={{ 'aria-label': 'buscar' }}
-                        />
-                        <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
-                            <SearchIcon color="white" />
-                        </IconButton>
-                    </Box>
-
 
                     <Box sx={{ flexGrow: 1 }} />
                     {/* Parte derecha del menu */}
