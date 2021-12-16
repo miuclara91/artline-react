@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { useLocalStorage } from "../helpers/useLocalStorage";
 import Header from "./Header";
-import Buscar from "../pages/Buscar";
+import Buscar from "./Buscar";
 import DiscoverPage from "../pages/DiscoverPage";
 import Footer from './Footer';
 import HomePage from "../pages/HomePage";
@@ -17,8 +17,6 @@ import Notfound from "./NotFound";
 function App() {
   const [user, setUser] = useLocalStorage("user", "");
   const [isLogged, setIsLogged] = useLocalStorage("isLogged", false);
-  const [token, setToken] = useState("");
-
 
   const handleLogOut = (e => {
     setIsLogged(false);

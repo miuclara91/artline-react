@@ -12,7 +12,6 @@ const Postpage = (props) => {
     const { user, token } = props;
     const URLBase = 'https://artline-team10.herokuapp.com/artline/publicaciones';
     const [isLogged] = useLocalStorage("isLogged", "");
-    // const [token, setToken] = useState("");
     const [post, setPost] = useState([]);
     //NewPost
     const [id] = useState(user ? user[0].id : '');
@@ -39,7 +38,6 @@ const Postpage = (props) => {
             const post = await data.json();
             setPost(post);
         } else { // info propia y (amigos future)
-            // setToken(user[1].token);
             const opciones = {
                 method: 'GET',
                 headers: {
@@ -49,7 +47,6 @@ const Postpage = (props) => {
             };
             const data = await fetch(`${URLBase}/postBYusuario/${user[0].id}`, opciones);
             const post = await data.json();
-            console.log("post--;;;;; -> ", post);
             setPost(post);
         }
     };
@@ -58,9 +55,9 @@ const Postpage = (props) => {
         return (
             <ThemeProvider theme={Tema} >
                 <Container align='center'>
-                    <Card sx={{ boxShadow: 5, maxWidth: 800, marginBottom:3 }}>
-                        <CardContent sx={{paddingBottom:0}}>
-                            <Typography gutterBottom variant="h5" component="div" sx={{fontWeight:'bold'}}>
+                    <Card sx={{ boxShadow: 5, maxWidth: 800, marginBottom: 3 }}>
+                        <CardContent sx={{ paddingBottom: 0 }}>
+                            <Typography gutterBottom variant="h5" component="div" sx={{ fontWeight: 'bold' }}>
                                 ¡Comparte tu arte con el mundo!
                             </Typography>
                         </CardContent>
@@ -84,8 +81,8 @@ const Postpage = (props) => {
         <>
             <Container className="fondoPosts" align='center'>
                 <List>
-                    <Card sx={{ boxShadow: 5, maxWidth: 1200, margin:3, padding:3}} style={{backgroundColor: "rgb(219 219 225)"}}>
-                        {post.length > 0 && isLogged ? <NuevoPost/> : ''}
+                    <Card sx={{ boxShadow: 5, maxWidth: 1200, margin: 3, padding: 3 }} style={{ backgroundColor: "rgb(219 219 225)" }}>
+                        {post.length > 0 && isLogged ? <NuevoPost /> : ''}
                         {
                             post.length > 0 ?
                                 post.map((item) => (

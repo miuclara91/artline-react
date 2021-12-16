@@ -1,7 +1,6 @@
 import { Container, Grid, List } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import CardUsers from '../components/CardsUsers.jsx';
-import { useLocalStorage } from "../helpers/useLocalStorage";
 import PostVacio from '../components/PostVacio';
 
 function DiscoverPage(props) {

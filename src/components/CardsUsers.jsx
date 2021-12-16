@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@mui/material';
-import { useLocalStorage } from "../helpers/useLocalStorage";
 
 
 const CardsUsers = (props) => {
