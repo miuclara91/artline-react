@@ -20,7 +20,7 @@ import "../css/login.scss";
 import "../css/Signup.scss";
 
 function Signup_Card(props) {
-  const { isLogged, setIsLogged } = props;
+  const { isLogged, setIsLogged, user, setUser } = props;
   const [newUser, setNewUser] = useState("");
   const [newName, setNewName] = useState("");
   const [newEmail, setNewEmail] = useState("");
@@ -64,13 +64,24 @@ function Signup_Card(props) {
     });
     const userComplete = await data.json();
     console.log(userComplete);
+    console.log(user);
 
     if (userComplete.error) {
       setTextRes(userComplete.error);
       setOpenAll(true);
-    } else {
+    } 
+    
+    if(userComplete.id){
       setIsLogged(true);
       setOpenAll(true);
+      setUser([
+        {id: userComplete.id},
+        {token: userComplete.token},
+        {username: userComplete.username},
+        {email: userComplete.email},
+        {nombre: userComplete.nombre},
+        {fotoPerfil: userComplete.fotoPerfil}
+        ]);
       setTextRes(
         `¡¡Bienvenid@ ${allInfo.nombre} a nuestra comunidad!! Gracias por registrarte.`
       );
