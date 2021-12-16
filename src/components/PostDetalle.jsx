@@ -30,18 +30,15 @@ const PostDetalle = (props) => {
     // Otros
     useEffect(() => {
         obtenerDatos();
-        console.log("comenta:", comentarios);
     }, [comentario]);
 
     const obtenerDatos = async () => {
         if (postId !== '') {
             const data = await fetch(`${URLBase}/comentarios/comentariosBYpublicacion/${postId}`);
             const comentarios = await data.json();
-            console.log(comentarios);
 
             const datapost = await fetch(`${URLBase}/publicaciones/${postId}`);
             const post = await datapost.json();
-            console.log("-->", post);
             setComentarios(comentarios);
             setPost(post);
 
@@ -65,12 +62,9 @@ const PostDetalle = (props) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ idUsuario: user[0].id, idPublicacion: postId, texto: comentario })
         }
-        console.log("body->", opciones);
-        console.log("user->", user);
         const newComment = await fetch(`${URLBase}/comentarios`, opciones);
         const respuesta = await newComment.json();
         setComentario('');
-        console.log("come:", comentario);
     };
 
     const renderMenu = (

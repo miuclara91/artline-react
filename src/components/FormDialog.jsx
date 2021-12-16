@@ -10,7 +10,6 @@ export default function FormDialog(props) {
         // setUser
     } = props;
 
-    console.log(infoUsuario);
     const [token, setToken] = useState(data.token);
     // const [id, setId] = useState(infoUsuario.id);
     const [nombre, setNombre] = useState('');
@@ -68,7 +67,6 @@ export default function FormDialog(props) {
     };
 
     const uploadImage = async (base64EncodedImage) => {
-        // console.log(base64EncodedImage)
         let data = { nombre, bio }
         if (base64EncodedImage !== '') {
             data = { nombre, bio, base64EncodedImage }
@@ -84,8 +82,6 @@ export default function FormDialog(props) {
             };
 
             const result = await fetch(`${HOST}/${infoUsuario.id}`, opciones);
-            console.log("opcios: ", result);
-            console.log("newDataUser: -> ", result.json());
             setFileInputState('');
             setPreviewSource('');
             setSelectedFile('');

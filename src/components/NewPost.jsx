@@ -54,7 +54,6 @@ const Newpost = (props) => {
     };
 
     const uploadImage = async (base64EncodedImage) => {
-        // console.log(base64EncodedImage)
         let allInfo = { 
             idUsuario: id,
             imagen: base64EncodedImage,
@@ -70,7 +69,6 @@ const Newpost = (props) => {
                 body: JSON.stringify(allInfo),
             });
             const PostComplete = await data.json();
-            console.log(PostComplete);
             setFileInputState('');
             setPreviewSource('');
             setSelectedFile('');

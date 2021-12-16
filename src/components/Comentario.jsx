@@ -44,11 +44,8 @@ const Comentario = (props) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ attachment: newData })
         };
-        console.log(`${URL}${data._id}`);
-        console.log(opciones);
         const response = await fetch(`${URL}${data._id}`, opciones);
         const datos = await response.json();
-        console.log("cambiado: ", datos);
     }
 
 

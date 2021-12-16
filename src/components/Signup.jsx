@@ -63,8 +63,6 @@ function Signup_Card(props) {
       body: JSON.stringify(allInfo),
     });
     const userComplete = await data.json();
-    console.log(userComplete);
-    console.log(user);
 
     if (userComplete.error) {
       setTextRes(userComplete.error);

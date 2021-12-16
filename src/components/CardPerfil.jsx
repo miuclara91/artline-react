@@ -77,7 +77,6 @@ const CardPerfil = (props) => {
         const data = await fetch(`${HOST}/${id}`, opciones);
 
         const userInfo = await data.json();
-        // console.log("Info usuario: -> ", userInfo);
         setInfoUsuario(userInfo)
         setFotoPerfil(userInfo.fotoPerfil.imageURL)
     }

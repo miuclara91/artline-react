@@ -25,7 +25,6 @@ const PostEdit = (props) => {
 
     const handleSubmitInfo = async (e) => {
         e.preventDefault();
-        console.log('data ->', data)
         if (descripcion !== data.descripcion) {
             let newInfo = {
                 descripcion: descripcion
@@ -40,7 +39,6 @@ const PostEdit = (props) => {
                     body: JSON.stringify(newInfo),
                 });
                 const PostComplete = await data.json();
-                console.log(PostComplete);
                 handleClose()
                 history.push(`/post`);
             } catch (err) {

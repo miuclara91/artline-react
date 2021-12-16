@@ -54,7 +54,6 @@ const Post = (props) => {
     }
     const response = await fetch(`${URL}${data._id}`, opciones);
     const datos = await response.json();
-    console.log("eliminado: ", datos);
   }
 
 
@@ -110,7 +109,6 @@ const Post = (props) => {
     }
     const response = await fetch(`${URL}${data._id}`, opciones);
     const datos = await response.json();
-    console.log("cambiado: ", datos);
   }
 
   const handleComentario = (id) => { // Manejo del comentario

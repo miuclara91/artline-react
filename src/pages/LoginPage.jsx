@@ -41,7 +41,6 @@ function Login(props) {
 
         const data = await fetch(HOST, opciones);
         const user = await data.json();
-        console.log("user::::", user);
 
         if (user.error) {
             setTextoRespuesta(user.error);
