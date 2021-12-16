@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/artline-react/static/css/main.08ef903a.chunk.css",
+    "main.js": "/artline-react/static/js/main.af78932f.chunk.js",
+    "main.js.map": "/artline-react/static/js/main.af78932f.chunk.js.map",
+    "runtime-main.js": "/artline-react/static/js/runtime-main.7f3119ac.js",
+    "runtime-main.js.map": "/artline-react/static/js/runtime-main.7f3119ac.js.map",
+    "static/js/2.c3ec1762.chunk.js": "/artline-react/static/js/2.c3ec1762.chunk.js",
+    "static/js/2.c3ec1762.chunk.js.map": "/artline-react/static/js/2.c3ec1762.chunk.js.map",
+    "static/js/3.c0467cad.chunk.js": "/artline-react/static/js/3.c0467cad.chunk.js",
+    "static/js/3.c0467cad.chunk.js.map": "/artline-react/static/js/3.c0467cad.chunk.js.map",
+    "index.html": "/artline-react/index.html",
+    "static/css/main.08ef903a.chunk.css.map": "/artline-react/static/css/main.08ef903a.chunk.css.map",
+    "static/js/2.c3ec1762.chunk.js.LICENSE.txt": "/artline-react/static/js/2.c3ec1762.chunk.js.LICENSE.txt",
+    "static/media/Signup.scss": "/artline-react/static/media/Signup.bd7ff18e.png",
+    "static/media/error-404.f45bebde.png": "/artline-react/static/media/error-404.f45bebde.png",
+    "static/media/home.scss": "/artline-react/static/media/fondoHome.f50f8b04.jpg",
+    "static/media/PostsPage.scss": "/artline-react/static/media/fondoPosts2.5d4b191f.jpg",
+    "static/media/login.b8381bba.png": "/artline-react/static/media/login.b8381bba.png",
+    "static/media/noPost.7c543948.png": "/artline-react/static/media/noPost.7c543948.png",
+    "static/media/notFound.scss": "/artline-react/static/media/notFound.836ccfaf.jpg",
+    "static/media/Perfil.css": "/artline-react/static/media/perfil.523c8caa.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.7f3119ac.js",
+    "static/js/2.c3ec1762.chunk.js",
+    "static/css/main.08ef903a.chunk.css",
+    "static/js/main.af78932f.chunk.js"
+  ]
+}
