@@ -49,22 +49,23 @@ const Postpage = (props) => {
             };
             const data = await fetch(`${URLBase}/postBYusuario/${user[0].id}`, opciones);
             const post = await data.json();
+            console.log("post--;;;;; -> ", post);
             setPost(post);
         }
     };
 
     const NuevoPost = () => {
-        return(
+        return (
             <ThemeProvider theme={Tema} >
                 <Container align='center'>
-                    <Card sx={{ boxShadow: 5, minWidth: 700, marginBottom:3 }}>
-                        <CardContent sx={{paddingBottom:0}}>
-                            <Typography gutterBottom variant="h5" component="div" sx={{fontWeight:'bold'}}>
+                    <Card sx={{ boxShadow: 5, minWidth: 700, marginBottom: 3 }}>
+                        <CardContent sx={{ paddingBottom: 0 }}>
+                            <Typography gutterBottom variant="h5" component="div" sx={{ fontWeight: 'bold' }}>
                                 ¡Comparte tu arte con el mundo!
                             </Typography>
                         </CardContent>
                         <CardActions sx={{ justifyContent: 'center' }}>
-                            <Button color='secondary' component={Link} sx={{width:'100%'}} variant="contained" onClick={handleNewPost} >NEW POST</Button>
+                            <Button color='secondary' component={Link} sx={{ width: '100%' }} variant="contained" onClick={handleNewPost} >NEW POST</Button>
                         </CardActions>
                     </Card>
                     <Container>
@@ -84,7 +85,7 @@ const Postpage = (props) => {
         <>
             <Container className="fondoPosts">
                 <List style={{ margin: 50 }}>
-                    {post.length > 0 && isLogged ? <NuevoPost/> : ''}
+                    {post.length > 0 && isLogged ? <NuevoPost /> : ''}
                     {
                         post.length > 0 ?
                             post.map((item) => (
