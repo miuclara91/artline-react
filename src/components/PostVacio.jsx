@@ -17,9 +17,9 @@ const Postvacio = () => {
     return (
         <ThemeProvider theme={Tema}>
             <Container align='center'>
-                <Card sx={{ boxShadow: 5, maxWidth: 500 }}>
+                <Card sx={{ boxShadow: 5, maxWidth: 400 }}>
                     <CardMedia component="img" image={NoPost} alt="noPost icon" className='mb-0'/>
-                    <CardContent>
+                    <CardContent sx={{paddingBottom:0}}>
                         <Typography gutterBottom variant="h4" component="div">
                             ¡Aún no has compartido tu arte!
                         </Typography>
