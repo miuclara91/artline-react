@@ -266,7 +266,7 @@ export default function BackToTop(props) {
                         TransitionProps={{ timeout: 600 }}
                     >
                         {
-                            user !== "" ? < Avatar alt="Username" src={user[5].fotoPerfil} /> : <AccountCircle />
+                            user !== "" ? < Avatar alt="Username" src={user ? user[5].fotoPerfil : ""}  /> : <AccountCircle />
                         }
                     </Tooltip>
                 </IconButton>

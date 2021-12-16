@@ -49,12 +49,13 @@ const Postpage = (props) => {
             };
             const data = await fetch(`${URLBase}/postBYusuario/${user[0].id}`, opciones);
             const post = await data.json();
+            console.log("post--;;;;; -> ", post);
             setPost(post);
         }
     };
 
     const NuevoPost = () => {
-        return(
+        return (
             <ThemeProvider theme={Tema} >
                 <Container align='center'>
                     <Card sx={{ boxShadow: 5, maxWidth: 800, marginBottom:3 }}>
@@ -64,7 +65,7 @@ const Postpage = (props) => {
                             </Typography>
                         </CardContent>
                         <CardActions sx={{ justifyContent: 'center' }}>
-                            <Button color='secondary' component={Link} sx={{width:'100%'}} variant="contained" onClick={handleNewPost} >NEW POST</Button>
+                            <Button color='secondary' component={Link} sx={{ width: '100%' }} variant="contained" onClick={handleNewPost} >NEW POST</Button>
                         </CardActions>
                     </Card>
                     <Container>
