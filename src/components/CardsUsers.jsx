@@ -5,6 +5,7 @@ import { useLocalStorage } from "../helpers/useLocalStorage";
 
 const CardsUsers = (props) => {
     const { data } = props;
+    const defaultImage = 'https://res.cloudinary.com/artline/image/upload/v1639691766/artline/default_eiezxq.jpg'
     // const [user, setUser] = useLocalStorage("user", "");
     // const [token, setToken] = useState(user.token);
     // const URLBase = 'https://artline-team10.herokuapp.com/artline/usuarios';
@@ -38,9 +39,9 @@ const CardsUsers = (props) => {
             <Card sx={{ maxWidth: 475 }} key={data.id} >
                 <CardMedia
                     component="img"
-                    alt="Sin Foto de Perfil"
+                    alt="Foto de Perfil"
                     height="140"
-                    image={data.fotoPerfil.imageURL}
+                    image={data.fotoPerfil.imageURL ? data.fotoPerfil.imageURL : defaultImage}
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
