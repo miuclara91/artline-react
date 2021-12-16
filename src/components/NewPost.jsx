@@ -1,14 +1,8 @@
 import React from 'react';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
 import { useState } from "react";
 import { useLocalStorage } from "../helpers/useLocalStorage";
 import { useHistory } from "react-router-dom";
-import {
-    Button,
-    TextField,
-} from "@mui/material";
+import { Button, Box, TextField, Dialog, DialogTitle, DialogActions, DialogContent } from "@mui/material";
 
 const Newpost = (props) => {
     const {
@@ -17,67 +11,114 @@ const Newpost = (props) => {
         id
     } = props;
     const [user] = useLocalStorage("user", "");
-    const [token] = useState(user ? user[1].token: '');
-    const [newImg, setnewImg] = useState("");
-    const [newDesc, setnewDesc] = useState("");
+    const [token] = useState(user ? user[1].token : '');
+    const [descripcion, setDescripcion] = useState("");
+    //Imagen 
+    const [fileInputState, setFileInputState] = useState('');
+    const [previewSource, setPreviewSource] = useState('');
+    const [selectedFile, setSelectedFile] = useState('');
     const HOST = "https://artline-team10.herokuapp.com/artline/publicaciones";
+    const HOST_TEST = "http://localhost:4001/Artline/publicaciones"; 
 
     let history = useHistory();
 
-    const handlenewImg = (event) => {
-        setnewImg(event.target.value);
+    const handleImageInputChange = (event) => {
+        const file = event.target.files[0];
+        previewFile(file);
+        setSelectedFile(file);
+        setFileInputState(event.target.value);
     };
 
-    const handlenewDesc = (event) => {
-        setnewDesc(event.target.value);
-    };
-    const createPostArtline = async () => {
-        const allInfo = {
-            idUsuario: id,
-            imagen: newImg,
-            descripcion: newDesc
+    const previewFile = (file) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            setPreviewSource(reader.result);
         };
+    };
 
-        const data = await fetch(HOST, {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            },
-            body: JSON.stringify(allInfo),
-        });
-        const PostComplete = await data.json();
-        console.log(PostComplete);
-        handleNewPost()
-        history.push(`/post`);
-    }
+    const createPostArtline = (e) => {
+        e.preventDefault();
+        if (selectedFile) {
+            const reader = new FileReader();
+            reader.readAsDataURL(selectedFile);
+            reader.onloadend = () => {
+                uploadImage(reader.result);
+            };
+            reader.onerror = () => {
+                console.error('AHHHHHHHH!!');
+            };
+        } else {
+            uploadImage('')
+        }
+    };
+
+    const uploadImage = async (base64EncodedImage) => {
+        // console.log(base64EncodedImage)
+        let allInfo = { 
+            idUsuario: id,
+            imagen: base64EncodedImage,
+            descripcion: descripcion
+        }
+        try {
+            const data = await fetch(HOST, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify(allInfo),
+            });
+            const PostComplete = await data.json();
+            console.log(PostComplete);
+            setFileInputState('');
+            setPreviewSource('');
+            setSelectedFile('');
+            handleNewPost()
+            history.push(`/post`);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    const handleDescripcion = (event) => {
+        setDescripcion(event.target.value);
+    };
     return (
         <Dialog open={open}>
-            <DialogContent>
+            <DialogTitle>Comparte una nueva obra de arte</DialogTitle>
+            <DialogContent align="center">
+                {previewSource && (
+                    <Box mt={2} textAlign="center">
+                        <img src={previewSource} alt='Imagen seleccionada' height="200px" />
+                    </Box>
+                )}
+                <input
+                    type="file"
+                    id="select-image"
+                    name="image"
+                    style={{ display: 'none' }}
+                    onChange={handleImageInputChange}
+                    value={fileInputState} />
+                <label htmlFor="select-image">
+                    <Button variant="contained" color="primary" component="span">
+                        Selecciona una imagen
+                    </Button>
+                </label>
                 <TextField
                     margin="dense"
-                    id="newImg"
-                    label="IMAGEN"
+                    id="descripcion"
+                    label="Descripción"
                     type="text"
                     fullWidth
-                    variant="standard"
-                    onChange={handlenewImg}
-                />
-                <TextField
-                    margin="dense"
-                    id="newDesc"
-                    label="DESCRIPCIÓN"
-                    type="text"
-                    fullWidth
-                    variant="standard"
-                    onChange={handlenewDesc}
+                    multiline
+                    color='secondary'
+                    onChange={handleDescripcion}
                 />
             </DialogContent>
             <DialogActions>
-                <Button disabled={newImg === ""} onClick={() =>
-                    createPostArtline()
-                } >CREAR</Button>
-                <Button onClick={handleNewPost}>Cancel</Button>
+                <Button variant="contained" color="primary" disabled={selectedFile === ""} onClick={createPostArtline} >Publicar</Button>
+                <Button variant="contained" color="secondary" onClick={handleNewPost}>Cancelar</Button>
             </DialogActions>
         </Dialog>
     );
