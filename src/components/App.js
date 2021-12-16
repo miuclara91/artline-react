@@ -10,7 +10,7 @@ import HomePage from "../pages/HomePage";
 import PostPage from "../pages/PostPage";
 import Login from "../pages/LoginPage";
 import Signup from "./Signup";
-import Comentarios from "./PostDetalle";
+import PostDetalle from "./PostDetalle";
 import PerfilPage from "../pages/PerfilPage";
 import Notfound from "./NotFound";
 
@@ -37,7 +37,7 @@ function App() {
         </Route>
         <Route path="/discover">
           <Help user={user} isLogged={isLogged} LogOut={handleLogOut} />
-          <DiscoverPage user={user} isLogged={isLogged} setIsLogged={setIsLogged} />
+          <DiscoverPage user={user} isLogged={isLogged} setIsLogged={setIsLogged} token={user !== "" ? user[1].token : ""} />
         </Route>
         <Route path="/profile">
           <Help user={user} isLogged={isLogged} LogOut={handleLogOut} />
@@ -57,7 +57,7 @@ function App() {
         </Route>
         <Route path="/post/detalle/:id">
           <Help user={user} isLogged={isLogged} LogOut={handleLogOut} />
-          <Comentarios />
+          <PostDetalle />
         </Route>
         <Route path="/" exact>
           <Help user={user} isLogged={isLogged} LogOut={handleLogOut} />

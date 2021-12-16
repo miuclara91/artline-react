@@ -17,7 +17,6 @@ const Post = (props) => {
   const [user] = useLocalStorage("user", "");
   const [isLogged] = useLocalStorage("isLogged");
   const URL = 'https://artline-team10.herokuapp.com/artline/publicaciones/';
-  console.log(data);
 
   const [likes, setLikes] = useState(data.likes.length);
   const [isLiked, setIsLiked] = useState(false);

@@ -1,7 +1,7 @@
-import { Container, List } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@mui/material';
 import { useLocalStorage } from "../helpers/useLocalStorage";
+
 
 const CardsUsers = (props) => {
     const { data } = props;
@@ -32,29 +32,35 @@ const CardsUsers = (props) => {
             //}
         };
     */
+
     return (
-        <div>
-            <Card sx={{ maxWidth: 345 }} key={data._id}>
+        <>
+            <Card sx={{ maxWidth: 475 }} key={data.id} >
                 <CardMedia
                     component="img"
-                    alt="green iguana"
+                    alt="Sin Foto de Perfil"
                     height="140"
-                    image="https://res.cloudinary.com/artline/image/upload/v1639446667/artline/fwcb0udt52hserqmb5t0.jpg"
+                    image={data.fotoPerfil.imageURL}
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
                         {data.nombre}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                        {data}
+                    <Typography variant="body2" color="text.secondary" alignContent="flex-end">
+                        {data.email}
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small">Añadir amigo</Button>
+                    {
+                        data.amigos.length === 0 ?
+                            <Button size="small" color="secondary">Son amigos</Button>
+                            : <Button size="small">Añadir amigo</Button>
+                    }
+
                 </CardActions>
             </Card>
+        </>
 
-        </div>
     );
 }
 
