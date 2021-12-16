@@ -23,7 +23,7 @@ function App() {
   });
 
   return (
-    <Router>
+    <Router basename='/'>
       <Switch>
         <Route path="/login">
           <Header user={user} isLogged={isLogged} LogOut={handleLogOut} />
