@@ -1,38 +1,53 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@mui/material';
-import { useLocalStorage } from "../helpers/useLocalStorage";
 
 
 const CardsUsers = (props) => {
-    const { data } = props;
+    const { data, token, amigos, setAmigos, user } = props;
+    const [isFriend, setIsFriend] = useState(false);
+    const URLBase = 'https://artline-team10.herokuapp.com/artline/usuarios';
+    const [nuevoUser, setNuevoUser] = useState([]);
+    const [idUser, setidUser] = useState(data.id);
     const defaultImage = 'https://res.cloudinary.com/artline/image/upload/v1639691766/artline/default_eiezxq.jpg'
-    // const [user, setUser] = useLocalStorage("user", "");
-    // const [token, setToken] = useState(user.token);
-    // const URLBase = 'https://artline-team10.herokuapp.com/artline/usuarios';
-    // const [users, setUsers] = useState([]);
-    /*
-        useEffect(() => {
-            obtenerDatos();
-        }, []);
-    
-        const obtenerDatos = async () => {
-            const opciones = {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                }
-            };
-            //if (!isLogged) {
-            const data = await fetch(`${URLBase}/topUsuarios`, opciones);
-            const user = await data.json();
-            console.log(user);
-            setUsers(user[0]);
-            console.log(users);
-    
-            //}
+
+    useEffect(() => {
+        estadoInicial();
+    }, [amigos]);
+
+    const estadoInicial = () => {
+        const sonAmigos = amigos.includes(data.id);
+        if (sonAmigos)
+            setIsFriend(true);
+        else
+            setIsFriend(false);
+    };
+
+    const handleFriend = async () => {
+        if (amigos.includes(idUser)) { // YA son amigos (eliminar amigo)
+            const posicion = amigos.indexOf(data.id);
+            amigos.splice(posicion, 1);
+            modificarAmigo();
+        } else {// (agregar amigo)
+            amigos.push(idUser);
+            modificarAmigo();
+        }
+    };
+
+    const modificarAmigo = async () => {
+        const data = { amigos }
+        const opciones = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify({ data })
         };
-    */
+        // modifica usuario
+        const result = await fetch(`${URLBase}/${user[0].id}`, opciones);
+        const newUser = await result.json();
+        setAmigos(newUser.amigos);
+    }
 
     return (
         <>
@@ -44,7 +59,7 @@ const CardsUsers = (props) => {
                     image={data.fotoPerfil.imageURL ? data.fotoPerfil.imageURL : defaultImage}
                 />
                 <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
+                    <Typography gutterBottom variant="h6" component="div">
                         {data.nombre}
                     </Typography>
                     <Typography variant="body2" color="text.secondary" alignContent="flex-end">
@@ -53,9 +68,12 @@ const CardsUsers = (props) => {
                 </CardContent>
                 <CardActions>
                     {
-                        data.amigos.length === 0 ?
-                            <Button size="small" color="secondary">Son amigos</Button>
-                            : <Button size="small">Añadir amigo</Button>
+                        isFriend ?
+                            <>
+                                <Button size="small" color="warning">Son amigos</Button>
+                                <Button size="small" color="error" onClick={handleFriend}>Eliminar amigo</Button>
+                            </>
+                            : <Button size="small" onClick={handleFriend}>Añadir amigo</Button>
                     }
 
                 </CardActions>

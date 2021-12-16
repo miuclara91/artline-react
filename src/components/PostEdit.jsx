@@ -2,14 +2,12 @@ import React from 'react';
 import { useState } from "react";
 import { useLocalStorage } from "../helpers/useLocalStorage";
 import { useHistory } from "react-router-dom";
-import { Button, TextField, Dialog, DialogActions, DialogContent, Box, DialogTitle } from '@mui/material';
+import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 
 const PostEdit = (props) => {
     const {
         open,
-        handleOpenEditPost,
         handleClose,
-        handleEditar,
         data
     } = props;
     const [id] = useState(data._id);
@@ -17,7 +15,7 @@ const PostEdit = (props) => {
     const [token] = useState(user ? user[1].token : '');
     const [descripcion, setDescripcion] = useState(data.descripcion);
     const HOST = "https://artline-team10.herokuapp.com/artline/publicaciones";
-    const HOST_TEST = "http://localhost:4001/Artline/publicaciones"; 
+    //const HOST_TEST = "http://localhost:4001/Artline/publicaciones"; 
 
     let history = useHistory();
 
@@ -27,9 +25,9 @@ const PostEdit = (props) => {
 
     const handleSubmitInfo = async (e) => {
         e.preventDefault();
-        console.log('data ->',data)
-        if (descripcion !== data.descripcion){
-            let newInfo = { 
+        console.log('data ->', data)
+        if (descripcion !== data.descripcion) {
+            let newInfo = {
                 descripcion: descripcion
             }
             try {
@@ -48,7 +46,7 @@ const PostEdit = (props) => {
             } catch (err) {
                 console.error(err);
             }
-        } else{
+        } else {
             handleClose()
         }
     };
@@ -56,25 +54,25 @@ const PostEdit = (props) => {
     return (
         <Dialog open={open} onClose={handleClose} fullWidth={true} maxWidth={'sm'}>
             <form onSubmit={handleSubmitInfo}>
-            <DialogTitle>Editar descripción</DialogTitle>
-            <DialogContent align="center">
-                <TextField
-                    margin="dense"
-                    id="descripcion"
-                    label="Descripcion"
-                    value={descripcion}
-                    type="text"
-                    fullWidth
-                    onChange={handleDescripcion}
-                    color='secondary'
-                />
-            </DialogContent>
-            <DialogActions>
-                {/* <Button variant="contained" color="secondary" onClick={handleEditar}>Cerrar</Button> */}
+                <DialogTitle>Editar descripción</DialogTitle>
+                <DialogContent align="center">
+                    <TextField
+                        margin="dense"
+                        id="descripcion"
+                        label="Descripcion"
+                        value={descripcion}
+                        type="text"
+                        fullWidth
+                        onChange={handleDescripcion}
+                        color='secondary'
+                    />
+                </DialogContent>
+                <DialogActions>
+                    {/* <Button variant="contained" color="secondary" onClick={handleEditar}>Cerrar</Button> */}
 
-                <Button variant="contained" color="secondary" onClick={handleClose}>Cerrar</Button>
-                <Button variant="contained" color="primary" type='submit'>Actualizar</Button>
-            </DialogActions>
+                    <Button variant="contained" color="secondary" onClick={handleClose}>Cerrar</Button>
+                    <Button variant="contained" color="primary" type='submit'>Actualizar</Button>
+                </DialogActions>
             </form>
         </Dialog >
     );

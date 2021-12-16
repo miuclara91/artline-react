@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { Box, Typography, Container, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide } from "@mui/material";
+import { Box, Typography, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide } from "@mui/material";
 import Logo from "../assets/coloredLogo.png";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -8,7 +8,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 function AlertaSesion(props) {
-    const { open, setOpen, handleClickOpen, handleClose } = props;
+    const { open, handleClose } = props;
 
     return (
         <div>

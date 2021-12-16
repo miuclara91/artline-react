@@ -1,22 +1,19 @@
 import { Container, Grid, List } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import CardUsers from '../components/CardsUsers.jsx';
-import { useLocalStorage } from "../helpers/useLocalStorage";
 import PostVacio from '../components/PostVacio';
 
 function DiscoverPage(props) {
-    // const [isLogged, setIsLogged] = useLocalStorage("isLogged", false);
     const { user, isLogged, token } = props;
-    // const [user, setUser] = useLocalStorage("user", "");
     const URLBase = 'https://artline-team10.herokuapp.com/artline/usuarios';
     const [users, setUsers] = useState([]);
+    const [amigos, setAmigos] = useState([]);
 
-    // console.log("--::::", user);
     useEffect(() => {
         if (isLogged) {
             obtenerDatos();
         }
-    }, [token]);
+    }, [token, amigos]);
 
 
     const obtenerDatos = async () => {
@@ -27,17 +24,14 @@ function DiscoverPage(props) {
                 'Authorization': `Bearer ${token}`,
             }
         };
-        console.log(opciones);
-        //if (!isLogged) {
+        // busca todos los usuarios
         const data = await fetch(`${URLBase}/todosUsuarios`, opciones);
-        const user = await data.json();
-        console.log("user----->", user);
-        delete user.fotoPerfil;
-        console.log("user----->", user);
-        setUsers(user);
-
-
-        //}
+        const users = await data.json();
+        setUsers(users);
+        // Busca amigos
+        const datAmigos = await fetch(`${URLBase}/${user[0].id}`, opciones);
+        const amigos = await datAmigos.json();
+        setAmigos(amigos.amigos);
     };
 
     const renderUsers = (
@@ -48,7 +42,7 @@ function DiscoverPage(props) {
                         users.map((item) => (
                             <>
                                 <Grid item xs={2} sm={4} md={4}>
-                                    <CardUsers key={item._id} data={item} />
+                                    <CardUsers key={item._id} data={item} token={token} amigos={amigos} setAmigos={setAmigos} user={user} />
                                 </Grid>
                             </>
                         ))
