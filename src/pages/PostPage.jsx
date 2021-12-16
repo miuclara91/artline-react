@@ -57,7 +57,7 @@ const Postpage = (props) => {
         return(
             <ThemeProvider theme={Tema} >
                 <Container align='center'>
-                    <Card sx={{ boxShadow: 5, minWidth: 700, marginBottom:3 }}>
+                    <Card sx={{ boxShadow: 5, maxWidth: 800, marginBottom:3 }}>
                         <CardContent sx={{paddingBottom:0}}>
                             <Typography gutterBottom variant="h5" component="div" sx={{fontWeight:'bold'}}>
                                 ¡Comparte tu arte con el mundo!
@@ -79,23 +79,23 @@ const Postpage = (props) => {
         )
     }
 
-
     return (
         <>
-            <Container className="fondoPosts">
-                <List style={{ margin: 50 }}>
-                    {post.length > 0 && isLogged ? <NuevoPost/> : ''}
-                    {
-                        post.length > 0 ?
-                            post.map((item) => (
-                                < Post key={item._id} data={item} token={token} />
-                            ))
-                            :
-                            <PostVacio />
-                    }
+            <Container className="fondoPosts" align='center'>
+                <List>
+                    <Card sx={{ boxShadow: 5, maxWidth: 1200, margin:3, padding:3}} style={{backgroundColor: "rgb(219 219 225)"}}>
+                        {post.length > 0 && isLogged ? <NuevoPost/> : ''}
+                        {
+                            post.length > 0 ?
+                                post.map((item) => (
+                                    < Post key={item._id} data={item} token={token} />
+                                ))
+                                :
+                                <PostVacio />
+                        }
+                    </Card>
                 </List>
             </Container>
-
         </>
     );
 }

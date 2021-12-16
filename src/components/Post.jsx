@@ -159,8 +159,8 @@ const Post = (props) => {
     <>
       {renderMenu}
 
-      <Card sx={{ boxShadow: 5 }}>
-        <CardHeader style={{ margin: 10 }}
+      <Card sx={{ boxShadow: 5, maxWidth:700, marginY:2 }}>
+        <CardHeader style={{ paddingBottom:0, textAlign:'left' }}
           title={data.usuario[0].nombre}
           subheader={getFecha(data.createdAt)}
           avatar={<Avatar
@@ -181,17 +181,17 @@ const Post = (props) => {
             </IconButton>
           }
         />
+        <Divider />
         <ListItem>
           <Typography style={{ margin: 10 }}>{data.descripcion}</Typography>
         </ListItem>
         <CardMedia
           component="img"
-          height="30%"
           image={data.imagen}
           alt="img_exa"
         />
 
-        <CardActions >
+        <CardActions>
           <IconButton aria-label="resume" >
             <Typography style={{ margin: 10 }}>{likes} Likes </Typography>
 
@@ -221,8 +221,6 @@ const Post = (props) => {
 
         </CardActions>
       </Card>
-      <Divider variant="middle" />
-      <Divider variant="middle" />
       <AlertaSesion open={openAlerta} setOpen={setOpenAlerta} handleClickOpen={handleOpenAlerta} handleClose={handleCloseAlerta} />
       <PostEdit data={data} open={openEdit} setOpen={setOpenEdit} handleClickOpen={handleOpenEditPost} handleClose={handleCloseEditPost} />
     </>
