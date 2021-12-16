@@ -18,7 +18,7 @@ const Newpost = (props) => {
     const [previewSource, setPreviewSource] = useState('');
     const [selectedFile, setSelectedFile] = useState('');
     const HOST = "https://artline-team10.herokuapp.com/artline/publicaciones";
-    const HOST_TEST = "http://localhost:4001/Artline/publicaciones"; 
+    // const HOST_TEST = "http://localhost:4001/Artline/publicaciones"; 
 
     let history = useHistory();
 

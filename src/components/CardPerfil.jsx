@@ -53,7 +53,7 @@ TabPanel.propTypes = {
 const CardPerfil = (props) => {
     // const { user, setUser } = props;
     const [user, setUser] = useLocalStorage("user", "");
-    const [token, setToken] = useState(user[1].token);
+    const [token] = useState(user? user[1].token : '');
     const [editar, setEditar] = useState(false);
     const [Post, setNewPost] = useState(false);
     // obtenemos la informacion de una consulta con el id de localStorage

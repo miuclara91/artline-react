@@ -211,9 +211,9 @@ const Post = (props) => {
           }
 
 
-          <IconButton>
+          <IconButton onClick={() => handleComentario(data._id)}>
             <ChatBubbleIcon />
-            <Typography style={{ margin: 10 }} onClick={() => handleComentario(data._id)}>Comment</Typography>
+            <Typography style={{ margin: 10 }} >Comment</Typography>
           </IconButton>
 
         </CardActions>

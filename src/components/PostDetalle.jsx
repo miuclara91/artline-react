@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { Avatar, Card, CardHeader, CardContent, CardMedia, CardActions, Container, Typography, IconButton, Divider, List, TextField, Button, Stack, Menu, MenuItem, ListItemIcon, ListItemText } from '@mui/material';
 import { Edit as EditIcon, Delete as DeleteIcon, Favorite as FavoriteIcon, Share as ShareIcon, Send as SendIcon, MoreVert as MoreVertIcon } from '@mui/icons-material';
 import { red } from '@mui/material/colors';
@@ -98,8 +97,8 @@ const PostDetalle = (props) => {
         <Container>
             {renderMenu}
             {
-                post.map((item) => (
-                    <Card >
+                post.map((item,index) => (
+                    <Card key={index}>
                         <CardHeader
                             avatar={
                                 <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -148,8 +147,8 @@ const PostDetalle = (props) => {
 
             <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
                 {
-                    comentarios.map((item) => (
-                        <Comentario data={item} />
+                    comentarios.map((item, index) => (
+                        <Comentario key={index} data={item} />
                     ))
                 }
 

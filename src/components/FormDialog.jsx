@@ -10,7 +10,7 @@ export default function FormDialog(props) {
         // setUser
     } = props;
 
-    const [token, setToken] = useState(data.token);
+    const [token] = useState(data ? data.token : '');
     // const [id, setId] = useState(infoUsuario.id);
     const [nombre, setNombre] = useState('');
     const [bio, setBio] = useState('');
@@ -20,7 +20,7 @@ export default function FormDialog(props) {
     const [selectedFile, setSelectedFile] = useState('');
 
     const HOST = "https://artline-team10.herokuapp.com/artline/usuarios/";
-    const HOST_TEST = "http://localhost:4001/Artline/usuarios";
+    // const HOST_TEST = "http://localhost:4001/Artline/usuarios";
 
     useEffect(() => {//Carga la información del usuario en los input
         setNombre(infoUsuario.nombre);

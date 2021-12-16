@@ -39,12 +39,12 @@ function DiscoverPage(props) {
             <List style={{ margin: 50 }}>
                 <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                     {
-                        users.map((item) => (
-                            <>
-                                <Grid item xs={2} sm={4} md={4}>
+                        users.map((item,index) => (
+                            // <>
+                                <Grid key={index} item xs={2} sm={4} md={4}>
                                     <CardUsers key={item._id} data={item} token={token} amigos={amigos} setAmigos={setAmigos} user={user} />
                                 </Grid>
-                            </>
+                            // </>
                         ))
                     }
                 </Grid>

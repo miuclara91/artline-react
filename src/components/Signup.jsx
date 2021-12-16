@@ -20,7 +20,7 @@ import "../css/login.scss";
 import "../css/Signup.scss";
 
 function Signup_Card(props) {
-  const { isLogged, setIsLogged, user, setUser } = props;
+  const { isLogged, setIsLogged, setUser } = props;
   const [newUser, setNewUser] = useState("");
   const [newName, setNewName] = useState("");
   const [newEmail, setNewEmail] = useState("");

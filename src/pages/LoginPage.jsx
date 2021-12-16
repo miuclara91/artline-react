@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Box, Button, Container, FormControl, FormControlLabel, FormGroup, Link, Switch, Typography, TextField, Grid, Stack } from '@mui/material';
 //Components
 import Alerta from '../components/Alert';
-import { useLocalStorage } from "../helpers/useLocalStorage";
+// import { useLocalStorage } from "../helpers/useLocalStorage";
 //Assets
 import imgLogin from '../assets/login.png';
 import imgLogo from '../assets/coloredLogo.png';
@@ -13,7 +13,7 @@ import Tema from '../helpers/Tema';
 import '../css/login.scss';
 
 function Login(props) {
-    const { isLogged, setIsLogged, user, setUser } = props;
+    const { isLogged, setIsLogged, setUser } = props;
 
     const [open, setOpen] = useState(false);
     const [textoRespuesta, setTextoRespuesta] = useState("");
@@ -22,7 +22,7 @@ function Login(props) {
     const [password, setPassword] = useState("");
 
     const HOST = "https://artline-team10.herokuapp.com/artline/usuarios/entrar";
-    const HOST_TEST = "http://localhost:4001/Artline/usuarios/entrar";
+    // const HOST_TEST = "http://localhost:4001/Artline/usuarios/entrar";
 
     //Métodos de captura Textfiled
     const handleEmailChange = (event) => {

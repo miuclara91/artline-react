@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Typography, IconButton, ListItemAvatar, ListItemText, Divider, List, ListItem, ListItemButton, ListItemIcon, TextField, Button, Stack, } from '@mui/material';
-import { Favorite as FavoriteIcon, Share as ShareIcon, Send as SendIcon, MoreVert as MoreVertIcon, Bookmark as BookmarkIcon } from '@mui/icons-material';
+import { Typography, IconButton, ListItemAvatar, ListItemText, ListItem } from '@mui/material';
+import { Bookmark as BookmarkIcon } from '@mui/icons-material';
 import Avatar from '@mui/material/Avatar';
-import { green } from '@mui/material/colors';
 import { useLocalStorage } from '../helpers/useLocalStorage';
-import PropTypes from 'prop-types';
-
 
 const Comentario = (props) => {
     const { data } = props;

@@ -6,8 +6,8 @@ const CardsUsers = (props) => {
     const { data, token, amigos, setAmigos, user } = props;
     const [isFriend, setIsFriend] = useState(false);
     const URLBase = 'https://artline-team10.herokuapp.com/artline/usuarios';
-    const [nuevoUser, setNuevoUser] = useState([]);
-    const [idUser, setidUser] = useState(data.id);
+    // const [nuevoUser, setNuevoUser] = useState([]);
+    const [idUser] = useState(data.id);
     const defaultImage = 'https://res.cloudinary.com/artline/image/upload/v1639691766/artline/default_eiezxq.jpg'
 
     useEffect(() => {
