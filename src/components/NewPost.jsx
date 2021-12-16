@@ -85,7 +85,7 @@ const Newpost = (props) => {
         setDescripcion(event.target.value);
     };
     return (
-        <Dialog open={open}>
+        <Dialog open={open} fullWidth={true} maxWidth={'sm'}>
             <DialogTitle>Comparte una nueva obra de arte</DialogTitle>
             <DialogContent align="center">
                 {previewSource && (
